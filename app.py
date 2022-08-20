@@ -21,4 +21,4 @@ def index() -> None:
     return render_template("index.html")
 
 
-app.run(host="10.0.0.217", port=5000, debug=False, threaded=True)
+# app.run(host="10.0.0.217", port=5000, debug=False, threaded=True)
