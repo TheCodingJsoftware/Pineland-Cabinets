@@ -27,12 +27,8 @@ def index() -> None:
 
 def get_all_images() -> dict:
     pictures = {"All": []}
-    for filename in glob.iglob("static/pictures" + "**/**", recursive=True):
-        if "." in filename:
-            folder_name = slugify(filename.split("\\")[-2]).replace(
-                "staticpictures", ""
-            )
-            pictures[folder_name] = []
+    for folder in get_all_folders():
+        pictures[folder] = []
     for filename in glob.iglob("static/pictures" + "**/**", recursive=True):
         if "." in filename:
             folder_name = slugify(filename.split("\\")[-2]).replace(
@@ -78,4 +74,4 @@ def slugify(value, allow_unicode=False):
     return re.sub(r"[-\s]+", "-", value).strip("-_")
 
 
-# app.run(host="10.0.0.217", port=5000, debug=False, threaded=True)
+app.run(host="10.0.0.217", port=5000, debug=False, threaded=True)
