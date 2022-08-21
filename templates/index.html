@@ -19,98 +19,32 @@
     <header>
         <div class="overlay">
             <h1>Pineland Cabinets</h1>
-            <h3>A catch phrase....</h3>
+            <h3>Specializing in Cabinets, Furniture, Wood working, and much more.</h3>
         </div>
     </header>
     <br>
     <br>
     <br>
-    <section class="gallery">
-        <div class="carousel">
-
-            <input type="radio" id="image1" name="gallery-control" checked>
-            <input type="radio" id="image2" name="gallery-control">
-            <input type="radio" id="image3" name="gallery-control">
-
-
-            <input type="checkbox" id="fullscreen" name="gallery-fullscreen-control"/>
-
-            <div class="wrap">
-                <figure>
-                    <label for="fullscreen">
-                        <img src="static/pictures/Buffalo Point/20211124_191337.jpg" alt="image3"/>
-                    </label>
-                </figure>
-
-                <figure>
-                    <label for="fullscreen">
-                        <img src="static/pictures/Buffalo Point/20211124_191346.jpg" alt="image2"/>
-                    </label>
-                </figure>
-
-                <figure>
-                    <label for="fullscreen">
-                        <img src="static/pictures/Buffalo Point/20211124_191352.jpg" alt="image3" />
-                    </label>
-                </figure>
-            </div>
-
-            <div class="thumbnails">
-                <div class="slider"><div class="indicator"></div></div>
-                <label for="image1" class="thumb" style="background-image: url('static/pictures/Buffalo Point/20211124_191337.jpg')"></label>
-                <label for="image2" class="thumb" style="background-image: url('static/pictures/Buffalo Point/20211124_191346.jpg')"></label>
-                <label for="image3" class="thumb" style="background-image: url('static/pictures/Buffalo Point/20211124_191352.jpg')"></label>
-            </div>
-        </div>
-    </section>
+    <div class="toolbar mb2 mt2">
+        {% for folder, folder_data in folders.items() %}
+        <button class="btn fil-cat" data-rel={{folder}}>{{folder_data}}</button>
+        {% endfor %}
+    </div>
     <br>
 
-    <section class="gallery">
-        <div class="carousel">
-
-            <input type="radio" id="image1" name="gallery-control" checked>
-
-
-            <input type="checkbox" id="fullscreen" name="gallery-fullscreen-control"/>
-
-            <div class="wrap">
-                <figure>
-                    <label for="fullscreen">
-                        <img src="static/pictures/Counter tops/20200903_164930.jpg" alt="image1"/>
-                    </label>
-                </figure>
+    <div class="scroll">
+        <div id="portfolio">
+            {% for folder, folder_data in pictures.items() %}
+            {% for picture in folder_data %}
+            <div class="tile scale-anm web {{folder}}">
+                <img src="{{picture}}" alt="" />
             </div>
-
-            <div class="thumbnails">
-                <div class="slider"><div class="indicator"></div></div>
-                <label for="image1" class="thumb" style="background-image: url('static/pictures/Counter tops/20200903_164930.jpg')"></label>
-            </div>
+            {% endfor %}
+            {% endfor %}
         </div>
-    </section>
-    <br>
+    </div>
 
-    <section class="gallery">
-        <div class="carousel">
-
-            <input type="radio" id="image1" name="gallery-control" checked>
-
-
-            <input type="checkbox" id="fullscreen" name="gallery-fullscreen-control"/>
-
-            <div class="wrap">
-                <figure>
-                    <label for="fullscreen">
-                        <img src="static/pictures/Piney Firehall/20220104_170547.jpg" alt="image1"/>
-                    </label>
-                </figure>
-            </div>
-
-            <div class="thumbnails">
-                <div class="slider"><div class="indicator"></div></div>
-                <label for="image1" class="thumb" style="background-image: url('static/pictures/Piney Firehall/20220104_170547.jpg')"></label>
-            </div>
-        </div>
-    </section>
+    <div style="clear:both;"></div>
 
 </head>
 <br>
@@ -119,13 +53,30 @@
 <footer>
     <div class="footer-container">
         <h4>Pineland Cabinets</h4>
-    </div <div class="address">Please email us at: <a
-        href="mailto:joseph@pinelandfarms.ca">joseph@pinelandfarms.ca</a></p>
-    </div>
+    </div <div class="address">Please email us at: <a href="mailto:joseph@pinelandfarms.ca">joseph@pinelandfarms.ca</a>
+    <br>
+    Piney MB
+    <br>
+    +1 (204) 229 7793
+    <br>
+    <br>
     <div class="footer-bottom">
-        <p>Copyright 2022 by Pineland Cabinets</p>
+        Copyright 2022 by Pineland Cabinets
     </div>
 </footer>
 
 <script>
+    $(function () {
+        var selectedClass = "";
+        $(".fil-cat").click(function () {
+            selectedClass = $(this).attr("data-rel");
+            $("#portfolio").fadeTo(100, 0.1);
+            $("#portfolio div").not("." + selectedClass).fadeOut().removeClass('scale-anm');
+            setTimeout(function () {
+                $("." + selectedClass).fadeIn().addClass('scale-anm');
+                $("#portfolio").fadeTo(300, 1);
+            }, 300);
+
+        });
+    });
 </script>
