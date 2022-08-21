@@ -8,9 +8,11 @@
     font-family: "Dancing Script";
     src: url("Dancing Script.ttf");
 }
+
 body {
     position: relative;
-  }
+}
+
 html {
     scroll-behavior: smooth;
 }
@@ -33,39 +35,86 @@ header {
     overflow: hidden;
     border-radius: 0 0 85% 85% / 30%;
 }
+
 /* width */
 ::-webkit-scrollbar {
     width: 20px;
-  }
+}
 
-  /* Track */
-  ::-webkit-scrollbar-track {
+/* Track */
+::-webkit-scrollbar-track {
     box-shadow: inset 0 0 5px grey;
     border-radius: 10px;
-  }
+}
 
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
+/* Handle */
+::-webkit-scrollbar-thumb {
     background: #89bb926b;
     border-radius: 10px;
-  }
+}
 
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
     background: #61a46d6b;
-  }
+}
+
+/* width */
+::-moz-scrollbar {
+    width: 20px;
+}
+
+/* Track */
+::-moz-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 10px;
+}
+
+/* Handle */
+::-moz-scrollbar-thumb {
+    background: #89bb926b;
+    border-radius: 10px;
+}
+
+/* Handle on hover */
+::-moz-scrollbar-thumb:hover {
+    background: #61a46d6b;
+}
+
+/* width */
+.scrollbar {
+    width: 20px;
+}
+
+/* Track */
+.track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 10px;
+}
+
+/* Handle */
+.thumb {
+    background: #89bb926b;
+    border-radius: 10px;
+}
+
+/* Handle on hover */
+.thumb:hover {
+    background: #61a46d6b;
+}
+
 header .header-overlay {
     width: 100%;
     height: 100%;
-    padding: 80px;
-    color: #FFF;
-    text-shadow: 2px 3px 1px #333;
+    padding-top: 20px;
+    padding-bottom: 60px;
+    color: #000;
+    text-shadow: 2px 3px 1px #5592606b;
     background-image: linear-gradient(135deg, #9acd8769 10%, #5592606b 100%);
 }
 
 h1 {
     font-family: 'Dancing Script', cursive;
-    font-size: 128px;
+    font-size: 164px;
     margin-bottom: 30px;
     font-weight: bold;
 }
@@ -74,8 +123,8 @@ h1 {
 h3,
 p {
     font-family: 'Open Sans', sans-serif;
-    margin-bottom: 30px;
-    text-shadow: 1px 1px 1px #333;
+    margin-bottom: 50px;
+    text-shadow: 1px 2px 1px #5592606b;
 }
 
 h4 {
@@ -154,6 +203,7 @@ p {
     text-transform: uppercase;
     font-size: 15px;
     color: #333;
+    transition: .5s ease;
     display: block;
     float: left;
 }
@@ -169,160 +219,61 @@ p:hover {
     width: 100%;
     height: 100%;
     margin-bottom: 1.5rem;
-    box-shadow:0px 0px 8px rgb(15, 61, 18);
-    border-radius: 10px;
+    box-shadow: 0px 0px 8px rgb(15, 61, 18);
+    border-radius: 20px;
 
 }
+
+.image {
+    opacity: 1;
+    display: block;
+    width: 100%;
+    height: auto;
+    transition: .5s ease;
+    backface-visibility: hidden;
+  }
+
+
+  .tile:hover .image {
+    opacity: 0.6;
+  }
+
 
 .toolbar {
     display: inline-block;
     vertical-align: center;
     padding: 5px;
-    background-color: #38c35124;
-    width: 100%;
+    background-color: #30b44838;
+    width: 98%;
+    margin-left: 1%;
     text-align: center;
     align-items: center;
     justify-content: center;
     border-bottom: #005714 solid 1px;
+    color: black;
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
 }
 
-/*  Make IE6/7 do inline-block */
-.ie6 .toolbar,
-.ie7 .toolbar {
-    display: inline;
-    zoom: 1;
-}
-
-.toolbar a,
-.toolbar a:link,
-.toolbar a:visited {
-    display: inline-block;
-    vertical-align: center;
-    font-size: 1.083333em;
-    text-align: center;
-    text-decoration: none;
-    padding: 6px 14px;
-    margin: 0;
-
-    /*  Create a subtly embossed border */
-    border-width: 1px 1px 1px 0;
-    border-style: solid;
-    border-color: #005714;
-
-    /*  Use a background-image, then overlay a gradient if available.
-            Notes:
-            - I've applied graidents to IE9 separately.
-            - The .png contains two gradients for normal and hover states
-            - The .png is on http://imgur.com/x2Ckw, but you probably want to host it locally
-            - For IE6 I used TweakPNG to set the .png's bKGD chunk to match the button background
-        */
-    background-image: -o-linear-gradient(-90deg, #FFFFFF 3%, #F5F5F5 3%, #DEDEDE 99%, #CCCCCC 99%);
-    background-image: -moz-linear-gradient(-90deg, #FFFFFF 3%, #F5F5F5 3%, #DEDEDE 99%, #CCCCCC 99%);
-    background-image: -webkit-gradient(linear, left top, left bottom, from(#FFFFFF), color-stop(0.05, #F5F5F5), color-stop(0.95, #DEDEDE), to(#CCCCCC));
-    background-image: linear-gradient(-90deg, #FFFFFF 3%, #F5F5F5 3%, #DEDEDE 99%, #CCCCCC 99%);
-
-    color: #272728;
-    text-shadow: 1px 1px 0 #FAFAFA;
-
-    /*  Enhance the embossing if available */
-    -moz-box-shadow: -1px -1px 0 #CCCCCC inset;
-    -webkit-box-shadow: -1px -1px 0 #CCCCCC inset;
-    box-shadow: -1px -1px 0 #CCCCCC inset;
-
-    /*  Fix a border-radius colour bleed issue in Chrome */
-    -webkit-background-clip: padding-box;
-}
-
-/*  Put rounded corners on the first and last links in the toolbar */
-.toolbar a:first-child,
-.toolbar a:first-child:link,
-.toolbar a:first-child:visited {
-    border-left-width: 1px;
-    /*  Because slightly rounded corners are de-rigeur */
-    -moz-border-radius: 2px 0 0 2px;
-    -webkit-border-radius: 2px 0 0 2px;
-    border-radius: 2px 0 0 2px;
-}
-
-.toolbar a:last-child,
-.toolbar a:last-child:link,
-.toolbar a:last-child:visited {
-    /*  Because slightly rounded corners are de-rigeur */
-    -moz-border-radius: 0 2px 2px 0;
-    -webkit-border-radius: 0 2px 2px 0;
-    border-radius: 0 2px 2px 0;
-}
-
-.toolbar a:hover,
-.toolbar a:active,
-.toolbar a:focus {
-    /*  Move the text slightly to make the button appear pressed */
-    padding: 7px 13px 5px 15px;
-
-    /*  Invert the gradient to make the button appear pressed */
-    background-position: bottom left;
-    background-image: -o-linear-gradient(90deg, #FFFFFF 3%, #F5F5F5 3%, #DEDEDE 99%, #CCCCCC 99%);
-    background-image: -moz-linear-gradient(90deg, #FFFFFF 3%, #F5F5F5 3%, #DEDEDE 99%, #CCCCCC 99%);
-    background-image: -webkit-gradient(linear, left bottom, left top, from(#FFFFFF), color-stop(0.05, #F5F5F5), color-stop(0.95, #DEDEDE), to(#CCCCCC));
-    background-image: linear-gradient(90deg, #FFFFFF 3%, #F5F5F5 3%, #DEDEDE 99%, #CCCCCC 99%);
-
-    color: #181818;
-
-    /*  Invert the emboss effect */
-    border-color: #005714;
-    -moz-box-shadow: 1px 1px 0 #CCCCCC inset;
-    -webkit-box-shadow: 1px 1px 0 #CCCCCC inset;
-    box-shadow: 1px 1px 0 #CCCCCC inset;
-}
-
-/*  Hello keyboard users! */
-.toolbar a:active,
-.toolbar a:focus {
-    outline: 1px dotted #DEDDD8;
-}
-
-/*  Gradients for IE9
-            YAY! The filters don't break ClearType anymore! Alas
-            they don't play nicely with border-radius so any more
-            than about 2px looks ming.
-        */
-.ie9 .toolbar a,
-.ie9 .toolbar a:link,
-.ie9 .toolbar a:visited {
-    background-image: none;
-    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFFFFF', endColorstr='#CCCCCC')";
-}
-
-.ie9 .toolbar a:hover,
-.ie9 .toolbar a:active,
-.ie9 .toolbar a:focus {
-    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#CCCCCC', endColorstr='#F5F5F5')";
-}
-
-/* Because IE6 doesn't support :first-child */
-.ie6 .toolbar a.first-child,
-.ie6 .toolbar a.first-child:link,
-.ie6 .toolbar a.first-child:visited {
-    border-left-width: 1px;
-}
 
 .btn {
-    font-family: Lato;
-    font-size: 15px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 18px;
     font-weight: normal;
     text-decoration: none;
     cursor: pointer;
     display: inline-block;
     line-height: normal;
+    transition: .5s ease;
     padding: .5rem 1rem;
     margin: 0;
     height: auto;
-    border: 1px solid;
+    border: #005714 solid 1px;
     margin-left: 3px;
     margin-bottom: 3px;
     vertical-align: middle;
     -webkit-appearance: none;
-    color: #333;
+    color: rgb(0, 0, 0);
     background-color: #6bb1786b;
 }
 
@@ -350,6 +301,8 @@ p:hover {
     height: 700px;
     font-size: large;
 
+    width: 98%;
+    margin-left: 1%;
     background-color: #ccebd258;
     padding-bottom: 20px;
     margin-bottom: 20px;
@@ -361,22 +314,36 @@ p:hover {
 
     h1 {
         font-family: 'Dancing Script', cursive;
-        font-size: 40px;
-        margin-bottom: 0%;
+        font-size: 45px;
+        margin-bottom: 3%;
     }
 
     h3,
     p {
         font-family: 'Open Sans', sans-serif;
-        font-size: 15px;
-        margin-bottom: 30px;
+        font-size: 10px;
+        margin-bottom: 20px;
+        text-shadow: 0.5px 0.5px 0px #5592606b;
+        margin-top: 0%;
     }
 
+    header {
+        background: url('background-mobile.png');
+        text-align: center;
+        width: auto;
+        height: auto;
+        background-size: 100% auto;
+        background-repeat: no-repeat;
+        background-attachment: relative;
+        position: relative;
+        overflow: hidden;
+        border-radius: 0 0 85% 85% / 30%;
+    }
     header .header-overlay {
         width: 100%;
-        height: 100%;
+        height: 90%;
         padding: 1px;
-        text-shadow: 1px 1px 1px #333;
+        text-shadow: 1px 1px 1px #5592606b;
     }
 
     #portfolio {
@@ -410,5 +377,15 @@ p:hover {
     .btn {
 
         font-size: 1rem;
+    }
+
+
+    .toolbar {
+        width: 95%;
+        margin-left: 2.5%;
+    }
+    .scroll {
+        width: 95%;
+        margin-left: 2.5%;
     }
 }
