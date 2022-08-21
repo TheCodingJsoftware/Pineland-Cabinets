@@ -32,7 +32,7 @@ def get_all_images() -> dict:
         for filename in glob.iglob("static/pictures" + "**/**", recursive=True):
             print(filename)
             if "." in filename:
-                folder_name = slugify(filename.split("\\")[-2]).replace(
+                folder_name = slugify(filename.split("/")[-2]).replace(
                     "staticpictures", ""
                 )
                 pictures["All"].append(filename)
@@ -47,9 +47,7 @@ def get_all_folders() -> dict:
             folder_names[
                 slugify(filename.split("/")[-1]).replace("staticpictures", "")
             ] = (
-                filename.split("/")[-1]
-                .replace("static\\", "")
-                .replace("pictures\\", "")
+                filename.split("/")[-1].replace("static/", "").replace("pictures/", "")
             )
     return folder_names
 
