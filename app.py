@@ -26,10 +26,11 @@ def index() -> None:
 
 def get_all_images() -> dict:
     pictures = {"All": []}
-    for folder in get_all_folders():
+    for folder in list(get_all_folders().keys()):
         pictures[folder] = []
     with contextlib.suppress(IndexError):
         for filename in glob.iglob("static/pictures" + "**/**", recursive=True):
+            print(filename)
             if "." in filename:
                 folder_name = slugify(filename.split("\\")[-2]).replace(
                     "staticpictures", ""
