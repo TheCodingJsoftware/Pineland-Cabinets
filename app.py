@@ -74,4 +74,4 @@ def slugify(value, allow_unicode=False):
     return re.sub(r"[-\s]+", "-", value).strip("-_")
 
 
-app.run(host="10.0.0.217", port=5000, debug=False, threaded=True)
+# app.run(host="10.0.0.217", port=5000, debug=False, threaded=True)
