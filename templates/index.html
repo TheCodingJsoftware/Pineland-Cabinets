@@ -17,9 +17,9 @@
     <meta property="og:description" content="Pineland Cabinets." />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <header>
-        <div class="overlay">
+        <div class="header-overlay">
             <h1>Pineland Cabinets</h1>
-            <h3>Specializing in Cabinets, Furniture, Wood working, and much more.</h3>
+            <h3>Specializing in<br>Cabinets, Furniture,<br>Wood working, and much more.</h3>
         </div>
     </header>
     <br>
@@ -37,7 +37,7 @@
             {% for folder, folder_data in pictures.items() %}
             {% for picture in folder_data %}
             <div class="tile scale-anm web {{folder}}">
-                <img src="{{picture}}" alt="" />
+                <a href="{{picture}}"> <img src="{{picture}}" alt="" /></a>
             </div>
             {% endfor %}
             {% endfor %}
@@ -53,11 +53,11 @@
 <footer>
     <div class="footer-container">
         <h4>Pineland Cabinets</h4>
-    </div <div class="address">Please email us at: <a href="mailto:joseph@pinelandfarms.ca">joseph@pinelandfarms.ca</a>
+    </div <div class="address">Email: <a href="mailto:joseph@pinelandfarms.ca">joseph@pinelandfarms.ca</a>
+    <br>
+    Cell: +1 (204) 229 7793
     <br>
     Piney MB
-    <br>
-    +1 (204) 229 7793
     <br>
     <br>
     <div class="footer-bottom">
@@ -79,4 +79,43 @@
 
         });
     });
+    $(function () {
+        $(".img-w").each(function () {
+            $(this).wrap("<div class='img-c'></div>")
+            let imgSrc = $(this).find("img").attr("src");
+            $(this).css('background-image', 'url(' + imgSrc + ')');
+        })
+
+
+        $(".img-c").click(function () {
+            let w = $(this).outerWidth()
+            let h = $(this).outerHeight()
+            let x = $(this).offset().left
+            let y = $(this).offset().top
+
+
+            $(".active").not($(this)).remove()
+            let copy = $(this).clone();
+            copy.insertAfter($(this)).height(h).width(w).delay(500).addClass("active")
+            $(".active").css('top', y - 8);
+            $(".active").css('left', x - 8);
+
+            setTimeout(function () {
+                copy.addClass("positioned")
+            }, 0)
+
+        })
+
+
+
+
+    })
+
+    $(document).on("click", ".img-c.active", function () {
+        let copy = $(this)
+        copy.removeClass("positioned active").addClass("postactive")
+        setTimeout(function () {
+            copy.remove();
+        }, 500)
+    })
 </script>

@@ -30,7 +30,7 @@ def get_all_images() -> dict:
         pictures[folder] = []
     with contextlib.suppress(IndexError):
         for filename in glob.iglob("static/pictures" + "**/**", recursive=True):
-            print(filename)
+            filename = filename.replace("\\", "/")
             if "." in filename:
                 folder_name = slugify(filename.split("/")[-2]).replace(
                     "staticpictures", ""
@@ -44,6 +44,7 @@ def get_all_folders() -> dict:
     folder_names = {"All": "All"}
     with contextlib.suppress(IndexError):
         for filename in glob.iglob("static/pictures" + "**/**", recursive=False):
+            filename = filename.replace("\\", "/")
             folder_names[
                 slugify(filename.split("/")[-1]).replace("staticpictures", "")
             ] = (
