@@ -19,7 +19,6 @@ def index() -> None:
     Returns:
       The index.html file
     """
-    print(get_all_folders())
     return render_template(
         "index.html", folders=get_all_folders(), pictures=get_all_images()
     )
@@ -29,13 +28,14 @@ def get_all_images() -> dict:
     pictures = {"All": []}
     for folder in get_all_folders():
         pictures[folder] = []
-    for filename in glob.iglob("static/pictures" + "**/**", recursive=True):
-        if "." in filename:
-            folder_name = slugify(filename.split("\\")[-2]).replace(
-                "staticpictures", ""
-            )
-            pictures["All"].append(filename)
-            pictures[folder_name].append(filename)
+    with contextlib.suppress(IndexError):
+        for filename in glob.iglob("static/pictures" + "**/**", recursive=True):
+            if "." in filename:
+                folder_name = slugify(filename.split("\\")[-2]).replace(
+                    "staticpictures", ""
+                )
+                pictures["All"].append(filename)
+                pictures[folder_name].append(filename)
     return pictures
 
 
