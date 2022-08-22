@@ -14,7 +14,7 @@
 
     <meta property="og:title" content="Pineland Cabinets" />
     <meta property="og:url" content="https://pineland-cabinets.herokuapp.com" />
-    <meta property="og:description" content="Pineland Cabinets." />
+    <meta property="og:description" content="Pineland Colony Cabintry." />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <header>
         <div class="header-overlay">
@@ -55,13 +55,13 @@
         <h4>Pineland Cabinets</h4>
     </div <div class="address">Email: <a href="mailto:joseph@pinelandfarms.ca">joseph@pinelandfarms.ca</a>
     <br>
-    Cell: +1 (204) 229 7793
+    Cell: (204) 229 7793
     <br>
     Piney MB
     <br>
     <br>
     <div class="footer-bottom">
-        Copyright 2022 by Pineland Cabinets
+        Copyright 2022 by Pineland Colony
     </div>
 </footer>
 
@@ -79,43 +79,4 @@
 
         });
     });
-    $(function () {
-        $(".img-w").each(function () {
-            $(this).wrap("<div class='img-c'></div>")
-            let imgSrc = $(this).find("img").attr("src");
-            $(this).css('background-image', 'url(' + imgSrc + ')');
-        })
-
-
-        $(".img-c").click(function () {
-            let w = $(this).outerWidth()
-            let h = $(this).outerHeight()
-            let x = $(this).offset().left
-            let y = $(this).offset().top
-
-
-            $(".active").not($(this)).remove()
-            let copy = $(this).clone();
-            copy.insertAfter($(this)).height(h).width(w).delay(500).addClass("active")
-            $(".active").css('top', y - 8);
-            $(".active").css('left', x - 8);
-
-            setTimeout(function () {
-                copy.addClass("positioned")
-            }, 0)
-
-        })
-
-
-
-
-    })
-
-    $(document).on("click", ".img-c.active", function () {
-        let copy = $(this)
-        copy.removeClass("positioned active").addClass("postactive")
-        setTimeout(function () {
-            copy.remove();
-        }, 500)
-    })
 </script>
