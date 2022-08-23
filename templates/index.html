@@ -3,7 +3,7 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/js/bootstrap.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.js"></script>
 <script src="https://www.kryogenix.org/code/browser/sorttable/sorttable.js"></script>
-
+<script src="static/circletype.min.js"> </script>
 <head>
     <link rel="icon" href="/static/favicon.png">
     <link type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/css/bootstrap.css"
@@ -18,8 +18,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <header>
         <div class="header-overlay">
-            <h1>Pineland Cabinets</h1>
-            <h3> <br> <br> <br> </h3>
+            <h1 id="title">Pineland Cabinets</h1>
+            <h3><br><br><br><br></h3>
 
         </div>
     </header>
@@ -67,7 +67,18 @@
 </footer>
 
 <script>
+    function detectMob() {
+        return ( ( window.innerWidth <= 600 ));
+      }
+    $(document).ready(function () {
+        if (detectMob()) {
+            new CircleType(document.getElementById('title')).radius(500);
+        }else{
+            new CircleType(document.getElementById('title')).radius(3500);
+        }
+    });
     $(function () {
+
         var selectedClass = "";
         $(".fil-cat").click(function () {
             selectedClass = $(this).attr("data-rel");

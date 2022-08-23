@@ -24,6 +24,9 @@ html {
 }
 
 header {
+    text-align: center;
+    align-items: center;
+    justify-content: center;
     background: url('background-middle.png');
     text-align: center;
     width: auto;
@@ -104,7 +107,7 @@ header .header-overlay {
     width: 100%;
     height: 100%;
     padding-top: 20px;
-    padding-bottom: 150px;
+    padding-bottom: 8%;
     color: #000;
     text-shadow: 2px 3px 1px #2e9a9f6b;
     background-image: linear-gradient(135deg, #00a2aa57 10%, #01a4ac3c 100%);
@@ -115,7 +118,7 @@ header .header-overlay:before {
     position: absolute;
     height: 0%;
     width: 100%;
-    padding-bottom: 150px;
+    padding-bottom: 12.5%;
     background-color: white;
     bottom:-15%;
     margin-top: 100px;
@@ -125,8 +128,7 @@ header .header-overlay:before {
   }
 h1 {
     font-family: 'Dancing Script', cursive;
-    font-size: 164px;
-    margin-bottom: 30px;
+    font-size: 200px;
     font-weight: bold;
 }
 
@@ -319,7 +321,7 @@ p:hover {
     padding-bottom: 20px;
     margin-bottom: 20px;
     border-bottom: #1d62656b solid 1px;
-    border-radius: 10px;
+    border-radius: 0px 10px 10px 10px;
 }
 
 @media (max-width: 800px) {
@@ -334,13 +336,13 @@ p:hover {
     p {
         font-family: 'Open Sans', sans-serif;
         font-size: 10px;
-        margin-bottom: 20px;
+        margin-bottom: 0px;
         text-shadow: 0.5px 0.5px 0px #2e9a9f6b;
         margin-top: 0%;
     }
 
     header {
-        background: url('background-middle.png');
+        background: url('background-middle-mobile.png');
         text-align: center;
         width: auto;
         height: auto;
@@ -362,10 +364,10 @@ p:hover {
         position: absolute;
         height: 0%;
         width: 100%;
-        padding-bottom: 40px;
+        padding-bottom: 12.5%;
         background-color: white;
         bottom:-15%;
-        margin-top: 100px;
+        margin-top: 10px;
         margin-left: -50%;
         border-radius:  100% 100% 0 0;
         box-shadow: 100% 100% 0 0 #9acd8769; /* This is where the magic happens! */
