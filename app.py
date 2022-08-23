@@ -31,7 +31,14 @@ def get_all_images() -> dict:
     with contextlib.suppress(IndexError):
         for filename in glob.iglob("static/pictures" + "**/**", recursive=True):
             filename = filename.replace("\\", "/")
-            if "." in filename:
+            if "." in filename and (
+                filename.endswith(".JPEG")
+                or filename.endswith(".JPG")
+                or filename.endswith(".jpeg")
+                or filename.endswith(".jpg")
+                or filename.endswith(".PNG")
+                or filename.endswith(".png")
+            ):
                 folder_name = slugify(filename.split("/")[-2]).replace(
                     "staticpictures", ""
                 )
@@ -74,4 +81,4 @@ def slugify(value, allow_unicode=False):
     return re.sub(r"[-\s]+", "-", value).strip("-_")
 
 
-# app.run(host="10.0.0.217", port=5000, debug=False, threaded=True)
+# app.run(host="10.0.1.217", port=5000, debug=False, threaded=True)

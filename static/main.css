@@ -23,35 +23,24 @@ html {
     box-sizing: border-box;
 }
 
-header {
-    text-align: center;
-    align-items: center;
-    justify-content: center;
-    background: url('background-middle.png');
-    text-align: center;
-    width: auto;
-    height: auto;
-    background-size: 100% auto;
-    background-repeat: no-repeat;
-    background-attachment: relative;
-    position: relative;
-    overflow: hidden;
-}
 /* width */
 ::-webkit-scrollbar {
     width: 20px;
+    transition: .5s ease;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
     box-shadow: inset 0 0 5px grey;
     border-radius: 10px;
+    transition: .5s ease;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
     background: #2e999fd4;
     border-radius: 10px;
+    transition: .5s ease;
 }
 
 /* Handle on hover */
@@ -62,18 +51,21 @@ header {
 /* width */
 ::-moz-scrollbar {
     width: 20px;
+    transition: .5s ease;
 }
 
 /* Track */
 ::-moz-scrollbar-track {
     box-shadow: inset 0 0 5px grey;
     border-radius: 10px;
+    transition: .5s ease;
 }
 
 /* Handle */
 ::-moz-scrollbar-thumb {
     background: #2e9a9f6b;
     border-radius: 10px;
+    transition: .5s ease;
 }
 
 /* Handle on hover */
@@ -84,18 +76,21 @@ header {
 /* width */
 .scrollbar {
     width: 20px;
+    transition: .5s ease;
 }
 
 /* Track */
 .track {
     box-shadow: inset 0 0 5px grey;
     border-radius: 10px;
+    transition: .5s ease;
 }
 
 /* Handle */
 .thumb {
     background: #2e9a9f6b;
     border-radius: 10px;
+    transition: .5s ease;
 }
 
 /* Handle on hover */
@@ -103,14 +98,46 @@ header {
     background: #2e9a9f6b;
 }
 
+header .background {
+    background: url('background-middle.png');
+    background-size: 70vw auto;
+    margin-left: 15vw;
+    background-repeat: no-repeat;
+    align-items: center;
+    position: static;
+    justify-content: center;
+    opacity: 1;
+    overflow: hidden;
+    margin-top: -7vw;
+}
+
+header {
+    background-image: linear-gradient(135deg, #02CECE 10%, #01AFAF 100%);
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: auto;
+    height: auto;
+    background-size: 100vw auto;
+    background-repeat: no-repeat;
+    background-attachment: relative;
+    position: relative;
+    overflow: hidden;
+    transition: .1s ease;
+}
+
 header .header-overlay {
-    width: 100%;
-    height: 100%;
-    padding-top: 20px;
-    padding-bottom: 8%;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    height: 37vw;
+    padding-top: 1px;
+    margin-right: 15vw;
     color: #000;
-    text-shadow: 2px 3px 1px #2e9a9f6b;
-    background-image: linear-gradient(135deg, #00a2aa57 10%, #01a4ac3c 100%);
+    text-shadow: 0.2vw 0.2vw 1px #01AFAF;
+    transition: .1s ease;
 }
 
 header .header-overlay:before {
@@ -118,33 +145,43 @@ header .header-overlay:before {
     position: absolute;
     height: 0%;
     width: 100%;
-    padding-bottom: 12.5%;
+    padding-bottom: 15.5%;
     background-color: white;
-    bottom:-15%;
+    bottom: -25%;
     margin-top: 100px;
     margin-left: -50%;
-    border-radius:  100% 100% 0 0;
-    box-shadow: 100% 100% 0 0 #2e9a9f6b; /* This is where the magic happens! */
-  }
+    border-radius: 100% 100% 0 0;
+    box-shadow: 100% 100% 0 0 #01AFAF;
+    /* This is where the magic happens! */
+    transition: .1s ease;
+}
+
 h1 {
     font-family: 'Dancing Script', cursive;
-    font-size: 200px;
+    font-size: 11vw;
+    margin-top: -0.3vh;
     font-weight: bold;
+    transition: .1s ease;
+    line-height: 15vw;
+    text-indent: -0.6vw;
 }
 
 
 h3,
 p {
     font-family: 'Open Sans', sans-serif;
-    margin-bottom: 50px;
-    text-shadow: 1px 2px 1px #2e9a9f6b;
+    font-size: 1.68vh;
+    margin-bottom: 5vw;
+    text-shadow: 0.1vw 0.1vw 1px #2e9a9f6b;
     text-align: center;
+    transition: .1s ease;
 }
 
 h4 {
     font-family: 'Dancing Script', cursive;
     font-size: 25px;
     margin-bottom: 30px;
+    transition: .1s ease;
 }
 
 footer {
@@ -156,7 +193,7 @@ footer {
     bottom: 0;
     width: 90%;
     color: rgb(0, 0, 0);
-    background-color: #01a4ac3c;
+    background-color: #91dada93;
     margin: auto;
     border: solid 1px #1d62656b;
     border-radius: 25px;
@@ -166,12 +203,14 @@ footer {
 .footer-container {
     margin-top: 30px;
     margin-bottom: 15px;
+    transition: .1s ease;
 }
 
 .footer-bottom span {
     text-transform: uppercase;
     opacity: .4;
     font-weight: 200;
+    transition: .1s ease;
 }
 
 /* GRID */
@@ -245,19 +284,19 @@ p:hover {
     height: auto;
     transition: .5s ease;
     backface-visibility: hidden;
-  }
+}
 
 
-  .tile:hover .image {
+.tile:hover .image {
     opacity: 0.6;
-  }
+}
 
 
 .toolbar {
     display: inline-block;
     vertical-align: center;
     padding: 5px;
-    background-color: #2e9a9f6b;
+    background-color: #00c3c3;
     width: 98%;
     margin-left: 1%;
     text-align: center;
@@ -272,7 +311,7 @@ p:hover {
 
 .btn {
     font-family: 'Open Sans', sans-serif;
-    font-size: 18px;
+    font-size: 1.2vw;
     font-weight: normal;
     text-decoration: none;
     cursor: pointer;
@@ -282,13 +321,13 @@ p:hover {
     padding: .5rem 1rem;
     margin: 0;
     height: auto;
-    border: #005714 solid 1px;
+    border: #007e7e solid 1px;
     margin-left: 3px;
     margin-bottom: 3px;
     vertical-align: middle;
     -webkit-appearance: none;
     color: rgb(0, 0, 0);
-    background-color: #35868b6b;
+    background-color: #219d9d
 }
 
 .btn:hover {
@@ -317,61 +356,18 @@ p:hover {
 
     width: 98%;
     margin-left: 1%;
-    background-color: #cce5eb58;
+    background-color: #91dada93;
     padding-bottom: 20px;
     margin-bottom: 20px;
     border-bottom: #1d62656b solid 1px;
-    border-radius: 0px 10px 10px 10px;
+    border-radius: 0px 0px 10px 10px;
 }
 
 @media (max-width: 800px) {
-
     h1 {
-        font-family: 'Dancing Script', cursive;
-        font-size: 45px;
-        margin-bottom: 3%;
+        text-indent: 0vw;
     }
 
-    h3,
-    p {
-        font-family: 'Open Sans', sans-serif;
-        font-size: 10px;
-        margin-bottom: 0px;
-        text-shadow: 0.5px 0.5px 0px #2e9a9f6b;
-        margin-top: 0%;
-    }
-
-    header {
-        background: url('background-middle-mobile.png');
-        text-align: center;
-        width: auto;
-        height: auto;
-        background-size: 100% auto;
-        background-repeat: no-repeat;
-        background-attachment: relative;
-        position: relative;
-        overflow: hidden;
-    }
-    header .header-overlay {
-        width: 100%;
-        height: 100%;
-        padding: 1px;
-        text-shadow: 1px 1px 1px #2e9a9f6b;
-    }
-
-    header .header-overlay:before {
-        content: '';
-        position: absolute;
-        height: 0%;
-        width: 100%;
-        padding-bottom: 12.5%;
-        background-color: white;
-        bottom:-15%;
-        margin-top: 10px;
-        margin-left: -50%;
-        border-radius:  100% 100% 0 0;
-        box-shadow: 100% 100% 0 0 #9acd8769; /* This is where the magic happens! */
-      }
     #portfolio {
         max-width: 90%;
         margin-left: 5%;
@@ -401,7 +397,6 @@ p:hover {
     }
 
     .btn {
-
         font-size: 1rem;
     }
 
@@ -410,6 +405,7 @@ p:hover {
         width: 95%;
         margin-left: 2.5%;
     }
+
     .scroll {
         width: 95%;
         margin-left: 2.5%;
