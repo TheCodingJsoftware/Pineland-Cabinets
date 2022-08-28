@@ -1,0 +1,20 @@
+<head>
+    <link rel="icon" href="/static/favicon.png">
+    <link type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/css/bootstrap.css"
+        rel="stylesheet" />
+    <link type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.css"
+        rel="stylesheet" />
+    <link type="text/css" rel="stylesheet" href='/static/main.css' />
+    <meta property="og:title" content="Pineland Cabinets" />
+    <meta property="og:url" content="https://pineland-cabinets.herokuapp.com" />
+    <meta property="og:description" content="Pineland Colony Cabinetry." />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {% for graph, graph_data in graphs.items() %}
+    <div class="scroll">
+        <div class="center">
+            <a href="{{graph}}"> <img src="{{graph}}" class='image' alt="" /></a>
+        </div>
+    </div>
+    {% endfor %}
+</head>
