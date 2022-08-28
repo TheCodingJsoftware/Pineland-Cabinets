@@ -9,11 +9,12 @@ import unicodedata
 from ast import Index
 from datetime import datetime
 
-import matplotlib.pyplot as plt
-import matplotlib.ticker as mticker
-import numpy as np
+# import matplotlib.pyplot as plt
+# import matplotlib.ticker as mticker
+# import numpy as np
 from flask import Flask, render_template
-from scipy.interpolate import make_interp_spline
+
+# from scipy.interpolate import make_interp_spline
 
 app = Flask(__name__)
 
@@ -40,10 +41,10 @@ def index() -> None:
         "date": datetime.now().strftime("%I:%M:%S %p"),
         "count": user_count,
     }
-    with open(file_name, "w") as f:
-        json.dump(json_data, f)
-    threading.Thread(target=remove_user_count).start()
-    threading.Thread(target=archive).start()
+    # with open(file_name, "w") as f:
+    #    json.dump(json_data, f)
+    # threading.Thread(target=remove_user_count).start()
+    # threading.Thread(target=archive).start()
     return render_template(
         "index.html", folders=get_all_folders(), pictures=get_all_images()
     )
