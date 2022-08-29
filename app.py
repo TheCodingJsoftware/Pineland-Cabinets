@@ -34,13 +34,13 @@ def index() -> None:
       The index.html file
     """
     file_name = "static/graphs/" + datetime.now().strftime("%B %d %A %Y") + ".json"
-    check_user_log_file()
-    json_data = get_user_count_data()
-    user_count += 1
-    json_data[len(list(json_data.keys()))] = {
-        "date": datetime.now().strftime("%I:%M:%S %p"),
-        "count": user_count,
-    }
+    # check_user_log_file()
+    # json_data = get_user_count_data()
+    # user_count += 1
+    # json_data[len(list(json_data.keys()))] = {
+        # "date": datetime.now().strftime("%I:%M:%S %p"),
+        # "count": user_count,
+    # }
     # with open(file_name, "w") as f:
     #    json.dump(json_data, f)
     # threading.Thread(target=remove_user_count).start()
