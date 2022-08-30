@@ -9,11 +9,10 @@
     <meta property="og:url" content="https://pineland-cabinets.herokuapp.com" />
     <meta property="og:description" content="Pineland Colony Cabinetry." />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     {% for graph, graph_data in graphs.items() %}
-    <div class="scroll">
+    <div class="user_scroll">
         <div class="center">
-            <a href="{{graph}}"> <img src="{{graph}}" class='image' alt="" /></a>
+            <a href="{{graph}}"> <img src="{{graph}}" class='image' alt=""/></a>
         </div>
     </div>
     {% endfor %}

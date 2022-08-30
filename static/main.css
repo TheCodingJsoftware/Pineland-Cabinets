@@ -363,6 +363,21 @@ p:hover {
     border-radius: 0px 0px 10px 10px;
 }
 
+#user_scroll{
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 2%;
+    height: 100%;
+    font-size: large;
+
+    width: 100%;
+    margin-left: 1%;
+    background-color: #91dada93;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    border-bottom: #1d62656b solid 1px;
+    border-radius: 0px 0px 10px 10px;
+}
 @media (max-width: 800px) {
     h1 {
         text-indent: 0vw;
