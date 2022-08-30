@@ -6,6 +6,5 @@ static/pictures/Furniture
 static/pictures/Solid Surface
 static/pictures/Tables
 static/pictures/upload.py
-static/graphs
 *.zip
 .vscode/
