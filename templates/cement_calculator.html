@@ -17,47 +17,11 @@
 </head>
 <body class="cement-body">
     <form id="calculationForm">
-        <label for="quick-select-buttons">Quick Select Yards:</label>
-        <div class="quick-select-buttons">
-            <a class="waves-effect waves-light btn" type="button" onclick="setYards(3)"><span>3</span></a>
-            <a class="waves-effect waves-light btn" type="button" onclick="setYards(3.5)"><span>3.5</span></a>
-            <a class="waves-effect waves-light btn" type="button" onclick="setYards(4)"><span>4</span></a>
-            <a class="waves-effect waves-light btn" type="button" onclick="setYards(4.5)"><span>4.5</span></a>
-            <a class="waves-effect waves-light btn" type="button" onclick="setYards(5)"><span>5</span></a>
-            <a class="waves-effect waves-light btn" type="button" onclick="setYards(5.5)"><span>5.5</span></a>
-            <a class="waves-effect waves-light btn" type="button" onclick="setYards(6)"><span>6</span></a>
-            <a class="waves-effect waves-light btn" type="button" onclick="setYards(6.5)"><span>6.5</span></a>
-        </div>
-        <br>
-        <div class="form-group" style="text-align: left; display: flex;">
-            <div class="form-group" style="text-align: left;">
-                <label for="yards">Yards:</label>
-                <input type="number" id="yards" name="yards" value="1.0" required>
-            </div>
-            <div class="form-group" style="text-align: left; display: inline-grid;">
-                <a type="button" class="waves-effect waves-light btn" onclick="changeYards(0.25)"><span>+ 0.25</span></a>
-                <a type="button" class="waves-effect waves-light btn" onclick="changeYards(-0.25)"><span>- 0.25</span></a>
-            </div>
-        </div>
-
-
-        <div class="form-group" style="display: flex; margin: auto; justify-content: center; gap: 20px;">
-            <div class="form-group">
-                <label>PSI:</label>
-                <label><input type="radio" name="psi" value="4500" checked> <span>4500 PSI</span></label>
-                <label><input type="radio" name="psi" value="4000"> <span>4000 PSI</span></label>
-                <label><input type="radio" name="psi" value="3500"> <span>3500 PSI</span></label>
-                <label><input type="radio" name="psi" value="3000"> <span>3000 PSI</span></label>
-            </div>
-            <div class="form-group">
-                <label>Calcium:</label>
-                <label><input type="radio" name="calcium" value="0" checked> <span>0% Calcium</span></label>
-                <label><input type="radio" name="calcium" value="1"> <span>1% Calcium</span></label>
-                <label><input type="radio" name="calcium" value="2"> <span>2% Calcium</span></label>
-            </div>
-
-        </div>
         <div class="output-container">
+            <div class="form-group">
+                <label>Yards:</label>
+                <output id="yards-text">0</output>
+            </div>
             <div class="form-group">
                 <label>Type 10 (kg):</label>
                 <output id="type10">0</output>
@@ -82,6 +46,44 @@
                 <label>122 HE (L):</label>
                 <output id="he122">0</output>
             </div>
+        </div>
+        <div class="form-group" style="display: flex; margin: auto; justify-content: center; gap: 15px;">
+            <div class="form-group">
+                <label>PSI:</label>
+                <label><input type="radio" name="psi" value="4500" checked> <span>4500 PSI</span></label>
+                <label><input type="radio" name="psi" value="4000"> <span>4000 PSI</span></label>
+                <label><input type="radio" name="psi" value="3500"> <span>3500 PSI</span></label>
+                <label><input type="radio" name="psi" value="3000"> <span>3000 PSI</span></label>
+            </div>
+            <div class="form-group">
+                <label>Calcium:</label>
+                <label><input type="radio" name="calcium" value="0" checked> <span>0% Calcium</span></label>
+                <label><input type="radio" name="calcium" value="1"> <span>1% Calcium</span></label>
+                <label><input type="radio" name="calcium" value="2"> <span>2% Calcium</span></label>
+            </div>
+
+        </div>
+        <br>
+        <div class="form-group" style="text-align: left; display: flex;">
+            <div class="form-group" style="text-align: left;">
+                <label for="yards">Yards:</label>
+                <input type="number" id="yards" name="yards" value="1.0" required>
+            </div>
+            <div class="form-group" style="text-align: left; display: inline-grid;">
+                <a type="button" class="waves-effect waves-light btn" onclick="changeYards(0.25)"><span>+ 0.25</span></a>
+                <a type="button" class="waves-effect waves-light btn" onclick="changeYards(-0.25)"><span>- 0.25</span></a>
+            </div>
+        </div>
+        <label for="quick-select-buttons">Quick Select Yards:</label>
+        <div class="quick-select-buttons">
+            <a class="waves-effect waves-light btn" type="button" onclick="setYards(3)"><span>3</span></a>
+            <a class="waves-effect waves-light btn" type="button" onclick="setYards(3.5)"><span>3.5</span></a>
+            <a class="waves-effect waves-light btn" type="button" onclick="setYards(4)"><span>4</span></a>
+            <a class="waves-effect waves-light btn" type="button" onclick="setYards(4.5)"><span>4.5</span></a>
+            <a class="waves-effect waves-light btn" type="button" onclick="setYards(5)"><span>5</span></a>
+            <a class="waves-effect waves-light btn" type="button" onclick="setYards(5.5)"><span>5.5</span></a>
+            <a class="waves-effect waves-light btn" type="button" onclick="setYards(6)"><span>6</span></a>
+            <a class="waves-effect waves-light btn" type="button" onclick="setYards(6.5)"><span>6.5</span></a>
         </div>
     </form>
 </body>
@@ -137,6 +139,7 @@
         const he122 = yards * type10PerYard * calciumData.he122 / 100000
 
         // Update output elements
+        document.getElementById('yards-text').value = yards.toFixed(2);
         document.getElementById('type10').value = type10.toFixed(2);
         document.getElementById('pitrun').value = pitrun.toFixed(2);
         document.getElementById('water').value = water.toFixed(2);
