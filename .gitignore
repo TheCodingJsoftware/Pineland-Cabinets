@@ -1,3 +1,5 @@
+static/graphs/
+static/pictures/
 static/pictures/Cabinets
 static/pictures/Coffins
 static/pictures/Counter Tops
@@ -6,5 +8,6 @@ static/pictures/Furniture
 static/pictures/Solid Surface
 static/pictures/Tables
 static/pictures/upload.py
+static/pictures/ACCESS_TOKEN
 *.zip
 .vscode/

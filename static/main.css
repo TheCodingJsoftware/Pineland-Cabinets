@@ -158,23 +158,25 @@ header .header-overlay:before {
 
 h1 {
     font-family: 'Dancing Script', cursive;
-    font-size: 11vw;
+    font-size: 5vw;
     margin-top: -0.3vh;
     font-weight: bold;
     transition: .1s ease;
     line-height: 15vw;
-    text-indent: -0.6vw;
+    text-align: center;
+    transition: .1s ease;
 }
 
 
 h3,
 p {
-    font-family: 'Open Sans', sans-serif;
-    font-size: 1.68vh;
+    font-family: sans-serif;
+    font-size: 2vw;
     margin-bottom: 5vw;
     text-shadow: 0.1vw 0.1vw 1px #2e9a9f6b;
     text-align: center;
     transition: .1s ease;
+    margin-top: -7%;
 }
 
 h4 {
@@ -280,10 +282,15 @@ p:hover {
 .image {
     opacity: 1;
     display: block;
-    width: 100%;
+    width: 50%;
+    margin-left: 25%;
+    margin-right: 25%;
     height: auto;
     transition: .5s ease;
     backface-visibility: hidden;
+    box-shadow: 0px 0px 8px #000000;
+    border-radius: 20px;
+    margin-bottom: 1.5rem;
 }
 
 
@@ -310,7 +317,7 @@ p:hover {
 
 
 .btn {
-    font-family: 'Open Sans', sans-serif;
+    font-family: sans-serif;
     font-size: 1.2vw;
     font-weight: normal;
     text-decoration: none;
@@ -351,9 +358,8 @@ p:hover {
     overflow-x: hidden;
     padding: 2%;
     width: auto;
-    height: 700px;
+    height: 1200px;
     font-size: large;
-
     width: 98%;
     margin-left: 1%;
     background-color: #91dada93;
@@ -363,20 +369,74 @@ p:hover {
     border-radius: 0px 0px 10px 10px;
 }
 
-#user_scroll{
+#user_scroll {
     overflow-y: auto;
-    overflow-x: hidden;
     padding: 2%;
     height: 100%;
     font-size: large;
-
-    width: 100%;
+    width: 50%;
+    max-width: 50%;
     margin-left: 1%;
     background-color: #91dada93;
     padding-bottom: 20px;
     margin-bottom: 20px;
     border-bottom: #1d62656b solid 1px;
     border-radius: 0px 0px 10px 10px;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+form {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.output-container {
+    display: grid;
+    gap: 0px 5px;
+    align-items: center;
+}
+
+.output-container .form-group {
+    display: contents; /* Allows the grid layout to apply to the child elements */
+}
+
+.output-container label {
+    text-align: right;
+    grid-column: 1;
+    font-size: 16pt;
+}
+
+.output-container output {
+    text-align: left;
+    grid-column: 2;
+    padding-top: 0px;
+    font-size: 16pt;
+}
+label {
+    display: block;
+    margin-bottom: 0px;
+}
+
+input[type="number"]{
+    height: 60px;
+    width: 100px;
+    text-align: center;
+    font-size: 24pt;
+}
+
+.quick-select-buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 10px;
+    justify-content: center;
+    margin-top: 10px;
+}
+.btn{
+    color: white;
 }
 @media (max-width: 800px) {
     h1 {

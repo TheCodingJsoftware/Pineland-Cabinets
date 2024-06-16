@@ -6,14 +6,41 @@
         rel="stylesheet" />
     <link type="text/css" rel="stylesheet" href='/static/main.css' />
     <meta property="og:title" content="Pineland Cabinets" />
-    <meta property="og:url" content="https://pineland-cabinets.herokuapp.com" />
+    <meta property="og:url" content="http://pinelandcabinets.hbni.net:5040" />
     <meta property="og:description" content="Pineland Colony Cabinetry." />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    {% for graph, graph_data in graphs.items() %}
+    <h1>User Count Graphs for Website visits</h1>
+    <h4 style="text-align: center;">Most recent is first</h4>
+    {% for graph in graphs %}
     <div class="user_scroll">
-        <div class="center">
-            <a href="{{graph}}"> <img src="{{graph}}" class='image' alt=""/></a>
-        </div>
+        <a href="{{graph}}"> <img src="{{graph}}" class='image' alt=""/></a>
     </div>
     {% endfor %}
+
+<footer>
+    <div class="footer-container">
+        <h4>Pineland Cabinets</h4>
+    <div class="address">For Questions, Comments or Concerns about this service please email: <a
+        href="mailto:jared@pinelandfarms.ca">jared@pinelandfarms.ca</a></p>
+        </div>
+    <br>
+    <div class="footer-bottom">
+        Copyright 2022 by TheCodingJ's
+    </div>
+</footer>
 </head>
+
+<script>
+    $(function () {
+        var selectedClass = "";
+        $(".fil-cat").click(function () {
+            selectedClass = $(this).attr("data-rel");
+            $("#portfolio").fadeTo(100, 0.1);
+            $("#portfolio div").not("." + selectedClass).fadeOut().removeClass('scale-anm');
+            setTimeout(function () {
+                $("." + selectedClass).fadeIn().addClass('scale-anm');
+                $("#portfolio").fadeTo(300, 1);
+            }, 300);
+
+        });
+    });
+</script>

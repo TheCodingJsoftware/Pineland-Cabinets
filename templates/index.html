@@ -3,7 +3,9 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/js/bootstrap.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.js"></script>
 <script src="https://www.kryogenix.org/code/browser/sorttable/sorttable.js"></script>
-
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script src="https://circletype.labwire.ca/dist/circletype.min.js"></script>
+<script src="jquery.fittext.js"></script>
 <head>
     <link rel="icon" href="/static/favicon.png">
     <link type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/css/bootstrap.css"
@@ -13,17 +15,16 @@
     <link type="text/css" rel="stylesheet" href='/static/main.css' />
 
     <meta property="og:title" content="Pineland Cabinets" />
-    <meta property="og:url" content="https://pineland-cabinets.herokuapp.com" />
+    <meta property="og:url" content="http://pinelandcabinets.hbni.net:5040" />
     <meta property="og:description" content="Pineland Colony Cabinetry." />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <header>
         <div class="background">
             <div class="header-overlay">
             </div>
-            <div>
     </header>
     <div class="center">
-        <h3>Specializing in<br>Cabinets, Furniture,<br>Wood working, and much more.</h3>
+        <h3 id="arch">Specializing in Cabinets, Furniture, Wood working, and much more.</h3>
     </div>
     <div class="toolbar mb2 mt2">
         {% for folder, folder_data in folders.items() %}
@@ -37,7 +38,7 @@
             {% for folder, folder_data in pictures.items() %}
             {% for picture in folder_data %}
             <div class="tile scale-anm web {{folder}}">
-                <a href="{{picture}}0"> <img src="{{picture}}1" class='image' alt="" /></a>
+                <a target="_blank" href="{{picture}}"> <img src="{{picture}}" class='image' alt="" /></a>
             </div>
             {% endfor %}
             {% endfor %}
@@ -66,6 +67,10 @@
 </footer>
 
 <script>
+    $(document).ready(function () {
+        new CircleType(document.getElementById('arch')).radius(4400);
+        $("#arch").fitText();
+    })
     $(function () {
         var selectedClass = "";
         $(".fil-cat").click(function () {

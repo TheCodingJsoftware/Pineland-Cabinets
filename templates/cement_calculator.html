@@ -1,0 +1,158 @@
+<!doctype html>
+<head>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="/static/jquery.js"></script>
+    <script src="/static/bootstrap.js"></script>
+    <script src="/static/bootstrap-select.js"></script>
+    <link type="text/css" href="/static/bootstrap.css" rel="stylesheet" />
+    <link type="text/css" href="/static/bootstrap-select.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/static/materialize.min.css">
+    <link rel="stylesheet" href="/static/icon.css">
+    <link rel="stylesheet" href="/static/main.css">
+    <title>Cement Calculator</title>
+    <meta property="og:title" content="Cement Calculator"/>
+    <meta property="og:url" content="http://pinelandcabinets.hbni.net/cementcalculator" />
+    <meta property="og:description" content="Cement Calculator" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+<body>
+    <form id="calculationForm">
+        <label for="quick-select-buttons">Quick Select Yards:</label>
+        <div class="quick-select-buttons">
+            <a class="waves-effect waves-light btn" type="button" onclick="setYards(3)"><span>3</span></a>
+            <a class="waves-effect waves-light btn" type="button" onclick="setYards(3.5)"><span>3.5</span></a>
+            <a class="waves-effect waves-light btn" type="button" onclick="setYards(4)"><span>4</span></a>
+            <a class="waves-effect waves-light btn" type="button" onclick="setYards(4.5)"><span>4.5</span></a>
+            <a class="waves-effect waves-light btn" type="button" onclick="setYards(5)"><span>5</span></a>
+            <a class="waves-effect waves-light btn" type="button" onclick="setYards(5.5)"><span>5.5</span></a>
+            <a class="waves-effect waves-light btn" type="button" onclick="setYards(6)"><span>6</span></a>
+            <a class="waves-effect waves-light btn" type="button" onclick="setYards(6.5)"><span>6.5</span></a>
+        </div>
+        <br>
+        <div class="form-group" style="text-align: left; display: flex;">
+            <div class="form-group" style="text-align: left;">
+                <label for="yards">Yards:</label>
+                <input type="number" id="yards" name="yards" value="1.0" required>
+            </div>
+            <div class="form-group" style="text-align: left; display: inline-grid;">
+                <a type="button" class="waves-effect waves-light btn" onclick="changeYards(0.25)"><span>+ 0.25</span></a>
+                <a type="button" class="waves-effect waves-light btn" onclick="changeYards(-0.25)"><span>- 0.25</span></a>
+            </div>
+        </div>
+
+
+        <div class="form-group" style="display: flex; margin: auto; justify-content: center; gap: 20px;">
+            <div class="form-group">
+                <label>PSI:</label>
+                <label><input type="radio" name="psi" value="4500" checked> <span>4500 PSI</span></label>
+                <label><input type="radio" name="psi" value="4000"> <span>4000 PSI</span></label>
+                <label><input type="radio" name="psi" value="3500"> <span>3500 PSI</span></label>
+                <label><input type="radio" name="psi" value="3000"> <span>3000 PSI</span></label>
+            </div>
+            <div class="form-group">
+                <label>Calcium:</label>
+                <label><input type="radio" name="calcium" value="0" checked> <span>0% Calcium</span></label>
+                <label><input type="radio" name="calcium" value="1"> <span>1% Calcium</span></label>
+                <label><input type="radio" name="calcium" value="2"> <span>2% Calcium</span></label>
+            </div>
+
+        </div>
+        <div class="output-container">
+            <div class="form-group">
+                <label>Type 10 (kg):</label>
+                <output id="type10">0</output>
+            </div>
+            <div class="form-group">
+                <label>Pitrun (kg):</label>
+                <output id="pitrun">0</output>
+            </div>
+            <div class="form-group">
+                <label>Water (kg):</label>
+                <output id="water">0</output>
+            </div>
+            <div class="form-group">
+                <label>Micro Air (mL):</label>
+                <output id="microAir">0</output>
+            </div>
+            <div class="form-group">
+                <label>Polyheed (L):</label>
+                <output id="polyheedOutput">0</output>
+            </div>
+            <div class="form-group">
+                <label>122 HE (L):</label>
+                <output id="he122">0</output>
+            </div>
+        </div>
+    </form>
+</body>
+<script>
+    const psiLookupTable = {
+        4500: 276.0,
+        4000: 230.0,
+        3500: 195.0,
+        3000: 186.0,
+        2500: 177.0
+    };
+
+    const calciumLookupTable = {
+        0: {
+            polyheed: 750.0,
+            he122: 0.0
+        },
+        1: {
+            polyheed: 500.0,
+            he122: 1000.0
+        },
+        2: {
+            polyheed: 250.0,
+            he122: 1750.0
+        }
+    };
+    function setYards(value) {
+        document.getElementById('yards').value = value;
+        calculate();
+    }
+    function changeYards(delta) {
+        const yardsInput = document.getElementById('yards');
+        let currentValue = parseFloat(yardsInput.value) || 0;
+        currentValue += delta;
+        yardsInput.value = currentValue.toFixed(2);
+        calculate();
+    }
+    function calculate() {
+        const yards = parseFloat(document.getElementById('yards').value);
+        const calcium = parseInt(document.querySelector('input[name="calcium"]:checked').value);
+        const psi = parseInt(document.querySelector('input[name="psi"]:checked').value);
+
+        // Lookup values from tables
+        const type10PerYard = psiLookupTable[psi];
+        const calciumData = calciumLookupTable[calcium];
+
+        // Perform calculations using lookup values
+        const type10 = type10PerYard * yards;
+        const pitrun = yards * 1451;
+        const water = yards * 100;
+        const microAir = yards * type10PerYard * 22 / 100;
+        const polyheed = yards * type10PerYard * calciumData.polyheed / 100000;
+        const he122 = yards * type10PerYard * calciumData.he122 / 100000
+
+        // Update output elements
+        document.getElementById('type10').value = type10.toFixed(2);
+        document.getElementById('pitrun').value = pitrun.toFixed(2);
+        document.getElementById('water').value = water.toFixed(2);
+        document.getElementById('microAir').value = microAir.toFixed(2);
+        document.getElementById('polyheedOutput').value = polyheed.toFixed(2);
+        document.getElementById('he122').value = he122.toFixed(2);
+    }
+    document.addEventListener('DOMContentLoaded', (event) => {
+        document.getElementById('yards').addEventListener('input', calculate);
+        document.querySelectorAll('input[name="calcium"]').forEach((element) => {
+            element.addEventListener('change', calculate);
+        });
+        document.querySelectorAll('input[name="psi"]').forEach((element) => {
+            element.addEventListener('change', calculate);
+        });
+        calculate();
+    });
+</script>
+<script src="/static/materialize.min.js"></script>
