@@ -231,10 +231,4 @@ def slugify(value, allow_unicode=False):
     return re.sub(r"[-\s]+", "-", value).strip("-_")
 
 
-# dbx = dropbox.Dropbox(
-# "sl.BORUV5snULcIx36l9ggT8Rvh3cAXyJSY1d_h2Fly1HJOKH6P1Y1xAK8G9waXZUHcoedCEwHmLwtFrS8AR7jeLPazyGllYaE_BsSc_k9DDCorS_4gbYNAs0rQJFgwKkxtbkSPcJYqLxrs"
-# )
-# response = dbx.files_list_folder(path="")
-# print(response)
-
-# app.run(host="10.0.0.217", port=5000)
+app.run(host="10.0.0.217", port=5000)

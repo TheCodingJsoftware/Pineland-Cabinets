@@ -61,7 +61,6 @@
                 <label><input type="radio" name="calcium" value="1"> <span>1% Calcium</span></label>
                 <label><input type="radio" name="calcium" value="2"> <span>2% Calcium</span></label>
             </div>
-
         </div>
         <br>
         <div class="form-group" style="text-align: left; display: flex;">
@@ -85,77 +84,319 @@
             <a class="waves-effect waves-light btn" type="button" onclick="setYards(6)"><span>6</span></a>
             <a class="waves-effect waves-light btn" type="button" onclick="setYards(6.5)"><span>6.5</span></a>
         </div>
+        <div class="form-group">
+            <label for="editModeCheckbox">Edit Mode</label>
+            <input type="checkbox" id="editModeCheckbox" onchange="toggleEditMode()">
+        </div>
+        <div id="editTables" style="display: none;">
+            <label>PSI Lookup Table:</label>
+            <div id="psiLookupTable"></div>
+            <label>Calcium Lookup Table:</label>
+            <div id="calciumLookupTable"></div>
+            <button type="button" onclick="saveLookupTables()">Save Tables</button>
+        </div>
+        <div>
+            <button type="button" class="waves-effect waves-light btn modal-trigger" data-target="addPowderModal">Add Powder to Bin</button>
+            <button type="button" class="waves-effect waves-light btn modal-trigger" data-target="removePowderModal">Remove Powder from Bin</button>
+            <button type="button" class="waves-effect waves-light btn modal-trigger" data-target="resetPowderModal">Reset Powder</button>
+        </div>
+        <div>
+            <button type="button" class="waves-effect waves-light btn" onclick="exportLog()">Export Log</button>
+            <button type="button" class="waves-effect waves-light btn modal-trigger" data-target="importLogModal">Import Log</button>
+            <button type="button" class="waves-effect waves-light btn modal-trigger" data-target="clearLogsModal">Clear Logs</button>
+        </div>
+        <div>
+            <label for="log">Log:</label>
+            <textarea id="log" rows="10" cols="50" readonly></textarea>
+        </div>
     </form>
-</body>
-<script>
-    const psiLookupTable = {
-        4500: 276.0,
-        4000: 230.0,
-        3500: 195.0,
-        3000: 186.0,
-        2500: 177.0
-    };
 
-    const calciumLookupTable = {
-        0: {
-            polyheed: 500.0,
-            he122: 0.0
-        },
-        1: {
-            polyheed: 500.0,
-            he122: 1000.0
-        },
-        2: {
-            polyheed: 250.0,
-            he122: 1750.0
+    <!-- Add Powder Modal -->
+    <div id="addPowderModal" class="modal">
+        <div class="modal-content">
+            <h4>Add Powder to Bin</h4>
+            <label for="addPowderInput">Enter Powder (kg):</label>
+            <input type="number" id="addPowderInput">
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat" onclick="confirmAddPowder()">Add</a>
+        </div>
+    </div>
+
+    <!-- Remove Powder Modal -->
+    <div id="removePowderModal" class="modal">
+        <div class="modal-content">
+            <h4>Remove Powder from Bin</h4>
+            <label for="removePowderInput">Enter Powder (kg):</label>
+            <input type="number" id="removePowderInput">
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat" onclick="confirmRemovePowder()">Remove</a>
+        </div>
+    </div>
+
+    <!-- Reset Powder Modal -->
+    <div id="resetPowderModal" class="modal">
+        <div class="modal-content">
+            <h4>Reset Powder</h4>
+            <p>Are you sure you want to reset the powder to 0?</p>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-red btn-flat" onclick="confirmResetPowder()">Reset</a>
+        </div>
+    </div>
+
+    <!-- Import Log Modal -->
+    <div id="importLogModal" class="modal">
+        <div class="modal-content">
+            <h4>Import Log</h4>
+            <input type="file" id="importFileInput" accept=".xlsx">
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat" onclick="importLog()">Import</a>
+        </div>
+    </div>
+
+    <!-- Clear Logs Modal -->
+    <div id="clearLogsModal" class="modal">
+        <div class="modal-content">
+            <h4>Clear Logs</h4>
+            <p>Are you sure you want to clear all logs?</p>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-red btn-flat" onclick="confirmClearLogs()">Clear</a>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+    <script>
+        let currentPowder = 0;
+        let log = [];
+
+        const psiLookupTable = {
+            4500: 276.0,
+            4000: 230.0,
+            3500: 195.0,
+            3000: 186.0,
+            2500: 177.0
+        };
+
+        const calciumLookupTable = {
+            0: {
+                polyheed: 500.0,
+                he122: 0.0
+            },
+            1: {
+                polyheed: 500.0,
+                he122: 1000.0
+            },
+            2: {
+                polyheed: 250.0,
+                he122: 1750.0
+            }
+        };
+
+        function setYards(value) {
+            document.getElementById('yards').value = value;
+            calculate();
         }
-    };
-    function setYards(value) {
-        document.getElementById('yards').value = value;
-        calculate();
-    }
-    function changeYards(delta) {
-        const yardsInput = document.getElementById('yards');
-        let currentValue = parseFloat(yardsInput.value) || 0;
-        currentValue += delta;
-        yardsInput.value = currentValue.toFixed(2);
-        calculate();
-    }
-    function calculate() {
-        const yards = parseFloat(document.getElementById('yards').value);
-        const calcium = parseInt(document.querySelector('input[name="calcium"]:checked').value);
-        const psi = parseInt(document.querySelector('input[name="psi"]:checked').value);
 
-        // Lookup values from tables
-        const type10PerYard = psiLookupTable[psi];
-        const calciumData = calciumLookupTable[calcium];
+        function changeYards(delta) {
+            const yardsInput = document.getElementById('yards');
+            let currentValue = parseFloat(yardsInput.value) || 0;
+            currentValue += delta;
+            yardsInput.value = currentValue.toFixed(2);
+            calculate();
+        }
 
-        // Perform calculations using lookup values
-        const type10 = type10PerYard * yards;
-        const pitrun = yards * 1451;
-        const water = yards * 100;
-        const microAir = yards * type10PerYard * 22 / 100;
-        const polyheed = yards * type10PerYard * calciumData.polyheed / 100000;
-        const he122 = yards * type10PerYard * calciumData.he122 / 100000
+        function calculate() {
+            const yards = parseFloat(document.getElementById('yards').value);
+            const calcium = parseInt(document.querySelector('input[name="calcium"]:checked').value);
+            const psi = parseInt(document.querySelector('input[name="psi"]:checked').value);
 
-        // Update output elements
-        document.getElementById('yards-text').value = yards.toFixed(2);
-        document.getElementById('type10').value = type10.toFixed(2);
-        document.getElementById('pitrun').value = pitrun.toFixed(2);
-        document.getElementById('water').value = water.toFixed(2);
-        document.getElementById('microAir').value = microAir.toFixed(2);
-        document.getElementById('polyheedOutput').value = polyheed.toFixed(2);
-        document.getElementById('he122').value = he122.toFixed(2);
-    }
-    document.addEventListener('DOMContentLoaded', (event) => {
-        document.getElementById('yards').addEventListener('input', calculate);
-        document.querySelectorAll('input[name="calcium"]').forEach((element) => {
-            element.addEventListener('change', calculate);
+            // Lookup values from tables
+            const type10PerYard = psiLookupTable[psi];
+            const calciumData = calciumLookupTable[calcium];
+
+            // Perform calculations using lookup values
+            const type10 = type10PerYard * yards;
+            const pitrun = yards * 1451;
+            const water = yards * 100;
+            const microAir = yards * type10PerYard * 22 / 100;
+            const polyheed = yards * type10PerYard * calciumData.polyheed / 100000;
+            const he122 = yards * type10PerYard * calciumData.he122 / 100000
+
+            // Update output elements
+            document.getElementById('yards-text').value = yards.toFixed(2);
+            document.getElementById('type10').value = type10.toFixed(2);
+            document.getElementById('pitrun').value = pitrun.toFixed(2);
+            document.getElementById('water').value = water.toFixed(2);
+            document.getElementById('microAir').value = microAir.toFixed(2);
+            document.getElementById('polyheedOutput').value = polyheed.toFixed(2);
+            document.getElementById('he122').value = he122.toFixed(2);
+        }
+
+        function toggleEditMode() {
+            const editModeCheckbox = document.getElementById('editModeCheckbox');
+            const editTables = document.getElementById('editTables');
+            if (editModeCheckbox.checked) {
+                editTables.style.display = 'block';
+                loadLookupTables();
+            } else {
+                editTables.style.display = 'none';
+            }
+        }
+
+        function loadLookupTables() {
+            const psiContainer = document.getElementById('psiLookupTable');
+            const calciumContainer = document.getElementById('calciumLookupTable');
+            psiContainer.innerHTML = '';
+            calciumContainer.innerHTML = '';
+            for (const [psi, value] of Object.entries(psiLookupTable)) {
+                const label = document.createElement('label');
+                label.textContent = `PSI ${psi}:`;
+                const input = document.createElement('input');
+                input.type = 'number';
+                input.value = value;
+                input.dataset.key = psi;
+                psiContainer.appendChild(label);
+                psiContainer.appendChild(input);
+                psiContainer.appendChild(document.createElement('br'));
+            }
+            for (const [calcium, data] of Object.entries(calciumLookupTable)) {
+                const label = document.createElement('label');
+                label.textContent = `Calcium ${calcium}:`;
+                const input1 = document.createElement('input');
+                input1.type = 'number';
+                input1.value = data.polyheed;
+                input1.dataset.key = calcium;
+                input1.dataset.type = 'polyheed';
+                const input2 = document.createElement('input');
+                input2.type = 'number';
+                input2.value = data.he122;
+                input2.dataset.key = calcium;
+                input2.dataset.type = 'he122';
+                calciumContainer.appendChild(label);
+                calciumContainer.appendChild(input1);
+                calciumContainer.appendChild(input2);
+                calciumContainer.appendChild(document.createElement('br'));
+            }
+        }
+
+        function saveLookupTables() {
+            const psiContainer = document.getElementById('psiLookupTable');
+            const calciumContainer = document.getElementById('calciumLookupTable');
+            psiLookupTable = {};
+            calciumLookupTable = {};
+            for (const input of psiContainer.querySelectorAll('input')) {
+                const psi = input.dataset.key;
+                const value = parseFloat(input.value);
+                psiLookupTable[psi] = value;
+            }
+            for (const input of calciumContainer.querySelectorAll('input')) {
+                const calcium = input.dataset.key;
+                const type = input.dataset.type;
+                if (!calciumLookupTable[calcium]) {
+                    calciumLookupTable[calcium] = {};
+                }
+                calciumLookupTable[calcium][type] = parseFloat(input.value);
+            }
+            alert('Lookup tables saved.');
+            calculate();
+        }
+
+        function confirmAddPowder() {
+            const powder = parseFloat(document.getElementById('addPowderInput').value);
+            if (!isNaN(powder)) {
+                currentPowder += powder;
+                logAction('Add', powder);
+                saveLog();
+            }
+        }
+
+        function confirmRemovePowder() {
+            const powder = parseFloat(document.getElementById('removePowderInput').value);
+            if (!isNaN(powder)) {
+                currentPowder -= powder;
+                logAction('Remove', powder);
+                saveLog();
+            }
+        }
+
+        function confirmResetPowder() {
+            currentPowder = 0;
+            logAction('Reset', 0);
+            saveLog();
+        }
+
+        function confirmClearLogs() {
+            log = [];
+            document.getElementById('log').value = '';
+            saveLog();
+        }
+
+        function logAction(action, amount) {
+            const date = new Date().toLocaleString();
+            const entry = { date, action, amount };
+            log.push(entry);
+            updateLogDisplay();
+        }
+
+        function updateLogDisplay() {
+            document.getElementById('log').value = log.map(entry => `${entry.date} - ${entry.action} ${entry.amount} kg`).join('\n');
+        }
+
+        function saveLog() {
+            localStorage.setItem('log', JSON.stringify(log));
+        }
+
+        function loadLog() {
+            const savedLog = localStorage.getItem('log');
+            if (savedLog) {
+                log = JSON.parse(savedLog);
+                updateLogDisplay();
+            }
+        }
+
+        function exportLog() {
+            const wb = XLSX.utils.book_new();
+            const wsData = [['Date', 'Action', 'Powder (kg)'], ...log.map(entry => [entry.date, entry.action, entry.amount])];
+            const ws = XLSX.utils.aoa_to_sheet(wsData);
+            XLSX.utils.book_append_sheet(wb, ws, 'Log');
+            XLSX.writeFile(wb, 'log.xlsx');
+        }
+
+        function importLog() {
+            const fileInput = document.getElementById('importFileInput');
+            const file = fileInput.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const data = new Uint8Array(e.target.result);
+                    const workbook = XLSX.read(data, { type: 'array' });
+                    const sheet = workbook.Sheets[workbook.SheetNames[0]];
+                    const importedLog = XLSX.utils.sheet_to_json(sheet, { header: 1 });
+                    log = importedLog.slice(1).map(row => ({ date: row[0], action: row[1], amount: parseFloat(row[2]) }));
+                    updateLogDisplay();
+                    saveLog();
+                };
+                reader.readAsArrayBuffer(file);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', (event) => {
+            document.getElementById('yards').addEventListener('input', calculate);
+            document.querySelectorAll('input[name="calcium"]').forEach((element) => {
+                element.addEventListener('change', calculate);
+            });
+            document.querySelectorAll('input[name="psi"]').forEach((element) => {
+                element.addEventListener('change', calculate);
+            });
+            loadLog();
+            calculate();
+            $('.modal').modal();
         });
-        document.querySelectorAll('input[name="psi"]').forEach((element) => {
-            element.addEventListener('change', calculate);
-        });
-        calculate();
-    });
-</script>
-<script src="/static/materialize.min.js"></script>
+    </script>
+    <script src="/static/materialize.min.js"></script>
+</body>
+</html>
