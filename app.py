@@ -64,6 +64,10 @@ def cc():
 def bits():
     return render_template("bits_app.html")
 
+@app.route("/bitsapp")
+def bits_app():
+    return render_template("bits_app.html")
+
 
 def check_user_log_file() -> None:
     if not os.path.isfile(file_name):

@@ -7,20 +7,21 @@
     <link href="https://cdn.jsdelivr.net/npm/beercss@3.7.8/dist/cdn/beer.min.css" rel="stylesheet">
     <script type="module" src="https://cdn.jsdelivr.net/npm/beercss@3.7.8/dist/cdn/beer.min.js"></script>
     <link href="/static/theme.css" rel="stylesheet">
+    <meta property="og:title" content="CNC Bit Calculators"/>
+    <meta property="og:url" content="http://pinelandcabinets.hbni.net/bitsapp" />
+    <meta property="og:description" content="CNC Bit Calculators" />
     <script src="/static/jquery.js"></script>
-    <link rel="icon" type="image/png" href="https://github.com/Jared-Gross/Bits-App/blob/master/icons/icon5.png?raw=true">
+    <link rel="icon" type="image/png" href="/static/bitsapp.png">
 </head>
-<body class="dark">
+<body class="light">
     <div class="overlay blur"></div>
     <dialog id="about-dialog">
         <div class="row max center-align">
-            <img class="responsive" style="max-width: 150px; height: auto;" fetchpriority="low" loading="lazy" src="https://github.com/Jared-Gross/Bits-App/blob/master/icons/icon5.png?raw=true" alt="" width="128" height="128">
+            <img class="responsive round border" style="max-width: 150px; height: auto;" fetchpriority="low" loading="lazy" src="/static/bitsapp.png" alt="" width="128" height="128">
         </div>
         <div class="padding">
             <h5 class="small center-align" id="app-name-version">CNC Bits App v1.0.0</h5>
-            <p class="center-align">
-                A comprehensive app for calculating,<br>
-                feedrate and chipload for CNC machinery.</p>
+            <p class="center-align">A comprehensive app for calculating feedrate and chipload for CNC machinery.</p>
             <p class="center-align">Developed with <i>favorite</i> by <a class="link" href="https://thecodingjsoftware.github.io/">TheCodingJ's</a></p>
         </div>
         <article class="border" style="margin-top: auto;">
@@ -37,10 +38,13 @@
 
     <header class="fixed primary">
         <nav>
-            <button class="square transparent" onclick="ui('#about-dialog')">
-                <img class="responsive" src="https://github.com/Jared-Gross/Bits-App/blob/master/icons/icon5.png?raw=true">
+            <button class="small-round link no-padding left-margin transparent" onclick="ui('#about-dialog')">
+                <img class="responsive" src="/static/bitsapp.png">
             </button>
           <h5 class="max">CNC Bits App</h5>
+          <button id="themeToggle" class="circle transparent" onclick="toggleTheme()">
+              <i>dark_mode</i>
+          </button>
         </nav>
     </header>
     <main class="responsive center-align">
@@ -49,7 +53,7 @@
                 <h3>Feedrate Calculator</h3>
                 <form id="feedrateForm">
                     <div class="grid">
-                        <div class="field label border max s6">
+                        <div class="field label border max suffix s6">
                             <select id="bitWidth">
                                 <option value="1/8" selected>1/8"</option>
                                 <option value="1/4">1/4"</option>
@@ -57,8 +61,9 @@
                                 <option value="1/2">1/2"</option>
                             </select>
                             <label>Bit Width</label>
+                            <i>straighten</i>
                         </div>
-                        <div class="field label border s6">
+                        <div class="field label border suffix s6">
                             <select id="material">
                                 <option value="Hard Wood" selected>Hard Wood</option>
                                 <option value="Softwood & Plywood">Softwood & Plywood</option>
@@ -72,20 +77,24 @@
                                 <option value="Aluminium">Aluminium</option>
                             </select>
                             <label>Material</label>
+                            <i>category</i>
                         </div>
                     </div>
-                    <div class="field label border">
+                    <div class="field label suffix border">
                         <select id="chipload">
                             <!-- Options will be dynamically populated -->
                         </select>
                         <label>Chipload</label>
+                        <i>precision_manufacturing</i>
                     </div>
                     <div class="grid">
-                        <div class="field label border s6">
+                        <div class="field label prefix border s6">
+                            <i>tag</i>
                             <input type="number" id="flutes" min="1" max="4" value="2">
                             <label for="flutes"># of Flutes</label>
                         </div>
-                        <div class="field label border s6">
+                        <div class="field label prefix border s6">
+                            <i>rotate_right</i>
                             <input type="number" id="rpm" min="1000" max="30000" value="18000">
                             <label for="rpm">RPM</label>
                         </div>
@@ -100,16 +109,19 @@
             <article class="s12 m6 l6">
                 <h3>Chipload Calculator</h3>
                 <form id="chiploadForm">
-                    <div class="field label border">
+                    <div class="field label prefix border">
+                        <i>speed</i>
                         <input type="number" id="inputFeedrate" min="1" step="0.01" value="600">
                         <label for="inputFeedrate">Feedrate (inches per minute)</label>
                     </div>
                     <div class="grid">
-                        <div class="field label border s6">
+                        <div class="field label prefix border s6">
+                            <i>tag</i>
                             <input type="number" id="inputFlutes" min="1" max="4" value="2">
                             <label for="inputFlutes"># of Flutes</label>
                         </div>
-                        <div class="field label border s6">
+                        <div class="field label prefix border s6">
+                            <i>rotate_right</i>
                             <input type="number" id="inputRPM" min="1000" max="30000" value="18000">
                             <label for="inputRPM">RPM</label>
                         </div>
@@ -122,18 +134,34 @@
                 </div>
             </article>
         </div>
-        <br>
-        <div class="left-align">
-            <h3>CNC Bit Tips</h3>
-            <article>
+        <div class="row scroll top-align tiny-padding">
+            <article class="large-width">
+                <h5>Note Worthy Information</h5>
+                <blockquote>
+                    For plastic bits, run tools at a lower rpm, (i.e. +/- 14,000) and consult the plastic chip load recommendations.
+                    <br>
+                    <br>
+                    Here is an excellent article "<a class="link" href="https://www.woodshopnews.com/columns-blogs/factors-to-factoring-chip-load">Factors on Factoring Chip Load</a>" written by Ted Bruning, a woodworker and college instructor, with points that will resonate with most machinists.
+                    <br>
+                    <br>
+                    To learn from other seasoned woodworkers experience and trials, click <a class="link" href="https://woodweb.com/knowledge_base/Chip_Load_and_Tool_Diameter.html">here</a> to learn about chipload on the wood industry forum, <a class="link" href="https://www.woodweb.com">www.woodweb.com</a>!
+                    <br>
+                    <br>
+                    To determine the optimum chip load for tool life/finish quality and further fine-tune your machining parameters for optimum tool life based on material and tool, please refer to Pg 47 of <a class="link" href="https://cdn.dynamixse.com/blog/wp-content/uploads/sites/3/2018/06/CNC-Tooling-Guide-by-GDP-Tools.pdf">CNC Tooling Guide by GDP Tools</a>.
+                    <br>
+                </blockquote>
+                <p class="right-align no-padding no-margin"><a class="link" href="https://gdptooling.com/chipload-calc/">gpdtooling</a></p>
+
+            </article>
+            <article class="medium-width">
                 <h5>Tip #1: Improve Bit Life</h5>
                 <blockquote>Want to improve your bit life? The key for a long lasting bit life is giving it a cool life. Use an infrared digital thermometer and keep an eye on its temperature, typically between 23 to 35 degrees Celsius but can vary between types of materials.</blockquote>
             </article>
-            <article>
+            <article class="medium-width">
                 <h5>Tip #2: Higher Chipload</h5>
                 <blockquote>Higher chipload = cooler bit life, but also can cause ripping, chipping and whipping.</blockquote>
             </article>
-            <article>
+            <article class="medium-width">
                 <h5>Tip #3: Lower Chipload</h5>
                 <blockquote>Lower chipload = finer and hotter cuts. Hotter? Yes, heat destroys bit life... be careful now. Running large nested files/sheets will heat your bit up and damage its cutting edge.</blockquote>
             </article>
@@ -233,6 +261,30 @@
                 }
             ];
 
+        function toggleTheme() {
+            const body = document.body;
+            const icon = document.querySelector('#themeToggle i');
+            if (body.classList.contains('dark')) {
+                body.classList.remove('dark');
+                body.classList.add('light');
+                icon.textContent = 'dark_mode';
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.classList.remove('light');
+                body.classList.add('dark');
+                icon.textContent = 'light_mode';
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        function applyTheme() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            const body = document.body;
+            const icon = document.querySelector('#themeToggle i');
+            body.classList.add(savedTheme);
+            icon.textContent = savedTheme === 'dark' ? 'light_mode' : 'dark_mode';
+        }
+
         $(document).ready(function(){
             // Function to update chipload options
             function updateChiploadOptions() {
@@ -299,6 +351,9 @@
             updateChiploadOptions();
             calculateFeedrate();
             calculateChipload();
+        });
+        document.addEventListener('DOMContentLoaded', (event) => {
+            applyTheme();
         });
     </script>
 </body>

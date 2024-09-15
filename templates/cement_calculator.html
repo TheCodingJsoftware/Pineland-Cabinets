@@ -1,179 +1,186 @@
 <!doctype html>
+
 <head>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="/static/jquery.js"></script>
     <script src="/static/bootstrap.js"></script>
     <script src="/static/bootstrap-select.js"></script>
-    <link type="text/css" href="/static/bootstrap.css" rel="stylesheet" />
-    <link type="text/css" href="/static/bootstrap-select.css" rel="stylesheet" />
-    <link rel="stylesheet" href="/static/materialize.min.css">
-    <link rel="stylesheet" href="/static/icon.css">
-    <link rel="stylesheet" href="/static/main.css">
+    <link href="https://cdn.jsdelivr.net/npm/beercss@3.7.8/dist/cdn/beer.min.css" rel="stylesheet">
+    <script type="module" src="https://cdn.jsdelivr.net/npm/beercss@3.7.8/dist/cdn/beer.min.js"></script>
+    <link href="/static/theme.css" rel="stylesheet">
     <title>Cement Calculator</title>
-    <meta property="og:title" content="Cement Calculator"/>
+    <meta property="og:title" content="Cement Calculator" />
     <meta property="og:url" content="http://pinelandcabinets.hbni.net/cementcalculator" />
     <meta property="og:description" content="Cement Calculator" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="/static/cementcalculator.png">
 </head>
-<body class="cement-body">
-    <form id="calculationForm">
-        <div class="output-container">
-            <div class="form-group">
-                <label>Yards:</label>
-                <output id="yards-text">0</output>
-            </div>
-            <div class="form-group">
-                <label>Type 10 (kg):</label>
-                <output id="type10">0</output>
-            </div>
-            <div class="form-group">
-                <label>Pitrun (kg):</label>
-                <output id="pitrun">0</output>
-            </div>
-            <div class="form-group">
-                <label>Water (kg):</label>
-                <output id="water">0</output>
-            </div>
-            <div class="form-group">
-                <label>Micro Air (mL):</label>
-                <output id="microAir">0</output>
-            </div>
-            <div class="form-group">
-                <label>Polyheed (L):</label>
-                <output id="polyheedOutput">0</output>
-            </div>
-            <div class="form-group">
-                <label>122 HE (L):</label>
-                <output id="he122">0</output>
-            </div>
+
+<body class="light">
+    <div class="overlay blur"></div>
+    <dialog id="about-dialog">
+        <div class="row max center-align">
+            <img class="responsive circle border" style="max-width: 150px; height: auto;" fetchpriority="low" loading="lazy"
+                src="/static/cementcalculator.png" alt="" width="128"
+                height="128">
         </div>
-        <div class="form-group" style="display: flex; margin: auto; justify-content: center; gap: 15px;">
-            <div class="form-group">
-                <label>PSI:</label>
-                <label><input type="radio" name="psi" value="4500" checked> <span>4500 PSI</span></label>
-                <label><input type="radio" name="psi" value="4000"> <span>4000 PSI</span></label>
-                <label><input type="radio" name="psi" value="3500"> <span>3500 PSI</span></label>
-                <label><input type="radio" name="psi" value="3000"> <span>3000 PSI</span></label>
-            </div>
-            <div class="form-group">
-                <label>Calcium:</label>
-                <label><input type="radio" name="calcium" value="0" checked> <span>0% Calcium</span></label>
-                <label><input type="radio" name="calcium" value="1"> <span>1% Calcium</span></label>
-                <label><input type="radio" name="calcium" value="2"> <span>2% Calcium</span></label>
+        <div class="padding">
+            <h5 class="small center-align" id="app-name-version">Cement Calculator v1.0.0</h5>
+            <p class="center-align">
+                A comprehensive app for calculating cement mixture.</p>
+            <p class="center-align">Developed with <i>favorite</i> by <a class="link"
+                    href="https://thecodingjsoftware.github.io/">TheCodingJ's</a></p>
+        </div>
+        <article class="border" style="margin-top: auto;">
+            <p class="center-align">
+                For questions, comments, suggestions, <br>
+                or concerns about this service please <br>
+                email: <a class="link" href="mailto:jared@pinelandfarms.ca">jared@pinelandfarms.ca</a>.
+            </p>
+        </article>
+        <nav class="right-align no-space">
+            <button class="transparent link small-round" onclick="ui('#about-dialog')">Close</button>
+        </nav>
+    </dialog>
+    <header class="fixed primary">
+        <nav>
+            <button class="circle transparent" onclick="ui('#about-dialog')">
+                <img class="responsive"
+                    src="/static/cementcalculator.png">
+            </button>
+            <h5 class="max">Cement Calculator</h5>
+            <button id="themeToggle" class="circle transparent" onclick="toggleTheme()">
+                <i>dark_mode</i>
+            </button>
+        </nav>
+    </header>
+    <main class="responsive">
+        <div class="grid">
+            <article class="s12 m5 l3">
+                <p><i>straighten</i> Yards: <span id="yards-text">0</span></p>
+                <p><i>construction</i> Type 10 (kg): <span id="type10">0</span></p>
+                <p><i>terrain</i> Pitrun (kg): <span id="pitrun">0</span></p>
+                <p><i>water_drop</i> Water (kg): <span id="water">0</span></p>
+                <p><i>air</i> Micro Air (mL): <span id="microAir">0</span></p>
+                <p><i>science</i> Polyheed (L): <span id="polyheedOutput">0</span></p>
+                <p><i>science</i> 122 HE (L): <span id="he122">0</span></p>
+            </article>
+            <div class="s12 m7 l9">
+                <div class="grid bottom-padding">
+                    <div class="field prefix label border max extra s8 m8 l4">
+                        <i>straighten</i>
+                        <input type="number" id="yards" name="yards" value="1.0" required data-has-listeners="true">
+                        <label>Yards</label>
+                    </div>
+                    <div class="no-margin s4 m4 l2">
+                        <button class="small small-round tiny-margin row" onclick="changeYards(0.25)">
+                            <i>add</i>
+                            <span>0.25</span>
+                        </button>
+                        <button class="small small-round tiny-margin row" onclick="changeYards(-0.25)">
+                            <i>remove</i>
+                            <span>0.25</span>
+                        </button>
+                    </div>
+                    <div class="field label suffix border s6 m6 l3">
+                        <select name="psi" id="psi" data-has-listeners="true">
+                            <option value="4500" selected>4500 PSI</option>
+                            <option value="4000">4000 PSI</option>
+                            <option value="3500">3500 PSI</option>
+                            <option value="3000">3000 PSI</option>
+                        </select>
+                        <label>PSI</label>
+                        <i>construction</i>
+                        <span class="helper" id="psiHelper"></span>
+                    </div>
+                    <div class="field label suffix border s6 m6 l3">
+                        <select name="calcium" id="calcium" data-has-listeners="true">
+                            <option value="0" selected>0% Calcium</option>
+                            <option value="1">1% Calcium</option>
+                            <option value="2">2% Calcium</option>
+                        </select>
+                        <label>Calcium</label>
+                        <i>science</i>
+                    </div>
+                </div>
+                <article class="left-align">
+                    <h4>Quick Select Yards</h4>
+                    <div class="grid center-align">
+                        <button class="small small-round s4 m4 l4" onclick="setYards(3)">
+                            <span>3</span>
+                        </button>
+                        <button class="small small-round s4 m4 l4" onclick="setYards(3.5)">
+                            <span>3.5</span>
+                        </button>
+                        <button class="small small-round s4 m4 l4" onclick="setYards(4)">
+                            <span>4</span>
+                        </button>
+                        <button class="small small-round s4 m4 l4" onclick="setYards(4.5)">
+                            <span>4.5</span>
+                        </button>
+                        <button class="small small-round s4 m4 l4" onclick="setYards(5)">
+                            <span>5</span>
+                        </button>
+                        <button class="small small-round s4 m4 l4" onclick="setYards(5.5)">
+                            <span>5.5</span>
+                        </button>
+                        <button class="small small-round s4 m4 l4" onclick="setYards(6)">
+                            <span>6</span>
+                        </button>
+                        <button class="small small-round s4 m4 l4" onclick="setYards(6.5)">
+                            <span>6.5</span>
+                        </button>
+                        <button class="small small-round s4 m4 l4" onclick="setYards(7)">
+                            <span>7</span>
+                        </button>
+                    </div>
+                </article>
+                <div class="grid">
+                </div>
             </div>
         </div>
         <br>
-        <div class="form-group" style="text-align: left; display: flex;">
-            <div class="form-group" style="text-align: left;">
-                <label for="yards">Yards:</label>
-                <input type="number" id="yards" name="yards" value="1.0" required>
+        <label class="checkbox icon padding">
+            <input type="checkbox" id="editModeCheckbox" onchange="toggleEditMode()" data-has-listeners="true">
+            <span>
+                <i>edit_off</i>
+                <i>edit</i>
+            </span>
+            <span>Edit Mode</span>
+        </label>
+        <div class="grid" id="editTables" style="display: none;">
+            <div class="s12 m4 l4">
+                <article>
+                    <h4>PSI</h4>
+                    <br>
+                    <div id="psiLookupTable"></div>
+                </article>
             </div>
-            <div class="form-group" style="text-align: left; display: inline-grid;">
-                <a type="button" class="waves-effect waves-light btn" onclick="changeYards(0.25)"><span>+ 0.25</span></a>
-                <a type="button" class="waves-effect waves-light btn" onclick="changeYards(-0.25)"><span>- 0.25</span></a>
+            <div class="s12 m8 l8">
+                <article >
+                    <h4>Calcium</h4>
+                    <br>
+                    <div id="calciumLookupTable"></div>
+                </article>
+            </div>
+            <br>
+            <div class="s12">
+                <button class="small-round" type="button" onclick="saveLookupTables()">
+                    <i>save</i>
+                    <span>Save Tables</span>
+                </button>
+                <button class="small-round" type="button" onclick="resetLookupTables()">
+                    <i>refresh</i>
+                    <span>Reset Tables</span>
+                </button>
             </div>
         </div>
-        <label for="quick-select-buttons">Quick Select Yards:</label>
-        <div class="quick-select-buttons">
-            <a class="waves-effect waves-light btn" type="button" onclick="setYards(3)"><span>3</span></a>
-            <a class="waves-effect waves-light btn" type="button" onclick="setYards(3.5)"><span>3.5</span></a>
-            <a class="waves-effect waves-light btn" type="button" onclick="setYards(4)"><span>4</span></a>
-            <a class="waves-effect waves-light btn" type="button" onclick="setYards(4.5)"><span>4.5</span></a>
-            <a class="waves-effect waves-light btn" type="button" onclick="setYards(5)"><span>5</span></a>
-            <a class="waves-effect waves-light btn" type="button" onclick="setYards(5.5)"><span>5.5</span></a>
-            <a class="waves-effect waves-light btn" type="button" onclick="setYards(6)"><span>6</span></a>
-            <a class="waves-effect waves-light btn" type="button" onclick="setYards(6.5)"><span>6.5</span></a>
-        </div>
-        <div class="form-group">
-            <label for="editModeCheckbox">Edit Mode</label>
-            <input type="checkbox" id="editModeCheckbox" onchange="toggleEditMode()">
-        </div>
-        <div id="editTables" style="display: none;">
-            <label>PSI Lookup Table:</label>
-            <div id="psiLookupTable"></div>
-            <label>Calcium Lookup Table:</label>
-            <div id="calciumLookupTable"></div>
-            <button type="button" onclick="saveLookupTables()">Save Tables</button>
-        </div>
-        <div>
-            <button type="button" class="waves-effect waves-light btn modal-trigger" data-target="addPowderModal">Add Powder to Bin</button>
-            <button type="button" class="waves-effect waves-light btn modal-trigger" data-target="removePowderModal">Remove Powder from Bin</button>
-            <button type="button" class="waves-effect waves-light btn modal-trigger" data-target="resetPowderModal">Reset Powder</button>
-        </div>
-        <div>
-            <button type="button" class="waves-effect waves-light btn" onclick="exportLog()">Export Log</button>
-            <button type="button" class="waves-effect waves-light btn modal-trigger" data-target="importLogModal">Import Log</button>
-            <button type="button" class="waves-effect waves-light btn modal-trigger" data-target="clearLogsModal">Clear Logs</button>
-        </div>
-        <div>
-            <label for="log">Log:</label>
-            <textarea id="log" rows="10" cols="50" readonly></textarea>
-        </div>
-    </form>
-
-    <!-- Add Powder Modal -->
-    <div id="addPowderModal" class="modal">
-        <div class="modal-content">
-            <h4>Add Powder to Bin</h4>
-            <label for="addPowderInput">Enter Powder (kg):</label>
-            <input type="number" id="addPowderInput">
-        </div>
-        <div class="modal-footer">
-            <a href="#!" class="modal-close waves-effect waves-green btn-flat" onclick="confirmAddPowder()">Add</a>
-        </div>
-    </div>
-
-    <!-- Remove Powder Modal -->
-    <div id="removePowderModal" class="modal">
-        <div class="modal-content">
-            <h4>Remove Powder from Bin</h4>
-            <label for="removePowderInput">Enter Powder (kg):</label>
-            <input type="number" id="removePowderInput">
-        </div>
-        <div class="modal-footer">
-            <a href="#!" class="modal-close waves-effect waves-green btn-flat" onclick="confirmRemovePowder()">Remove</a>
-        </div>
-    </div>
-
-    <!-- Reset Powder Modal -->
-    <div id="resetPowderModal" class="modal">
-        <div class="modal-content">
-            <h4>Reset Powder</h4>
-            <p>Are you sure you want to reset the powder to 0?</p>
-        </div>
-        <div class="modal-footer">
-            <a href="#!" class="modal-close waves-effect waves-red btn-flat" onclick="confirmResetPowder()">Reset</a>
-        </div>
-    </div>
-
-    <!-- Import Log Modal -->
-    <div id="importLogModal" class="modal">
-        <div class="modal-content">
-            <h4>Import Log</h4>
-            <input type="file" id="importFileInput" accept=".xlsx">
-        </div>
-        <div class="modal-footer">
-            <a href="#!" class="modal-close waves-effect waves-green btn-flat" onclick="importLog()">Import</a>
-        </div>
-    </div>
-
-    <!-- Clear Logs Modal -->
-    <div id="clearLogsModal" class="modal">
-        <div class="modal-content">
-            <h4>Clear Logs</h4>
-            <p>Are you sure you want to clear all logs?</p>
-        </div>
-        <div class="modal-footer">
-            <a href="#!" class="modal-close waves-effect waves-red btn-flat" onclick="confirmClearLogs()">Clear</a>
-        </div>
-    </div>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+    </main>
     <script>
         let currentPowder = 0;
         let log = [];
 
-        const psiLookupTable = {
+        const defaultPsiLookupTable = {
             4500: 276.0,
             4000: 230.0,
             3500: 195.0,
@@ -181,7 +188,7 @@
             2500: 177.0
         };
 
-        const calciumLookupTable = {
+        const defaultCalciumLookupTable = {
             0: {
                 polyheed: 500.0,
                 he122: 0.0
@@ -196,6 +203,33 @@
             }
         };
 
+        let psiLookupTable = JSON.parse(localStorage.getItem('psiLookupTable')) || JSON.parse(JSON.stringify(defaultPsiLookupTable));
+        let calciumLookupTable = JSON.parse(localStorage.getItem('calciumLookupTable')) || JSON.parse(JSON.stringify(defaultCalciumLookupTable));
+
+        function toggleTheme() {
+            const body = document.body;
+            const icon = document.querySelector('#themeToggle i');
+            if (body.classList.contains('dark')) {
+                body.classList.remove('dark');
+                body.classList.add('light');
+                icon.textContent = 'dark_mode';
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.classList.remove('light');
+                body.classList.add('dark');
+                icon.textContent = 'light_mode';
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        function applyTheme() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            const body = document.body;
+            const icon = document.querySelector('#themeToggle i');
+            body.classList.add(savedTheme);
+            icon.textContent = savedTheme === 'dark' ? 'light_mode' : 'dark_mode';
+        }
+
         function setYards(value) {
             document.getElementById('yards').value = value;
             calculate();
@@ -209,10 +243,16 @@
             calculate();
         }
 
+        function updatePsiHelper() {
+            const psi = document.getElementById('psi').value;
+            const helperText = document.getElementById('psiHelper');
+            helperText.textContent = `${psiLookupTable[psi]} kg/yard`;
+        }
+
         function calculate() {
             const yards = parseFloat(document.getElementById('yards').value);
-            const calcium = parseInt(document.querySelector('input[name="calcium"]:checked').value);
-            const psi = parseInt(document.querySelector('input[name="psi"]:checked').value);
+            const calcium = parseInt(document.getElementById('calcium').value);
+            const psi = parseInt(document.getElementById('psi').value);
 
             // Lookup values from tables
             const type10PerYard = psiLookupTable[psi];
@@ -227,20 +267,21 @@
             const he122 = yards * type10PerYard * calciumData.he122 / 100000
 
             // Update output elements
-            document.getElementById('yards-text').value = yards.toFixed(2);
-            document.getElementById('type10').value = type10.toFixed(2);
-            document.getElementById('pitrun').value = pitrun.toFixed(2);
-            document.getElementById('water').value = water.toFixed(2);
-            document.getElementById('microAir').value = microAir.toFixed(2);
-            document.getElementById('polyheedOutput').value = polyheed.toFixed(2);
-            document.getElementById('he122').value = he122.toFixed(2);
+            document.getElementById('yards-text').innerText = yards.toFixed(2);
+            document.getElementById('type10').innerText = type10.toFixed(2);
+            document.getElementById('pitrun').innerText = pitrun.toFixed(2);
+            document.getElementById('water').innerText = water.toFixed(2);
+            document.getElementById('microAir').innerText = microAir.toFixed(2);
+            document.getElementById('polyheedOutput').innerText = polyheed.toFixed(2);
+            document.getElementById('he122').innerText = he122.toFixed(2);
+            updatePsiHelper();
         }
 
         function toggleEditMode() {
             const editModeCheckbox = document.getElementById('editModeCheckbox');
             const editTables = document.getElementById('editTables');
             if (editModeCheckbox.checked) {
-                editTables.style.display = 'block';
+                editTables.style.display = 'grid';
                 loadLookupTables();
             } else {
                 editTables.style.display = 'none';
@@ -253,33 +294,59 @@
             psiContainer.innerHTML = '';
             calciumContainer.innerHTML = '';
             for (const [psi, value] of Object.entries(psiLookupTable)) {
+                const fieldDiv = document.createElement('div');
+                fieldDiv.className = 'field label border';
                 const label = document.createElement('label');
-                label.textContent = `PSI ${psi}:`;
+                label.textContent = `${psi} PSI:`;
                 const input = document.createElement('input');
                 input.type = 'number';
                 input.value = value;
                 input.dataset.key = psi;
-                psiContainer.appendChild(label);
-                psiContainer.appendChild(input);
-                psiContainer.appendChild(document.createElement('br'));
+                fieldDiv.appendChild(input);
+                fieldDiv.appendChild(label);
+                psiContainer.appendChild(fieldDiv);
             }
             for (const [calcium, data] of Object.entries(calciumLookupTable)) {
-                const label = document.createElement('label');
-                label.textContent = `Calcium ${calcium}:`;
-                const input1 = document.createElement('input');
-                input1.type = 'number';
-                input1.value = data.polyheed;
-                input1.dataset.key = calcium;
-                input1.dataset.type = 'polyheed';
-                const input2 = document.createElement('input');
-                input2.type = 'number';
-                input2.value = data.he122;
-                input2.dataset.key = calcium;
-                input2.dataset.type = 'he122';
-                calciumContainer.appendChild(label);
-                calciumContainer.appendChild(input1);
-                calciumContainer.appendChild(input2);
-                calciumContainer.appendChild(document.createElement('br'));
+                const grid = document.createElement('div');
+                grid.className = 'grid';
+                calciumContainer.appendChild(grid);
+
+                const percentFieldDiv = document.createElement('h5');
+                percentFieldDiv.className = 'middle-align s12 m2 l2';
+                percentFieldDiv.innerText = `${calcium}%`;
+                grid.appendChild(percentFieldDiv);
+
+                const polyheedFieldDiv = document.createElement('div');
+                polyheedFieldDiv.className = 'field label border prefix s12 m5 l5';
+                const polyheedIcon = document.createElement('i');
+                polyheedIcon.textContent = 'science';
+                const polyheedLabel = document.createElement('label');
+                polyheedLabel.textContent = 'Polyheed (L):';
+                const polyheedInput = document.createElement('input');
+                polyheedInput.type = 'number';
+                polyheedInput.value = data.polyheed;
+                polyheedInput.dataset.key = calcium;
+                polyheedInput.dataset.type = 'polyheed';
+                polyheedFieldDiv.appendChild(polyheedIcon);
+                polyheedFieldDiv.appendChild(polyheedInput);
+                polyheedFieldDiv.appendChild(polyheedLabel);
+                grid.appendChild(polyheedFieldDiv);
+
+                const he122FieldDiv = document.createElement('div');
+                he122FieldDiv.className = 'field label border prefix s12 m5 l5';
+                const he122Icon = document.createElement('i');
+                he122Icon.textContent = 'science';
+                const he122Label = document.createElement('label');
+                he122Label.textContent = 'HE122 (L):';
+                const he122Input = document.createElement('input');
+                he122Input.type = 'number';
+                he122Input.value = data.he122;
+                he122Input.dataset.key = calcium;
+                he122Input.dataset.type = 'he122';
+                he122FieldDiv.appendChild(he122Icon);
+                he122FieldDiv.appendChild(he122Input);
+                he122FieldDiv.appendChild(he122Label);
+                grid.appendChild(he122FieldDiv);
             }
         }
 
@@ -301,102 +368,37 @@
                 }
                 calciumLookupTable[calcium][type] = parseFloat(input.value);
             }
+            localStorage.setItem('psiLookupTable', JSON.stringify(psiLookupTable));
+            localStorage.setItem('calciumLookupTable', JSON.stringify(calciumLookupTable));
+
             alert('Lookup tables saved.');
             calculate();
         }
 
-        function confirmAddPowder() {
-            const powder = parseFloat(document.getElementById('addPowderInput').value);
-            if (!isNaN(powder)) {
-                currentPowder += powder;
-                logAction('Add', powder);
-                saveLog();
-            }
-        }
+        function resetLookupTables() {
+            psiLookupTable = JSON.parse(JSON.stringify(defaultPsiLookupTable));
+            calciumLookupTable = JSON.parse(JSON.stringify(defaultCalciumLookupTable));
 
-        function confirmRemovePowder() {
-            const powder = parseFloat(document.getElementById('removePowderInput').value);
-            if (!isNaN(powder)) {
-                currentPowder -= powder;
-                logAction('Remove', powder);
-                saveLog();
-            }
-        }
+            // Clear localStorage
+            localStorage.removeItem('psiLookupTable');
+            localStorage.removeItem('calciumLookupTable');
 
-        function confirmResetPowder() {
-            currentPowder = 0;
-            logAction('Reset', 0);
-            saveLog();
-        }
-
-        function confirmClearLogs() {
-            log = [];
-            document.getElementById('log').value = '';
-            saveLog();
-        }
-
-        function logAction(action, amount) {
-            const date = new Date().toLocaleString();
-            const entry = { date, action, amount };
-            log.push(entry);
-            updateLogDisplay();
-        }
-
-        function updateLogDisplay() {
-            document.getElementById('log').value = log.map(entry => `${entry.date} - ${entry.action} ${entry.amount} kg`).join('\n');
-        }
-
-        function saveLog() {
-            localStorage.setItem('log', JSON.stringify(log));
-        }
-
-        function loadLog() {
-            const savedLog = localStorage.getItem('log');
-            if (savedLog) {
-                log = JSON.parse(savedLog);
-                updateLogDisplay();
-            }
-        }
-
-        function exportLog() {
-            const wb = XLSX.utils.book_new();
-            const wsData = [['Date', 'Action', 'Powder (kg)'], ...log.map(entry => [entry.date, entry.action, entry.amount])];
-            const ws = XLSX.utils.aoa_to_sheet(wsData);
-            XLSX.utils.book_append_sheet(wb, ws, 'Log');
-            XLSX.writeFile(wb, 'log.xlsx');
-        }
-
-        function importLog() {
-            const fileInput = document.getElementById('importFileInput');
-            const file = fileInput.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const data = new Uint8Array(e.target.result);
-                    const workbook = XLSX.read(data, { type: 'array' });
-                    const sheet = workbook.Sheets[workbook.SheetNames[0]];
-                    const importedLog = XLSX.utils.sheet_to_json(sheet, { header: 1 });
-                    log = importedLog.slice(1).map(row => ({ date: row[0], action: row[1], amount: parseFloat(row[2]) }));
-                    updateLogDisplay();
-                    saveLog();
-                };
-                reader.readAsArrayBuffer(file);
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', (event) => {
-            document.getElementById('yards').addEventListener('input', calculate);
-            document.querySelectorAll('input[name="calcium"]').forEach((element) => {
-                element.addEventListener('change', calculate);
-            });
-            document.querySelectorAll('input[name="psi"]').forEach((element) => {
-                element.addEventListener('change', calculate);
-            });
-            loadLog();
+            loadLookupTables();
+            alert('Lookup tables reset to default values.');
             calculate();
-            $('.modal').modal();
+        }
+        document.addEventListener('DOMContentLoaded', (event) => {
+            applyTheme();
+            document.getElementById('yards').addEventListener('input', calculate);
+            document.getElementById('calcium').addEventListener('change', calculate);
+            document.getElementById('psi').addEventListener('change', calculate);
+            if (localStorage.getItem('psiLookupTable') && localStorage.getItem('calciumLookupTable')) {
+                psiLookupTable = JSON.parse(localStorage.getItem('psiLookupTable'));
+                calciumLookupTable = JSON.parse(localStorage.getItem('calciumLookupTable'));
+            }
+            calculate();
         });
     </script>
-    <script src="/static/materialize.min.js"></script>
 </body>
+
 </html>
