@@ -52,9 +52,17 @@ def graphs():
 def cement_calculator():
     return render_template("cement_calculator.html")
 
+@app.route("/cement")
+def cement():
+    return render_template("cement_calculator.html")
+
 @app.route("/cc")
 def cc():
     return render_template("cement_calculator.html")
+
+@app.route("/bits")
+def bits():
+    return render_template("bits_app.html")
 
 
 def check_user_log_file() -> None:
@@ -231,4 +239,4 @@ def slugify(value, allow_unicode=False):
     return re.sub(r"[-\s]+", "-", value).strip("-_")
 
 
-app.run(host="10.0.0.217", port=5000)
+app.run(host="10.10.80.93", port=5000)

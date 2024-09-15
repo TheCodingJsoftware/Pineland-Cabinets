@@ -11,3 +11,4 @@ static/pictures/upload.py
 static/pictures/ACCESS_TOKEN
 *.zip
 .vscode/
+.venv

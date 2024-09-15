@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CNC Bit Calculators</title>
+    <link href="https://cdn.jsdelivr.net/npm/beercss@3.7.8/dist/cdn/beer.min.css" rel="stylesheet">
+    <script type="module" src="https://cdn.jsdelivr.net/npm/beercss@3.7.8/dist/cdn/beer.min.js"></script>
+    <link href="/static/theme.css" rel="stylesheet">
+    <script src="/static/jquery.js"></script>
+    <link rel="icon" type="image/png" href="https://github.com/Jared-Gross/Bits-App/blob/master/icons/icon5.png?raw=true">
+</head>
+<body class="dark">
+    <div class="overlay blur"></div>
+    <dialog id="about-dialog">
+        <div class="row max center-align">
+            <img class="responsive" style="max-width: 150px; height: auto;" fetchpriority="low" loading="lazy" src="https://github.com/Jared-Gross/Bits-App/blob/master/icons/icon5.png?raw=true" alt="" width="128" height="128">
+        </div>
+        <div class="padding">
+            <h5 class="small center-align" id="app-name-version">CNC Bits App v1.0.0</h5>
+            <p class="center-align">
+                A comprehensive app for calculating,<br>
+                feedrate and chipload for CNC machinery.</p>
+            <p class="center-align">Developed with <i>favorite</i> by <a class="link" href="https://thecodingjsoftware.github.io/">TheCodingJ's</a></p>
+        </div>
+        <article class="border" style="margin-top: auto;">
+            <p class="center-align">
+                For questions, comments, suggestions, <br>
+                or concerns about this service please <br>
+                email: <a class="link" href="mailto:jared@pinelandfarms.ca">jared@pinelandfarms.ca</a>.
+            </p>
+        </article>
+        <nav class="right-align no-space">
+            <button class="transparent link small-round" onclick="ui('#about-dialog')">Close</button>
+        </nav>
+    </dialog>
+
+    <header class="fixed primary">
+        <nav>
+            <button class="square transparent" onclick="ui('#about-dialog')">
+                <img class="responsive" src="https://github.com/Jared-Gross/Bits-App/blob/master/icons/icon5.png?raw=true">
+            </button>
+          <h5 class="max">CNC Bits App</h5>
+        </nav>
+    </header>
+    <main class="responsive center-align">
+        <div class="grid center-align">
+            <article class="s12 m6 l6">
+                <h3>Feedrate Calculator</h3>
+                <form id="feedrateForm">
+                    <div class="grid">
+                        <div class="field label border max s6">
+                            <select id="bitWidth">
+                                <option value="1/8" selected>1/8"</option>
+                                <option value="1/4">1/4"</option>
+                                <option value="3/8">3/8"</option>
+                                <option value="1/2">1/2"</option>
+                            </select>
+                            <label>Bit Width</label>
+                        </div>
+                        <div class="field label border s6">
+                            <select id="material">
+                                <option value="Hard Wood" selected>Hard Wood</option>
+                                <option value="Softwood & Plywood">Softwood & Plywood</option>
+                                <option value="MDF/Particle Board">MDF/Particle Board</option>
+                                <option value="High Pressure Laminate">High Pressure Laminate</option>
+                                <option value="Phenolic">Phenolic</option>
+                                <option value="Hard Plastic">Hard Plastic</option>
+                                <option value="Soft Plastic">Soft Plastic</option>
+                                <option value="Solid Surface">Solid Surface</option>
+                                <option value="Acrylic">Acrylic</option>
+                                <option value="Aluminium">Aluminium</option>
+                            </select>
+                            <label>Material</label>
+                        </div>
+                    </div>
+                    <div class="field label border">
+                        <select id="chipload">
+                            <!-- Options will be dynamically populated -->
+                        </select>
+                        <label>Chipload</label>
+                    </div>
+                    <div class="grid">
+                        <div class="field label border s6">
+                            <input type="number" id="flutes" min="1" max="4" value="2">
+                            <label for="flutes"># of Flutes</label>
+                        </div>
+                        <div class="field label border s6">
+                            <input type="number" id="rpm" min="1000" max="30000" value="18000">
+                            <label for="rpm">RPM</label>
+                        </div>
+                    </div>
+                </form>
+                <br>
+                <div id="feedrateResult" class="left-align" style="display: none;">
+                    <h5>Result:</h5>
+                    <p>Calculated Feedrate: <span id="feedrate" class="primary small-round tiny-padding"></span> inches per minute</p>
+                </div>
+            </article>
+            <article class="s12 m6 l6">
+                <h3>Chipload Calculator</h3>
+                <form id="chiploadForm">
+                    <div class="field label border">
+                        <input type="number" id="inputFeedrate" min="1" step="0.01" value="600">
+                        <label for="inputFeedrate">Feedrate (inches per minute)</label>
+                    </div>
+                    <div class="grid">
+                        <div class="field label border s6">
+                            <input type="number" id="inputFlutes" min="1" max="4" value="2">
+                            <label for="inputFlutes"># of Flutes</label>
+                        </div>
+                        <div class="field label border s6">
+                            <input type="number" id="inputRPM" min="1000" max="30000" value="18000">
+                            <label for="inputRPM">RPM</label>
+                        </div>
+                    </div>
+                </form>
+                <br>
+                <div id="chiploadResult" class="left-align" style="display: none;">
+                    <h5>Result:</h5>
+                    <p>Calculated Chipload: <span id="calculatedChipload" class="primary small-round tiny-padding"></span> inches</p>
+                </div>
+            </article>
+        </div>
+        <br>
+        <div class="left-align">
+            <h3>CNC Bit Tips</h3>
+            <article>
+                <h5>Tip #1: Improve Bit Life</h5>
+                <blockquote>Want to improve your bit life? The key for a long lasting bit life is giving it a cool life. Use an infrared digital thermometer and keep an eye on its temperature, typically between 23 to 35 degrees Celsius but can vary between types of materials.</blockquote>
+            </article>
+            <article>
+                <h5>Tip #2: Higher Chipload</h5>
+                <blockquote>Higher chipload = cooler bit life, but also can cause ripping, chipping and whipping.</blockquote>
+            </article>
+            <article>
+                <h5>Tip #3: Lower Chipload</h5>
+                <blockquote>Lower chipload = finer and hotter cuts. Hotter? Yes, heat destroys bit life... be careful now. Running large nested files/sheets will heat your bit up and damage its cutting edge.</blockquote>
+            </article>
+        </div>
+    </main>
+    <script>
+        let configureData = [
+                {
+                    "material": "Hard Wood",
+                    "chipload": {
+                        "1/8": [0.003, 0.004, 0.005],
+                        "1/4": [0.009, 0.010, 0.011],
+                        "3/8": [0.015, 0.016, 0.017, 0.018],
+                        "1/2": [0.019, 0.020, 0.021]
+                    }
+                },
+                {
+                    "material": "Softwood & Plywood",
+                    "chipload": {
+                        "1/8": [0.003, 0.004, 0.005],
+                        "1/4": [0.009, 0.010, 0.011],
+                        "3/8": [0.015, 0.016, 0.017, 0.018],
+                        "1/2": [0.019, 0.020, 0.021]
+                    }
+                },
+                {
+                    "material": "MDF/Particle Board",
+                    "chipload": {
+                        "1/8": [0.004, 0.005, 0.006, 0.007],
+                        "1/4": [0.013, 0.014, 0.015, 0.016],
+                        "3/8": [0.020, 0.021, 0.022, 0.023],
+                        "1/2": [0.025, 0.026, 0.027]
+                    }
+                },
+                {
+                    "material": "High Pressure Laminate",
+                    "chipload": {
+                        "1/8": [0.003, 0.004, 0.005],
+                        "1/4": [0.009, 0.010, 0.011, 0.012],
+                        "3/8": [0.015, 0.016, 0.017, 0.018],
+                        "1/2": [0.023, 0.024, 0.025]
+                    }
+                },
+                {
+                    "material": "Phenolic",
+                    "chipload": {
+                        "1/8": [0.001, 0.002, 0.003],
+                        "1/4": [0.004, 0.005, 0.006],
+                        "3/8": [0.006, 0.007, 0.008],
+                        "1/2": [0.010, 0.011, 0.012]
+                    }
+                },
+                {
+                    "material": "Hard Plastic",
+                    "chipload": {
+                        "1/8": [0.002, 0.003, 0.004],
+                        "1/4": [0.006, 0.007, 0.008, 0.009],
+                        "3/8": [0.008, 0.009, 0.010],
+                        "1/2": [0.010, 0.011, 0.012]
+                    }
+                },
+                {
+                    "material": "Soft Plastic",
+                    "chipload": {
+                        "1/8": [0.003, 0.004, 0.005, 0.006],
+                        "1/4": [0.007, 0.008, 0.009, 0.010],
+                        "3/8": [0.010, 0.011, 0.012],
+                        "1/2": [0.012, 0.013, 0.014, 0.015, 0.016]
+                    }
+                },
+                {
+                    "material": "Solid Surface",
+                    "chipload": {
+                        "1/8": [0.002, 0.003, 0.004],
+                        "1/4": [0.006, 0.007, 0.008, 0.009],
+                        "3/8": [0.008, 0.009, 0.010],
+                        "1/2": [0.010, 0.011, 0.012]
+                    }
+                },
+                {
+                    "material": "Acrylic",
+                    "chipload": {
+                        "1/8": [0.003, 0.004, 0.005],
+                        "1/4": [0.008, 0.009, 0.010],
+                        "3/8": [0.010, 0.011, 0.012],
+                        "1/2": [0.012, 0.013, 0.014, 0.015]
+                    }
+                },
+                {
+                    "material": "Aluminium",
+                    "chipload": {
+                        "1/8": [0.003, 0.004],
+                        "1/4": [0.005, 0.006, 0.007],
+                        "3/8": [0.006, 0.007, 0.008],
+                        "1/2": [0.008, 0.009, 0.010]
+                    }
+                }
+            ];
+
+        $(document).ready(function(){
+            // Function to update chipload options
+            function updateChiploadOptions() {
+                const material = $('#material').val();
+                const bitWidth = $('#bitWidth').val();
+                const materialData = configureData.find(item => item.material === material);
+
+                if (materialData && materialData.chipload[bitWidth]) {
+                    const chiploads = materialData.chipload[bitWidth];
+                    $('#chipload').empty();
+                    chiploads.forEach(chipload => {
+                        $('#chipload').append($('<option>', {
+                            value: chipload,
+                            text: chipload.toFixed(3)
+                        }));
+                    });
+                }
+            }
+
+            // Function to calculate feedrate
+            function calculateFeedrate() {
+                const chipload = parseFloat($('#chipload').val());
+                const flutes = parseInt($('#flutes').val());
+                const rpm = parseInt($('#rpm').val());
+
+                // Check if all fields are filled
+                if (chipload && flutes && rpm) {
+                    const feedrate = chipload * flutes * rpm;
+                    $('#feedrate').text(feedrate.toFixed(2));
+                    $('#feedrateResult').show();
+                } else {
+                    $('#feedrateResult').hide();
+                }
+            }
+
+            // Function to calculate chipload
+            function calculateChipload() {
+                const feedrate = parseFloat($('#inputFeedrate').val());
+                const flutes = parseInt($('#inputFlutes').val());
+                const rpm = parseInt($('#inputRPM').val());
+
+                // Check if all fields are filled
+                if (feedrate && flutes && rpm) {
+                    const chipload = feedrate / (flutes * rpm);
+                    $('#calculatedChipload').text(chipload.toFixed(5));
+                    $('#chiploadResult').show();
+                } else {
+                    $('#chiploadResult').hide();
+                }
+            }
+
+            // Attach event listeners for feedrate calculator
+            $('#material, #bitWidth').on('change', function() {
+                updateChiploadOptions();
+                calculateFeedrate();
+            });
+
+            $('#chipload, #flutes, #rpm').on('change input', calculateFeedrate);
+
+            // Attach event listeners for chipload calculator
+            $('#inputFeedrate, #inputFlutes, #inputRPM').on('change input', calculateChipload);
+
+            // Initial setup
+            updateChiploadOptions();
+            calculateFeedrate();
+            calculateChipload();
+        });
+    </script>
+</body>
+</html>
