@@ -18,19 +18,19 @@
 </head>
 <body class="light">
     <div class="overlay blur"></div>
-    <dialog id="about-dialog">
+    <dialog class="left medium-width" id="about-dialog">
         <div class="row max center-align">
             <img class="responsive round border" style="max-width: 150px; height: auto;" fetchpriority="low" loading="lazy" src="/static/bitsapp.png" alt="" width="128" height="128">
         </div>
         <div class="padding">
             <h5 class="small center-align" id="app-name-version">CNC Bits App v1.0.0</h5>
-            <p class="center-align">A comprehensive app for calculating feedrate and chipload for CNC machinery.</p>
+            <p class="center-align medium-width">A comprehensive app for calculating feedrate and chipload for CNC machinery.</p>
             <p class="center-align">Developed with <i>favorite</i> by <a class="link" href="https://thecodingjsoftware.github.io/">TheCodingJ's</a></p>
         </div>
         <article class="border" style="margin-top: auto;">
-            <p class="center-align">
-                For questions, comments, suggestions, <br>
-                or concerns about this service please <br>
+            <p class="center-align medium-width">
+                For questions, comments, suggestions,
+                or concerns about this service please
                 email: <a class="link" href="mailto:jared@pinelandfarms.ca">jared@pinelandfarms.ca</a>.
             </p>
         </article>
@@ -106,7 +106,7 @@
                 <br>
                 <div id="feedrateResult" class="left-align" style="display: none;">
                     <h5>Result:</h5>
-                    <p>Calculated Feedrate: <span id="feedrate" class="primary small-round tiny-padding"></span> inches per minute</p>
+                    <p>Calculated Feedrate: <span id="feedrate" class="primary small-round tiny-padding bold"></span> inches per minute</p>
                 </div>
             </article>
             <article class="s12 m6 l6">
@@ -133,7 +133,7 @@
                 <br>
                 <div id="chiploadResult" class="left-align" style="display: none;">
                     <h5>Result:</h5>
-                    <p>Calculated Chipload: <span id="calculatedChipload" class="primary small-round tiny-padding"></span> inches</p>
+                    <p>Calculated Chipload: <span id="calculatedChipload" class="primary small-round tiny-padding bold"></span> inches</p>
                 </div>
             </article>
         </div>

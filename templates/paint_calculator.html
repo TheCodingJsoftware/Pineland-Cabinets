@@ -21,7 +21,7 @@
 
 <body class="light">
     <div class="overlay blur"></div>
-    <dialog id="about-dialog">
+    <dialog class="left medium-width" id="about-dialog">
         <div class="row max center-align">
             <img class="responsive circle border" style="max-width: 150px; height: auto;" fetchpriority="low" loading="lazy"
                 src="/static/paintcalculator.png" alt="" width="128"
@@ -29,13 +29,13 @@
         </div>
         <div class="padding">
             <h5 class="small center-align" id="app-name-version">Paint Calculator v1.0.0</h5>
-            <p class="center-align medium">
+            <p class="center-align medium-width">
                 A comprehensive app for calculating paint and primer mixture.</p>
             <p class="center-align">Developed with <i>favorite</i> by <a class="link"
                     href="https://thecodingjsoftware.github.io/">TheCodingJ's</a></p>
         </div>
         <article class="border" style="margin-top: auto;">
-            <p class="center-align medium">
+            <p class="center-align medium-width">
                 For questions, comments, suggestions,
                 or concerns about this service please
                 email: <a class="link" href="mailto:jared@pinelandfarms.ca">jared@pinelandfarms.ca</a>.
@@ -74,7 +74,7 @@
                         <label>Material</label>
                         <i>colors</i>
                     </div>
-                    <div class="field prefix label border extra s8 m8 l4">
+                    <div class="field prefix label border extra s8 m8 l10">
                         <i>science</i>
                         <input type="number" id="amount" min="0" step="50"  value="500" required data-has-listeners="true">
                         <label>Amount (mL)</label>
@@ -89,7 +89,7 @@
                             <span>50</span>
                         </button>
                     </div>
-                    <div class="field label suffix border s12 m6 l6">
+                    <div class="field label suffix border s12 m12 l6">
                         <select name="lacquer-thinner" id="lacquer-thinner-percent" onchange="calculate()">
                             <option value="0">0% Lacquer Thinner</option>
                             <option value="5">5% Lacquer Thinner</option>
@@ -101,7 +101,7 @@
                         <label>Lacquer Thinner</label>
                         <i>science</i>
                     </div>
-                    <div class="field label suffix border s12 m6 l6">
+                    <div class="field label suffix border s12 m12 l6">
                         <select name="catalyst" id="catalyst-percent" onchange="calculate()">
                             <option value="0">0% Catalyst</option>
                             <option value="5">5% Catalyst</option>
