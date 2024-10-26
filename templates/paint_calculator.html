@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Paint Calculator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/beercss@3.7.10/dist/cdn/beer.min.css" rel="stylesheet">
+    <script type="module" src="https://cdn.jsdelivr.net/npm/beercss@3.7.10/dist/cdn/beer.min.js"></script>
+    <link rel="icon" type="image/png" href="/static/paintcalculator.png">
+    <link href="/static/theme.css" rel="stylesheet">
+    <meta property="og:title" content="Paint Calculator">
+    <meta property="og:url" content="http://pinelandcabinets.hbni.net/paintcalculator">
+    <meta property="og:description" content="Paint and Primer Calculator">
+    <meta name="description" content="Cement Calculator">
+    <meta name="keywords" content="paint, primer, lacquer, thinner, catalyst">
+    <meta name="author" content="Jared Gross">
+    <link rel="icon" type="image/png" href="/static/paintcalculator.png">
+</head>
+
+<body class="light">
+    <div class="overlay blur"></div>
+    <dialog id="about-dialog">
+        <div class="row max center-align">
+            <img class="responsive circle border" style="max-width: 150px; height: auto;" fetchpriority="low" loading="lazy"
+                src="/static/paintcalculator.png" alt="" width="128"
+                height="128">
+        </div>
+        <div class="padding">
+            <h5 class="small center-align" id="app-name-version">Paint Calculator v1.0.0</h5>
+            <p class="center-align medium">
+                A comprehensive app for calculating paint and primer mixture.</p>
+            <p class="center-align">Developed with <i>favorite</i> by <a class="link"
+                    href="https://thecodingjsoftware.github.io/">TheCodingJ's</a></p>
+        </div>
+        <article class="border" style="margin-top: auto;">
+            <p class="center-align medium">
+                For questions, comments, suggestions,
+                or concerns about this service please
+                email: <a class="link" href="mailto:jared@pinelandfarms.ca">jared@pinelandfarms.ca</a>.
+            </p>
+        </article>
+        <nav class="right-align no-space">
+            <button class="transparent link small-round" onclick="ui('#about-dialog')">Close</button>
+        </nav>
+    </dialog>
+    <header class="fixed primary">
+        <nav>
+            <button class="circle transparent" onclick="ui('#about-dialog')">
+                <img class="responsive" src="/static/paintcalculator.png">
+            </button>
+            <h5 class="max">Paint Calculator</h5>
+            <button id="themeToggle" class="circle transparent" onclick="toggleTheme()">
+                <i>dark_mode</i>
+            </button>
+        </nav>
+    </header>
+
+    <main class="responsive">
+        <div class="grid">
+            <article class="s12 m5 l3">
+                <p><i>colors</i> Paint/Primer: <span class="primary bold small-round tiny-padding" id="paint-primer-text">0</span> mL</p>
+                <p><i>science</i> Lacquer Thinner: <span class="primary bold small-round tiny-padding" id="lacquer-thinner">0</span> mL</p>
+                <p><i>science</i> Catalyst: <span class="primary bold small-round tiny-padding" id="catalyst">0</span> mL</p>
+            </article>
+            <div class="s12 m7 l9">
+                <div class="grid bottom-padding">
+                    <div class="field label suffix border s12 m12 l12">
+                        <select name="material" id="material" onchange="updateType()">
+                            <option value="paint">Paint</option>
+                            <option value="primer">Primer</option>
+                        </select>
+                        <label>Material</label>
+                        <i>colors</i>
+                    </div>
+                    <div class="field prefix label border extra s8 m8 l4">
+                        <i>science</i>
+                        <input type="number" id="amount" min="0" step="50"  value="500" required data-has-listeners="true">
+                        <label>Amount (mL)</label>
+                    </div>
+                    <div class="no-margin s4 m4 l2">
+                        <button class="small small-round tiny-margin row" onclick="changeAmount(50)">
+                            <i>add</i>
+                            <span>50</span>
+                        </button>
+                        <button class="small small-round tiny-margin row" onclick="changeAmount(-50)">
+                            <i>remove</i>
+                            <span>50</span>
+                        </button>
+                    </div>
+                    <div class="field label suffix border s12 m6 l6">
+                        <select name="lacquer-thinner" id="lacquer-thinner-percent" onchange="calculate()">
+                            <option value="0">0% Lacquer Thinner</option>
+                            <option value="5">5% Lacquer Thinner</option>
+                            <option value="10">10% Lacquer Thinner</option>
+                            <option value="15">15% Lacquer Thinner</option>
+                            <option value="25">25% Lacquer Thinner</option>
+                        </select>
+                        <label>Lacquer Thinner</label>
+                        <i>science</i>
+                    </div>
+                    <div class="field label suffix border s12 m6 l6">
+                        <select name="catalyst" id="catalyst-percent" onchange="calculate()">
+                            <option value="0">0% Catalyst</option>
+                            <option value="5">5% Catalyst</option>
+                            <option value="10">10% Catalyst</option>
+                            <option value="15">15% Catalyst</option>
+                            <option value="25">25% Catalyst</option>
+                        </select>
+                        <label>Catalyst</label>
+                        <i>science</i>
+                    </div>
+                </div>
+                <article class="left-align">
+                    <h4>Quick Select Amount</h4>
+                    <div class="grid center-align">
+                        <button class="small small-round s4 m4 l4" onclick="setAmount(250)">
+                            <span>250</span>
+                        </button>
+                        <button class="small small-round s4 m4 l4" onclick="setAmount(300)">
+                            <span>300</span>
+                        </button>
+                        <button class="small small-round s4 m4 l4" onclick="setAmount(350)">
+                            <span>350</span>
+                        </button>
+                        <button class="small small-round s4 m4 l4" onclick="setAmount(450)">
+                            <span>450</span>
+                        </button>
+                        <button class="small small-round s4 m4 l4" onclick="setAmount(500)">
+                            <span>500</span>
+                        </button>
+                        <button class="small small-round s4 m4 l4" onclick="setAmount(550)">
+                            <span>550</span>
+                        </button>
+                        <button class="small small-round s4 m4 l4" onclick="setAmount(600)">
+                            <span>600</span>
+                        </button>
+                        <button class="small small-round s4 m4 l4" onclick="setAmount(650)">
+                            <span>650</span>
+                        </button>
+                        <button class="small small-round s4 m4 l4" onclick="setAmount(1000)">
+                            <span>1000</span>
+                        </button>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function toggleTheme() {
+            const body = document.body;
+            const icon = document.querySelector('#themeToggle i');
+            const theme = body.classList.contains('dark') ? 'light' : 'dark';
+            body.className = theme;
+            icon.textContent = theme === 'dark' ? 'light_mode' : 'dark_mode';
+            localStorage.setItem('theme', theme);
+        }
+
+        function applyTheme() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.body.className = savedTheme;
+            document.querySelector('#themeToggle i').textContent = savedTheme === 'dark' ? 'light_mode' : 'dark_mode';
+        }
+
+        function updateType() {
+            const material = document.getElementById('material').value;
+            if (material === 'paint') {
+                document.getElementById('lacquer-thinner-percent').value = '0';
+                document.getElementById('catalyst-percent').value = '10';
+            } else {
+                document.getElementById('lacquer-thinner-percent').value = '25';
+                document.getElementById('catalyst-percent').value = '10';
+            }
+            saveSettings();
+            calculate();
+        }
+
+        function changeAmount(delta) {
+            const amountInput = document.getElementById('amount');
+            let currentValue = parseFloat(amountInput.value) || 0;
+            amountInput.value = (currentValue + delta).toFixed(0);
+            saveSettings();
+            calculate();
+        }
+
+        function setAmount(value) {
+            document.getElementById('amount').value = value;
+            calculate();
+        }
+
+        function calculate() {
+            const amount = parseFloat(document.getElementById('amount').value) || 0;
+            const lacquerThinnerPercent = parseFloat(document.getElementById('lacquer-thinner-percent').value) / 100;
+            const catalystPercent = parseFloat(document.getElementById('catalyst-percent').value) / 100;
+
+            const lacquerThinnerAmount = amount * lacquerThinnerPercent;
+            const catalystAmount = amount * catalystPercent;
+
+            document.getElementById('paint-primer-text').textContent = amount.toFixed(0);
+            document.getElementById('lacquer-thinner').textContent = lacquerThinnerAmount.toFixed(0);
+            document.getElementById('catalyst').textContent = catalystAmount.toFixed(0);
+
+            saveSettings();
+        }
+
+        function saveSettings() {
+            localStorage.setItem('material', document.getElementById('material').value);
+            localStorage.setItem('amount', document.getElementById('amount').value);
+            localStorage.setItem('lacquerThinnerPercent', document.getElementById('lacquer-thinner-percent').value);
+            localStorage.setItem('catalystPercent', document.getElementById('catalyst-percent').value);
+        }
+
+        function loadSettings() {
+            const material = localStorage.getItem('material');
+            const amount = localStorage.getItem('amount');
+            const lacquerThinnerPercent = localStorage.getItem('lacquerThinnerPercent');
+            const catalystPercent = localStorage.getItem('catalystPercent');
+
+            if (material) document.getElementById('material').value = material;
+            if (amount) document.getElementById('amount').value = amount;
+            if (lacquerThinnerPercent) document.getElementById('lacquer-thinner-percent').value = lacquerThinnerPercent;
+            if (catalystPercent) document.getElementById('catalyst-percent').value = catalystPercent;
+
+            updateType(); // Adjust default selections based on material
+            calculate(); // Calculate with loaded values
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            applyTheme();
+            loadSettings();
+            calculate();
+        });
+    </script>
+</body>
+
+</html>

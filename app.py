@@ -60,6 +60,19 @@ def cement():
 def cc():
     return render_template("cement_calculator.html")
 
+@app.route("/paintcalculator")
+def paint_calculator():
+    return render_template("paint_calculator.html")
+
+@app.route("/paint")
+def paint():
+    return render_template("paint_calculator.html")
+
+@app.route("/pc")
+def pc():
+    return render_template("paint_calculator.html")
+
+
 @app.route("/bits")
 def bits():
     return render_template("bits_app.html")
