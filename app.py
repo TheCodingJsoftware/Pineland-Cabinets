@@ -13,8 +13,11 @@ from natsort import natsorted
 import matplotlib.pyplot as plt
 import matplotlib.ticker as mticker
 from flask import Flask, render_template
+from flask_caching import Cache
+from flask import jsonify
 
 app = Flask(__name__)
+cache = Cache(app, config={'CACHE_TYPE': 'simple'})
 
 user_count: int = 0
 file_name: str = ""
@@ -81,6 +84,11 @@ def bits():
 def bits_app():
     return render_template("bits_app.html")
 
+@app.route("/get_images")
+@cache.cached(timeout=3600)
+def get_images():
+    pictures = get_all_images()  # This returns the dictionary with all images
+    return jsonify(pictures)
 
 def check_user_log_file() -> None:
     if not os.path.isfile(file_name):
@@ -194,7 +202,8 @@ def get_all_images() -> dict:
             ):
                 folder_name = slugify(filename.split("/")[-2]).replace(
                     "staticpictures", ""
-                )
+                ).replace("static", "")
+                filename = filename.replace("static/", "")
                 pictures["All"].append(filename)
                 pictures[folder_name].append(filename)
     # with open("/volume1/web/pineland-cabinets-master/static/pictures/uploaded_list.json", "r") as f:
@@ -217,7 +226,7 @@ def get_all_folders() -> dict:
             folder_names[
                 slugify(filename.split("/")[-1]).replace("staticpictures", "")
             ] = (
-                filename.split("/")[-1].replace("static/", "").replace("pictures/", "")
+                filename.split("/")[-1].replace("static", "").replace("pictures", "")
             )
     # with open("/volume1/web/pineland-cabinets-master/static/pictures/uploaded_list.json", "r") as f:
     #     json_data = json.load(f)
@@ -256,4 +265,4 @@ def slugify(value, allow_unicode=False):
     return re.sub(r"[-\s]+", "-", value).strip("-_")
 
 
-# app.run(host="10.10.80.93", port=5000)
+app.run(host="10.0.1.254", port=5000)

@@ -34,11 +34,13 @@
     <br>
 
     <div class="scroll">
-        <div id="portfolio">
+        <div id="portfolio" class="image-grid">
             {% for folder, folder_data in pictures.items() %}
             {% for picture in folder_data %}
             <div class="tile scale-anm web {{folder}}">
-                <a target="_blank" href="{{picture}}"> <img src="{{picture}}" class='image' alt="" /></a>
+                <a target="_blank" href="{{ url_for('static', filename=picture) }}">
+                    <img rel="preload" data-src="{{ url_for('static', filename=picture) }}" class='image' alt="Loading..." loading="lazy">
+                </a>
             </div>
             {% endfor %}
             {% endfor %}
@@ -54,7 +56,8 @@
 <footer>
     <div class="footer-container">
         <h4>Pineland Cabinets</h4>
-    </div <div class="address">Email: <a href="mailto:joseph@pinelandfarms.ca">joseph@pinelandfarms.ca</a>
+    </div>
+    <div class="address">Email: <a href="mailto:joseph@pinelandfarms.ca">joseph@pinelandfarms.ca</a></div>
     <br>
     Cell: (204) 229 7793
     <br>
@@ -84,4 +87,49 @@
 
         });
     });
+    document.addEventListener("DOMContentLoaded", async function() {
+        const portfolio = document.getElementById("portfolio");
+
+        // Fetch image data from Flask asynchronously
+        const response = await fetch("/get_images");
+        const pictures = await response.json();
+
+        // Create an IntersectionObserver for lazy loading
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    if (img.dataset.src) {
+                        img.src = img.dataset.src;  // Set actual src to load image
+                        observer.unobserve(img);
+                    }
+                }
+            });
+        }, { rootMargin: "0px 0px 200px 0px" });
+
+        // Populate the portfolio container with images from the JSON response
+        for (const [folder, folderImages] of Object.entries(pictures)) {
+            folderImages.forEach(picture => {
+                const tile = document.createElement("div");
+                tile.className = `tile scale-anm web ${folder}`;
+
+                const link = document.createElement("a");
+                link.href = `/static/${picture}`;
+                link.target = "_blank";
+
+                const img = document.createElement("img");
+                img.dataset.src = `/static/${picture}`;  // Use data-src for lazy loading
+                img.className = "image";
+                img.alt = picture;
+                img.loading = "lazy";
+
+                link.appendChild(img);
+                tile.appendChild(link);
+                portfolio.appendChild(tile);
+
+                observer.observe(img);  // Observe each image for lazy loading
+            });
+        }
+    });
+
 </script>
