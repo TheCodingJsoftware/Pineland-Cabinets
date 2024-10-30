@@ -19,7 +19,6 @@
 </head>
 <style>
     #arch {
-        text-align: center;
         width: 100%;
         background-color: #02CECE !important;
         transition: 1s ease;
@@ -30,12 +29,12 @@
     #arch:before {
         content: '';
         position: absolute;
-        width: 100vw;
         background-color: var(--surface);
-        bottom: 0%;
-        margin-left: -50%;
         border-radius: 50% 50% 0 0;
-        height: 230%;
+        height: 230px;
+        left: 0%;
+        width: 100%;
+        margin-top: -35px;
     }
 
     header {
@@ -60,7 +59,7 @@
         }
     }
 
-    @keyframes dropDown{
+    @keyframes dropDown {
         0% {
             transform: translateY(-200%);
         }
@@ -79,6 +78,13 @@
             opacity: 1;
         }
     }
+
+    @media (max-width: 1000px) {
+        #arch:before {
+            left: -10%;
+            width: 120%;
+        }
+    }
 </style>
 
 <dialog class="left medium-width" id="about-dialog">
@@ -91,14 +97,14 @@
         <p class="center-align medium-width">
             Specializing in Cabinets, Furniture, Wood working, and much more.
         </p>
-        <p class="center-align">This website is developed with <i>favorite</i> by <a class="link"
+        <p class="center-align">Developed with <i>favorite</i> by <a class="link"
                 href="https://thecodingjsoftware.github.io/">TheCodingJ's</a></p>
     </div>
     <article class="border" style="margin-top: auto;">
         <p class="center-align medium-width">
             For questions, comments, suggestions,
             or concerns about this service please
-            email: <a class="link" href="mailto:joseph@pinelandfarms.ca">joseph@pinelandfarms.ca</a>.
+            email: <a class="link" href="mailto:jared@pinelandfarms.ca">jared@pinelandfarms.ca</a>.
         </p>
     </article>
     <nav class="right-align no-space">
@@ -133,7 +139,8 @@
                 </div>
             </div>
             <nav>
-                <button class="small-round border" onclick="window.open('https://pinelandcabinets.hbni.net/cementcalculator')">
+                <button class="small-round border"
+                    onclick="window.open('https://pinelandcabinets.hbni.net/cementcalculator')">
                     <i>front_loader</i>
                     <span>Open</span>
                 </button>
@@ -149,7 +156,8 @@
                 </div>
             </div>
             <nav>
-                <button class="small-round border" onclick="window.open('https://pinelandcabinets.hbni.net/paintcalculator')">
+                <button class="small-round border"
+                    onclick="window.open('https://pinelandcabinets.hbni.net/paintcalculator')">
                     <i>colors</i>
                     <span>Open</span>
                 </button>
@@ -182,11 +190,29 @@
 </header>
 
 <header class="no-padding no-margin">
-    <img class="responsive" src="/static/background-middle.png" style="max-width: 1000px; height: auto; z-index: 9999;"
-        alt="Pineland Cabinets">
-    <div class="center" style="z-index: -999;">
+    <div class="center-align">
+        <img class="responsive" src="/static/background-middle.png"
+            style="max-width: 1000px; height: auto; z-index: 9999;" alt="Pineland Cabinets">
+    </div>
+    <div class="center" style="z-index: 6;">
         <h1 id="arch">Specializing in Cabinets, Furniture, Wood working, and much more.</h1>
     </div>
+    <nav class="tabbed m l"
+        style="z-index: 9999; max-width: 600px !important; margin: auto;">
+        <a href="tel:+1-204-229-7793">
+            <i>mail</i>
+            <span class="small-text">(204) 229-7793</span>
+        </a>
+        <a href="mailto:joseph@pinelandfarms.ca">
+            <i>phone</i>
+            <span class="small-text">joseph@pinelandfarms.ca</span>
+        </a>
+        <a
+            href="https://www.google.com/maps/place/Pineland+Farms+Ltd/@49.0269603,-95.9701472,14.14z/data=!4m15!1m8!3m7!1s0x52c08493ea8bf6c5:0xaf79f9ba72f12f21!2sPiney,+MB+R0A+1K0!3b1!8m2!3d49.075166!4d-95.979087!16s%2Fm%2F02vmdr5!3m5!1s0x52bf6360eb794bb9:0xa378d14cd514c15a!8m2!3d49.0227531!4d-95.957069!16s%2Fg%2F11b5wnrvrs?entry=ttu&g_ep=EgoyMDI0MTAyMy4wIKXMDSoASAFQAw%3D%3D">
+            <i>map</i>
+            <span class="small-text no-line">Pineland Colony. Piney, MB</span>
+        </a>
+    </nav>
 </header>
 
 <body class="light">
@@ -198,11 +224,10 @@
             </a>
             {% endfor %}
         </div>
-        <div class="scroll">
+        <div class="scroll" style="max-height: 1000px;">
             <div id="portfolio" class="image-grid">
                 {% for folder, folder_data in pictures.items() %}
                 <div class="page {{ 'active' if loop.first else '' }}" id="{{folder}}">
-                    {{folder}}
                     {% for picture in folder_data %}
                     <div class="tile scale-anm web {{folder}}">
                         <a target="_blank" href="{{ url_for('static', filename=picture) }}">
@@ -215,7 +240,7 @@
                 {% endfor %}
             </div>
         </div>
-        <article>
+        <article class="s">
             <h4 class="center-align">Pineland Cabinets</h4>
             <div class="grid">
                 <a class="link wave small-round s12 m4 l4" href="mailto:joseph@pinelandfarms.ca">
