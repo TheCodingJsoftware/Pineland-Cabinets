@@ -183,7 +183,8 @@ def get_first_graph() -> dict:
 
 
 def get_all_images() -> dict:
-    pictures = {"All": []}
+    # pictures = {"All": []}
+    pictures = {}
     for folder in list(get_all_folders().keys()):
         pictures[folder] = []
     with contextlib.suppress(IndexError):
@@ -204,7 +205,7 @@ def get_all_images() -> dict:
                     "staticpictures", ""
                 ).replace("static", "")
                 filename = filename.replace("static/", "")
-                pictures["All"].append(filename)
+                # pictures["All"].append(filename)
                 pictures[folder_name].append(filename)
     # with open("/volume1/web/pineland-cabinets-master/static/pictures/uploaded_list.json", "r") as f:
     #     json_data = json.load(f)
@@ -216,7 +217,8 @@ def get_all_images() -> dict:
 
 
 def get_all_folders() -> dict:
-    folder_names = {"All": "All"}
+    # folder_names = {"All": "All"}
+    folder_names = {}
     with contextlib.suppress(IndexError):
         for filename in glob.iglob(
             "static/pictures" + "**/**",
@@ -265,4 +267,4 @@ def slugify(value, allow_unicode=False):
     return re.sub(r"[-\s]+", "-", value).strip("-_")
 
 
-app.run(host="10.0.1.254", port=5000)
+app.run(host="localhost", port=5000)
