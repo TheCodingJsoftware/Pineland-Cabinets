@@ -1,340 +1,334 @@
 <!doctype html>
 
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta property="og:locale" content="en_US" />
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Pineland Cabinets" />
-    <meta property="og:image" content="/static/favicon.png" />
-    <meta property="og:description" content="Pineland Colony Cabinetry." />
-    <meta property="og:url" content="http://pinelandcabinets.hbni.net:5040" />
-    <meta property="og:title" content="Pineland Cabinets" />
-    <link href="https://cdn.jsdelivr.net/npm/beercss@3.7.10/dist/cdn/beer.min.css" rel="stylesheet">
-    <script type="module" src="https://cdn.jsdelivr.net/npm/beercss@3.7.10/dist/cdn/beer.min.js"></script>
-    <link href="/static/theme.css" rel="stylesheet">
-    <script src="/static/jquery.fittext.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <link rel="icon" href="/static/favicon.png">
-    <script src="https://circletype.labwire.ca/dist/circletype.min.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Pineland Cabinets" />
+  <meta property="og:image" content="/static/favicon.png" />
+  <meta property="og:description" content="Pineland Colony Cabinetry." />
+  <meta property="og:url" content="http://pinelandcabinets.hbni.net:5040" />
+  <meta property="og:title" content="Pineland Cabinets" />
+  <link
+    href="https://cdn.jsdelivr.net/npm/beercss@3.7.10/dist/cdn/beer.min.css"
+    rel="stylesheet"
+  />
+  <script
+    type="module"
+    src="https://cdn.jsdelivr.net/npm/beercss@3.7.10/dist/cdn/beer.min.js"
+  ></script>
+  <link href="/static/theme.css" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/style.css" />
+  <script src="/static/jquery.fittext.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <link rel="icon" href="/static/favicon.png" />
+  <script src="https://circletype.labwire.ca/dist/circletype.min.js"></script>
+  <link rel="stylesheet" href="/static/photobox/photobox.css">
+    <script src="/static/photobox/jquery.photobox.js"></script>
 </head>
-<style>
-    #arch {
-        width: 100%;
-        background-color: #02CECE !important;
-        transition: 1s ease;
-        animation: textFadeIn ease 1s;
-        animation-fill-mode: forwards;
-    }
 
-    #arch:before {
-        content: '';
-        position: absolute;
-        background-color: var(--surface);
-        border-radius: 50% 50% 0 0;
-        height: 230px;
-        left: 0%;
-        width: 100%;
-        margin-top: -35px;
-    }
-
-    header {
-        background-color: #02CECE !important;
-        animation: fadeIn ease 1s;
-        animation-fill-mode: forwards;
-    }
-
-    header img {
-        opacity: 1;
-        animation: dropDown ease 1s;
-        animation-fill-mode: forwards;
-    }
-
-    @keyframes textFadeIn {
-        0% {
-            color: transparent;
-        }
-
-        100% {
-            color: var(--on-surface);
-        }
-    }
-
-    @keyframes dropDown {
-        0% {
-            transform: translateY(-200%);
-        }
-
-        100% {
-            transform: translateY(0%);
-        }
-    }
-
-    @keyframes fadeIn {
-        0% {
-            opacity: 0;
-        }
-
-        100% {
-            opacity: 1;
-        }
-    }
-
-    @media (max-width: 1000px) {
-        #arch:before {
-            left: -10%;
-            width: 120%;
-        }
-    }
-</style>
-
+<div class="overlay blur"></div>
 <dialog class="left medium-width" id="about-dialog">
-    <div class="row max center-align">
-        <img class="responsive round border" style="max-width: 150px; height: auto;" fetchpriority="low" loading="lazy"
-            src="/static/favicon.png" alt="" width="128" height="128">
-    </div>
-    <div class="padding">
-        <h5 class="small center-align" id="app-name-version">Pineland Cabinets</h5>
-        <p class="center-align medium-width">
-            Specializing in Cabinets, Furniture, Wood working, and much more.
-        </p>
-        <p class="center-align">Developed with <i>favorite</i> by <a class="link"
-                href="https://thecodingjsoftware.github.io/">TheCodingJ's</a></p>
-    </div>
-    <article class="border" style="margin-top: auto;">
-        <p class="center-align medium-width">
-            For questions, comments, suggestions,
-            or concerns about this service please
-            email: <a class="link" href="mailto:jared@pinelandfarms.ca">jared@pinelandfarms.ca</a>.
-        </p>
-    </article>
-    <nav class="right-align no-space">
-        <button class="transparent link small-round" onclick="ui('#about-dialog')">Close</button>
-    </nav>
+  <div class="row max center-align">
+    <img
+      class="responsive circle border"
+      style="max-width: 150px; height: auto"
+      fetchpriority="low"
+      loading="lazy"
+      src="/static/favicon.png"
+      alt=""
+      width="128"
+      height="128"
+    />
+  </div>
+  <div class="padding">
+    <h5 class="small center-align" id="app-name-version">Pineland Cabinets</h5>
+    <p class="center-align medium-width">
+      Specializing in Cabinets, Furniture, Wood working, and much more.
+    </p>
+    <p class="center-align">
+      Developed with
+      <i>favorite</i>
+      by
+      <a class="link" href="https://thecodingjsoftware.github.io/"
+        >TheCodingJ's</a
+      >
+    </p>
+  </div>
+  <article class="border" style="margin-top: auto">
+    <p class="center-align medium-width">
+      For questions, comments, suggestions, or concerns about this service
+      please email:
+      <a class="link" href="mailto:jared@pinelandfarms.ca"
+        >jared@pinelandfarms.ca</a
+      >.
+    </p>
+  </article>
+  <nav class="right-align no-space">
+    <button class="transparent link small-round" onclick="ui('#about-dialog')">
+      Close
+    </button>
+  </nav>
 </dialog>
 
+<div class="overlay blur"></div>
 <dialog class="right medium-width" id="apps-dialog">
-    <div class="scroll padding">
-        <article class="medium-width">
-            <div class="row">
-                <img class="small-round large" src="/static/bitsapp.png">
-                <div class="max">
-                    <h5>CNC Bits App</h5>
-                    <p>A comprehensive app for calculating feedrate and chipload for CNC machinery.</p>
-                </div>
-            </div>
-            <nav>
-                <button class="small-round border" onclick="window.open('https://pinelandcabinets.hbni.net/bitsapp')">
-                    <i>carpenter</i>
-                    <span>Open</span>
-                </button>
-            </nav>
-        </article>
-
-        <article class="medium-width">
-            <div class="row">
-                <img class="circle large" src="/static/cementcalculator.png">
-                <div class="max">
-                    <h5>Cement Calculator</h5>
-                    <p>A comprehensive app for calculating cement mixture.</p>
-                </div>
-            </div>
-            <nav>
-                <button class="small-round border"
-                    onclick="window.open('https://pinelandcabinets.hbni.net/cementcalculator')">
-                    <i>front_loader</i>
-                    <span>Open</span>
-                </button>
-            </nav>
-        </article>
-
-        <article class="medium-width">
-            <div class="row">
-                <img class="circle large" src="/static/paintcalculator.png">
-                <div class="max">
-                    <h5>Paint Calculator</h5>
-                    <p>A comprehensive app for calculating paint and primer mixture.</p>
-                </div>
-            </div>
-            <nav>
-                <button class="small-round border"
-                    onclick="window.open('https://pinelandcabinets.hbni.net/paintcalculator')">
-                    <i>colors</i>
-                    <span>Open</span>
-                </button>
-            </nav>
-        </article>
-    </div>
-    <article class="border" style="margin-top: auto;">
-        <p class="center-align medium-width">
-            For questions, comments, suggestions,
-            or concerns about these services please
-            email: <a class="link" href="mailto:jared@pinelandfarms.ca">jared@pinelandfarms.ca</a>.
-        </p>
+  <div class="scroll padding">
+    <article class="medium-width">
+      <div class="row">
+        <img class="small-round large" src="/static/bitsapp.png" />
+        <div class="max">
+          <h5>CNC Bits App</h5>
+          <p>
+            A comprehensive app for calculating feedrate and chipload for CNC
+            machinery.
+          </p>
+        </div>
+      </div>
+      <nav>
+        <button
+          class="small-round border"
+          onclick="window.open('https://pinelandcabinets.hbni.net/bitsapp')"
+        >
+          <i>carpenter</i>
+          <span>Open</span>
+        </button>
+      </nav>
     </article>
-    <nav class="right-align no-space">
-        <button class="transparent link small-round" onclick="ui('#apps-dialog')">Close</button>
-    </nav>
+
+    <article class="medium-width">
+      <div class="row">
+        <img class="circle large" src="/static/cementcalculator.png" />
+        <div class="max">
+          <h5>Cement Calculator</h5>
+          <p>A comprehensive app for calculating cement mixture.</p>
+        </div>
+      </div>
+      <nav>
+        <button
+          class="small-round border"
+          onclick="window.open('https://pinelandcabinets.hbni.net/cementcalculator')"
+        >
+          <i>front_loader</i>
+          <span>Open</span>
+        </button>
+      </nav>
+    </article>
+
+    <article class="medium-width">
+      <div class="row">
+        <img class="circle large" src="/static/paintcalculator.png" />
+        <div class="max">
+          <h5>Paint Calculator</h5>
+          <p>A comprehensive app for calculating paint and primer mixture.</p>
+        </div>
+      </div>
+      <nav>
+        <button
+          class="small-round border"
+          onclick="window.open('https://pinelandcabinets.hbni.net/paintcalculator')"
+        >
+          <i>colors</i>
+          <span>Open</span>
+        </button>
+      </nav>
+    </article>
+  </div>
+  <article class="border" style="margin-top: auto">
+    <p class="center-align medium-width">
+      For questions, comments, suggestions, or concerns about these services
+      please email:
+      <a class="link" href="mailto:jared@pinelandfarms.ca"
+        >jared@pinelandfarms.ca</a
+      >.
+    </p>
+  </article>
+  <nav class="right-align no-space">
+    <button class="transparent link small-round" onclick="ui('#apps-dialog')">
+      Close
+    </button>
+  </nav>
 </dialog>
 
 <header class="fixed">
-    <nav>
-        <button class="square small-round transparent" onclick="ui('#about-dialog')">
-            <img class="responsive" src="/static/favicon.png">
-        </button>
-        <div class="max">
-        </div>
-        <button class="circle transparent" onclick="ui('#apps-dialog')">
-            <i>apps</i>
-        </button>
-    </nav>
+  <nav>
+    <button
+      class="circle transparent"
+      onclick="ui('#about-dialog')"
+    >
+      <img class="responsive" src="/static/favicon.png" />
+    </button>
+    <div class="max"></div>
+    <button class="circle transparent" onclick="ui('#apps-dialog')">
+      <i>apps</i>
+    </button>
+  </nav>
 </header>
 
 <header class="no-padding no-margin">
-    <div class="center-align">
-        <img class="responsive" src="/static/background-middle.png"
-            style="max-width: 1000px; height: auto; z-index: 9999;" alt="Pineland Cabinets">
-    </div>
-    <div class="center" style="z-index: 6;">
-        <h1 id="arch">Specializing in Cabinets, Furniture, Wood working, and much more.</h1>
-    </div>
-    <nav class="tabbed m l"
-        style="z-index: 9999; max-width: 600px !important; margin: auto;">
-        <a href="tel:+1-204-229-7793">
-            <i>mail</i>
-            <span class="small-text">(204) 229-7793</span>
-        </a>
-        <a href="mailto:joseph@pinelandfarms.ca">
-            <i>phone</i>
-            <span class="small-text">joseph@pinelandfarms.ca</span>
-        </a>
-        <a
-            href="https://www.google.com/maps/place/Pineland+Farms+Ltd/@49.0269603,-95.9701472,14.14z/data=!4m15!1m8!3m7!1s0x52c08493ea8bf6c5:0xaf79f9ba72f12f21!2sPiney,+MB+R0A+1K0!3b1!8m2!3d49.075166!4d-95.979087!16s%2Fm%2F02vmdr5!3m5!1s0x52bf6360eb794bb9:0xa378d14cd514c15a!8m2!3d49.0227531!4d-95.957069!16s%2Fg%2F11b5wnrvrs?entry=ttu&g_ep=EgoyMDI0MTAyMy4wIKXMDSoASAFQAw%3D%3D">
-            <i>map</i>
-            <span class="small-text no-line">Pineland Colony. Piney, MB</span>
-        </a>
-    </nav>
+  <div class="center-align">
+    <img
+      class="responsive"
+      src="/static/background-middle.png"
+      style="max-width: 1000px; height: auto; z-index: 9999"
+      alt="Pineland Cabinets"
+    />
+  </div>
+  <div class="center" style="z-index: 6">
+    <h1 id="arch">
+      Specializing in Cabinets, Furniture, Wood working, and much more.
+    </h1>
+  </div>
+  <nav
+    class="tabbed l"
+    style="z-index: 9999; max-width: 600px !important; margin: auto"
+  >
+    <a href="tel:+1-204-229-7793">
+      <i>mail</i>
+      <span class="small-text">(204) 229-7793</span>
+    </a>
+    <a href="mailto:joseph@pinelandfarms.ca">
+      <i>phone</i>
+      <span class="small-text">joseph@pinelandfarms.ca</span>
+    </a>
+    <a
+      href="https://www.google.com/maps/place/Pineland+Farms+Ltd/@49.0269603,-95.9701472,14.14z/data=!4m15!1m8!3m7!1s0x52c08493ea8bf6c5:0xaf79f9ba72f12f21!2sPiney,+MB+R0A+1K0!3b1!8m2!3d49.075166!4d-95.979087!16s%2Fm%2F02vmdr5!3m5!1s0x52bf6360eb794bb9:0xa378d14cd514c15a!8m2!3d49.0227531!4d-95.957069!16s%2Fg%2F11b5wnrvrs?entry=ttu&g_ep=EgoyMDI0MTAyMy4wIKXMDSoASAFQAw%3D%3D"
+    >
+      <i>map</i>
+      <span class="small-text no-line">Pineland Colony. Piney, MB</span>
+    </a>
+  </nav>
 </header>
 
 <body class="light">
-    <main class="responsive">
-        <div class="tabs scroll">
-            {% for folder, folder_data in folders.items() %}
-            <a class="{{ 'active' if loop.first else '' }}" data-ui="#{{folder}}">
-                {{folder}}
-            </a>
-            {% endfor %}
+  <main class="responsive">
+    <div class="tabs scroll left-align">
+      {% for folder, folder_data in folders.items() %}
+      <a class="{{ 'active' if loop.first else '' }}" data-ui="#{{folder}}">
+        {{folder_data}}
+      </a>
+      {% endfor %}
+    </div>
+    <div id="portfolio">
+        {% for folder, folder_data in pictures.items() %}
+        <div class="page {{ 'active' if loop.first else '' }}" id="{{folder}}">
+          {% for picture in folder_data %}
+          <a href="{{ url_for('static', filename=picture) }}">
+            <img
+          rel="preload"
+          data-src="{{ url_for('static', filename=picture) }}"
+          alt="Loading..."
+          loading="lazy"
+        />
+          </a>
+          {% endfor %}
         </div>
-        <div class="scroll" style="max-height: 1000px;">
-            <div id="portfolio" class="image-grid">
-                {% for folder, folder_data in pictures.items() %}
-                <div class="page {{ 'active' if loop.first else '' }}" id="{{folder}}">
-                    {% for picture in folder_data %}
-                    <div class="tile scale-anm web {{folder}}">
-                        <a target="_blank" href="{{ url_for('static', filename=picture) }}">
-                            <img rel="preload" data-src="{{ url_for('static', filename=picture) }}" class='image'
-                                alt="Loading..." loading="lazy">
-                        </a>
-                    </div>
-                    {% endfor %}
-                </div>
-                {% endfor %}
-            </div>
-        </div>
-        <article class="s">
-            <h4 class="center-align">Pineland Cabinets</h4>
-            <div class="grid">
-                <a class="link wave small-round s12 m4 l4" href="mailto:joseph@pinelandfarms.ca">
-                    <i>mail</i>
-                    <span class="small-padding">joseph@pinelandfarms.ca</span>
-                </a>
-                <a class="link wave small-round s12 m4 l4" href="tel:2042297793">
-                    <i>phone</i>
-                    <span class="small-padding">204-229-7793</span>
-                </a>
-                <a class="link wave small-round s12 m4 l4"
-                    href="https://www.google.com/maps/place/Pineland+Farms+Ltd/@49.0269603,-95.9701472,14.14z/data=!4m15!1m8!3m7!1s0x52c08493ea8bf6c5:0xaf79f9ba72f12f21!2sPiney,+MB+R0A+1K0!3b1!8m2!3d49.075166!4d-95.979087!16s%2Fm%2F02vmdr5!3m5!1s0x52bf6360eb794bb9:0xa378d14cd514c15a!8m2!3d49.0227531!4d-95.957069!16s%2Fg%2F11b5wnrvrs?entry=ttu&g_ep=EgoyMDI0MTAyMy4wIKXMDSoASAFQAw%3D%3D">
-                    <i>map</i>
-                    <span class="small-padding">Piney, MB</span>
-                </a>
-            </div>
-            <p class="center-align">Copyright 2022 by Pineland Colony</p>
-        </article>
-    </main>
+        {% endfor %}
+      </div>
+    <article class="s m">
+      <h4 class="center-align">Pineland Cabinets</h4>
+      <div class="grid">
+        <a
+          class="link wave small-round s12 m4 l4"
+          href="mailto:joseph@pinelandfarms.ca"
+        >
+          <i>mail</i>
+          <span class="small-padding">joseph@pinelandfarms.ca</span>
+        </a>
+        <a class="link wave small-round s12 m4 l4" href="tel:2042297793">
+          <i>phone</i>
+          <span class="small-padding">204-229-7793</span>
+        </a>
+        <a
+          class="link wave small-round s12 m4 l4"
+          href="https://www.google.com/maps/place/Pineland+Farms+Ltd/@49.0269603,-95.9701472,14.14z/data=!4m15!1m8!3m7!1s0x52c08493ea8bf6c5:0xaf79f9ba72f12f21!2sPiney,+MB+R0A+1K0!3b1!8m2!3d49.075166!4d-95.979087!16s%2Fm%2F02vmdr5!3m5!1s0x52bf6360eb794bb9:0xa378d14cd514c15a!8m2!3d49.0227531!4d-95.957069!16s%2Fg%2F11b5wnrvrs?entry=ttu&g_ep=EgoyMDI0MTAyMy4wIKXMDSoASAFQAw%3D%3D"
+        >
+          <i>map</i>
+          <span class="small-padding">Piney, MB</span>
+        </a>
+      </div>
+      <p class="center-align">Copyright 2022 by Pineland Colony</p>
+    </article>
+  </main>
 </body>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        new CircleType(document.getElementById('arch')).radius(5000);
-        document.getElementById('arch').style.fontSize = '2.5vw'; // Assuming fitText functionality is to adjust font size
-        var selectedClass = "";
-        var filCats = document.querySelectorAll(".fil-cat");
-        filCats.forEach(function (cat) {
-            cat.addEventListener("click", function () {
-                selectedClass = this.getAttribute("data-rel");
-                var portfolio = document.getElementById("portfolio");
-                portfolio.style.opacity = '0.1';
-                var tiles = document.querySelectorAll("#portfolio div");
-                tiles.forEach(function (tile) {
-                    if (!tile.classList.contains(selectedClass)) {
-                        tile.style.display = 'none';
-                        tile.classList.remove('scale-anm');
-                    }
-                });
-                setTimeout(function () {
-                    var selectedTiles = document.querySelectorAll("." + selectedClass);
-                    selectedTiles.forEach(function (tile) {
-                        tile.style.display = 'block';
-                        tile.classList.add('scale-anm');
-                    });
-                    portfolio.style.opacity = '1';
-                }, 300);
-            });
+  document.addEventListener("DOMContentLoaded", function () {
+    new CircleType(document.getElementById("arch")).radius(5000);
+    document.getElementById("arch").style.fontSize = "2.5vw"; // Assuming fitText functionality is to adjust font size
+    var selectedClass = "";
+    var filCats = document.querySelectorAll(".fil-cat");
+    filCats.forEach(function (cat) {
+      cat.addEventListener("click", function () {
+        selectedClass = this.getAttribute("data-rel");
+        var portfolio = document.getElementById("portfolio");
+        portfolio.style.opacity = "0.1";
+        var tiles = document.querySelectorAll("#portfolio div");
+        tiles.forEach(function (tile) {
+          if (!tile.classList.contains(selectedClass)) {
+            tile.style.display = "none";
+            tile.classList.remove("scale-anm");
+          }
         });
+        setTimeout(function () {
+          var selectedTiles = document.querySelectorAll("." + selectedClass);
+          selectedTiles.forEach(function (tile) {
+            tile.style.display = "block";
+            tile.classList.add("scale-anm");
+          });
+          portfolio.style.opacity = "1";
+        }, 300);
+      });
     });
-
-    document.addEventListener("DOMContentLoaded", async function () {
+  });
+  document.addEventListener("DOMContentLoaded", async function () {
+    // Fetch image data from Flask asynchronously
+    fetch("/get_images")
+      .then((response) => response.json())
+      .then((pictures) => {
         const portfolio = document.getElementById("portfolio");
 
-        // Fetch image data from Flask asynchronously
-        const response = await fetch("/get_images");
-        const pictures = await response.json();
-
-        // Create an IntersectionObserver for lazy loading
-        const observer = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const img = entry.target;
-                    if (img.getAttribute('data-src')) {
-                        img.src = img.getAttribute('data-src');  // Set actual src to load image
-                        observer.unobserve(img);
-                    }
-                }
-            });
-        }, { rootMargin: "0px 0px 200px 0px" });
-
-        // Populate the portfolio container with images from the JSON response
         for (const [folder, folderImages] of Object.entries(pictures)) {
-            folderImages.forEach(picture => {
-                const tile = document.createElement("div");
-                tile.className = `tile scale-anm web ${folder}`;
+          const page = document.createElement("div");
+          page.className = "page";
+          page.id = folder;
 
-                const link = document.createElement("a");
-                link.href = `/static/${picture}`;
-                link.target = "_blank";
+          folderImages.forEach((picture) => {
+            const img = document.createElement("img");
+            img.dataset.src = `/static/${picture}`; // Use data-src for lazy loading
+            img.alt = "Loading...";
+            img.className = "image";
+            img.loading = "lazy";
 
-                const img = document.createElement("img");
-                img.setAttribute('data-src', `/static/${picture}`);  // Use data-src for lazy loading
-                img.className = "image";
-                img.alt = picture;
-                img.loading = "lazy";
+            // Click event to show in dialog
+            page.appendChild(img);
+          });
 
-                link.appendChild(img);
-                tile.appendChild(link);
-                portfolio.appendChild(tile);
-
-                observer.observe(img);  // Observe each image for lazy loading
-            });
+          portfolio.appendChild(page);
         }
-    });
+        $('#portfolio').photobox('a', { time: 0 }); // `time: 0` disables autoplay
 
+        // Lazy loading with IntersectionObserver
+        const lazyImages = document.querySelectorAll(".page img");
+        const observer = new IntersectionObserver(
+          (entries, observer) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                const img = entry.target;
+                img.src = img.dataset.src; // Set src to start loading
+                img.style.transition = "opacity 0.5s"; // Smooth fade-in
+                img.style.opacity = "1";
+                observer.unobserve(img); // Stop observing once loaded
+              }
+            });
+          },
+          { rootMargin: "0px 0px 200px 0px" } // Preload images 200px before they come into view
+        );
+
+        lazyImages.forEach((img) => {
+          observer.observe(img);
+        });
+      })
+      .catch((error) => console.error("Error loading images:", error));
+  });
 </script>
