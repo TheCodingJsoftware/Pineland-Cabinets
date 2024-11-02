@@ -42,11 +42,11 @@
     src="https://cdn.jsdelivr.net/npm/beercss@3.7.10/dist/cdn/beer.min.js"
   ></script>
   <link href="/static/theme.css" rel="stylesheet" />
-  <link rel="stylesheet" href="/static/style.css" />
-  <script src="/static/jquery.fittext.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <link rel="icon" href="/static/favicon.png" />
   <script src="https://circletype.labwire.ca/dist/circletype.min.js"></script>
+  <script src="/static/jquery.fittext.js"></script>
+  <link rel="stylesheet" href="/static/style.css" />
   <link rel="stylesheet" href="/static/photobox/photobox.css" />
   <script src="/static/photobox/jquery.photobox.js"></script>
 </head>
@@ -192,64 +192,56 @@
       alt="Pineland Cabinets"
     />
   </div>
-  <div class="center" style="z-index: 6">
+  <div class="center" style="z-index: 6;">
     <h1 id="arch">
       Specializing in Cabinets, Furniture, Wood working, and much more.
     </h1>
   </div>
-  <nav
-    class="tabbed l"
-    style="z-index: 9999; max-width: 600px !important; margin: auto"
-  >
-    <a href="tel:+1-204-229-7793">
-      <i>mail</i>
-      <span class="small-text">(204) 229-7793</span>
-    </a>
-    <a href="mailto:joseph@pinelandfarms.ca">
-      <i>phone</i>
-      <span class="small-text">joseph@pinelandfarms.ca</span>
-    </a>
-    <a
-      href="https://www.google.com/maps/place/Pineland+Farms+Ltd/@49.0269603,-95.9701472,14.14z/data=!4m15!1m8!3m7!1s0x52c08493ea8bf6c5:0xaf79f9ba72f12f21!2sPiney,+MB+R0A+1K0!3b1!8m2!3d49.075166!4d-95.979087!16s%2Fm%2F02vmdr5!3m5!1s0x52bf6360eb794bb9:0xa378d14cd514c15a!8m2!3d49.0227531!4d-95.957069!16s%2Fg%2F11b5wnrvrs?entry=ttu&g_ep=EgoyMDI0MTAyMy4wIKXMDSoASAFQAw%3D%3D"
-    >
-      <i>map</i>
-      <span class="small-text no-line">Pineland Colony. Piney, MB</span>
-    </a>
-  </nav>
+  <div class="row scroll center-align">
+      <div class="tabs left-align surface" style="z-index: 7; max-width: 1000px;">
+        {% for folder, folder_data in folders.items() %}
+        <a class="{{ 'active' if loop.first else '' }}" data-ui="#{{folder}}">
+          {{folder_data}}
+        </a>
+        {% endfor %}
+      </div>
+  </div>
 </header>
 
 <body class="light">
   <main class="responsive">
-    <div class="tabs scroll left-align">
-      {% for folder, folder_data in folders.items() %}
-      <a class="{{ 'active' if loop.first else '' }}" data-ui="#{{folder}}">
-        {{folder_data}}
-      </a>
-      {% endfor %}
+    <div id="portfolio" class="border small-round small-padding">
     </div>
-    <div id="portfolio" class="small-padding">
-    </div>
-    <article class="s m">
-      <h4 class="center-align">Pineland Cabinets</h4>
+    <article>
       <div class="grid">
-        <a
-          class="link wave small-round s12 m4 l4"
+        <div class="s12 m7 l9">
+          <h4 class="left-align">Pineland Cabinets</h4>
+          <p>
+            Located in Piney, Manitoba at Pineland Colony, we are a cabinet shop specializing in custom cabinetry, fine furniture, and expert woodworking. Contact us today to bring your woodworking vision to life.
+          </p>
+
+        </div>
+        <div class="s12 m5 l3 grid no-space">
+          <h4 class="left-align">Contact</h4>
+          <a
+          class="link left-align wave small-round left-padding s12"
           href="mailto:joseph@pinelandfarms.ca"
         >
           <i>mail</i>
           <span class="small-padding">joseph@pinelandfarms.ca</span>
         </a>
-        <a class="link wave small-round s12 m4 l4" href="tel:2042297793">
+        <a class="link left-align wave small-round left-padding s12" href="tel:2042297793">
           <i>phone</i>
           <span class="small-padding">204-229-7793</span>
         </a>
         <a
-          class="link wave small-round s12 m4 l4"
+          class="link left-align wave small-round left-padding s12"
           href="https://www.google.com/maps/place/Pineland+Farms+Ltd/@49.0269603,-95.9701472,14.14z/data=!4m15!1m8!3m7!1s0x52c08493ea8bf6c5:0xaf79f9ba72f12f21!2sPiney,+MB+R0A+1K0!3b1!8m2!3d49.075166!4d-95.979087!16s%2Fm%2F02vmdr5!3m5!1s0x52bf6360eb794bb9:0xa378d14cd514c15a!8m2!3d49.0227531!4d-95.957069!16s%2Fg%2F11b5wnrvrs?entry=ttu&g_ep=EgoyMDI0MTAyMy4wIKXMDSoASAFQAw%3D%3D"
         >
           <i>map</i>
-          <span class="small-padding">Piney, MB</span>
+          <span class="small-padding">Pineland Colony. Piney, MB</span>
         </a>
+        </div>
       </div>
       <p class="center-align">Copyright 2022 by Pineland Colony</p>
     </article>
@@ -294,7 +286,7 @@
       let isFirst = true;
       for (const [folder, folderImages] of Object.entries(pictures)) {
         const page = document.createElement("div");
-        page.className = isFirst ? "page active" : "page";
+        page.className = isFirst ? "page padding active" : "page padding";
         page.id = folder;
         isFirst = false;
 
@@ -307,7 +299,7 @@
           img.dataset.src = `/static/${picture}`;
           img.alt = "Loading...";
           img.loading = "lazy";
-          img.className = "image";
+          img.className = "round";
 
           a.appendChild(img);
           page.appendChild(a);
@@ -327,7 +319,6 @@
             if (entry.isIntersecting) {
               const img = entry.target;
               img.src = img.dataset.src;
-              img.style.transition = "opacity 0.5s";
               img.style.opacity = "1";
               observer.unobserve(img);
             }
