@@ -25,6 +25,15 @@ nav {
     transition: background-color 0.3s ease-in-out, color 0.1s ease;
 }
 
+@font-face {
+    font-family: 'Dancing Script';
+    src: url('/static/Dancing\ Script.ttf') format('truetype');
+}
+
+.cursive {
+    font-family: 'Dancing Script', cursive;
+}
+
 ::selection {
     background-color: var(--primary);
     color: var(--on-primary);
@@ -35,24 +44,21 @@ nav {
     color: var(--on-primary);
 }
 
-#arch {
-    width: 100%;
-    background-color: #02CECE !important;
-    transition: 1s ease;
-    animation: textFadeIn ease 1s;
-    animation-fill-mode: forwards;
+.arch {
+    position: relative;
+    overflow: hidden;
 }
 
-#arch:before {
-    content: '';
+.arch:before {
+    content: "";
     position: absolute;
-    background-color: var(--surface);
-    border-radius: 50% 50% 0 0;
-    height: 270px;
-    left: 0%;
-    width: 100%;
-    margin-top: -35px;
+    width: 300%;
+    height: 300%;
+    top: 0;
+    left: -100%;
+    background: radial-gradient(ellipse at center, rgba(255, 0, 0, 0) 0%, rgba(255, 0, 0, 0) 50%, #02CECE 50%, #02CECE 100%);
 }
+
 .page {
     position: relative;
     align-items: center;
@@ -64,9 +70,13 @@ nav {
     -webkit-column-gap: 0.5rem;
     -moz-column-gap: 0.5rem;
     column-gap: 0.5rem;
-    height: 80%;
     width: 100%;
     overflow: auto;
+    height: 80%;
+}
+
+.header-title {
+    font-size: 36pt !important;
 }
 
 .page img {
@@ -98,7 +108,6 @@ nav {
 }
 
 header {
-    background-color: #02CECE !important;
     animation: fadeIn ease 1s;
     animation-fill-mode: forwards;
 }
@@ -108,6 +117,7 @@ header img {
     animation: dropDown ease 1s;
     animation-fill-mode: forwards;
 }
+
 @keyframes textFadeIn {
     0% {
         color: transparent;
@@ -146,14 +156,15 @@ header img {
     }
 
     .page img {
-        width: 80px;
+        width: 60px;
+    }
+
+    .header-title {
+        font-size: 12pt !important;
     }
 }
 
 @media (max-width: 800px) {
-    #arch::before {
-        height: 150px;
-    }
     .page {
         -webkit-column-count: 3;
         -moz-column-count: 3;
@@ -162,10 +173,6 @@ header img {
 }
 
 @media (max-width: 1000px) {
-    #arch::before {
-        margin-top: -30px;
-        height: 170px;
-    }
     .page {
         -webkit-column-count: 4;
         -moz-column-count: 4;
