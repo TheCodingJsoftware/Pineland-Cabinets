@@ -1,14 +1,38 @@
-<!doctype html>
-
+<!doctype html lang="en">
 <head>
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="application-name" content="Pineland Cabinets" />
+  <meta name="theme-color" content="#4adada" />
+  <meta name="name" content="Pineland Cabinets" />
+  <meta
+    name="description"
+    content="Specializing in custom cabinets, furniture and woodworking"
+  />
+  <meta
+    name="keywords"
+    content="cabinets, furniture, woodworking, custom cabinets, Pineland Colony, pineland"
+  />
+  <meta name="author" content="TheCodingJ's" />
+  <meta name="subject" content="Custom Cabinetry and Woodworking" />
+  <meta name="rating" content="General" />
+  <meta name="robots" content="index,follow" />
+  <meta name="googlebot" content="index,follow" />
+  <meta name="google" content="nositelinkssearchbox" />
+  <meta name="google" content="notranslate" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta http-equiv="x-dns-prefetch-control" content="off" />
+  <meta name="referrer" content="no-referrer" />
+  <meta name="geo.region" content="CA-MB" />
+  <meta name="geo.placename" content="Pineland Colony" />
   <meta property="og:locale" content="en_US" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Pineland Cabinets" />
   <meta property="og:image" content="/static/favicon.png" />
   <meta property="og:description" content="Pineland Colony Cabinetry." />
-  <meta property="og:url" content="http://pinelandcabinets.hbni.net:5040" />
+  <meta property="og:url" content="https://pinelandcabinets.hbni.net" />
   <meta property="og:title" content="Pineland Cabinets" />
+  <title>Pineland Cabinets</title>
   <link
     href="https://cdn.jsdelivr.net/npm/beercss@3.7.10/dist/cdn/beer.min.css"
     rel="stylesheet"
@@ -23,8 +47,8 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <link rel="icon" href="/static/favicon.png" />
   <script src="https://circletype.labwire.ca/dist/circletype.min.js"></script>
-  <link rel="stylesheet" href="/static/photobox/photobox.css">
-    <script src="/static/photobox/jquery.photobox.js"></script>
+  <link rel="stylesheet" href="/static/photobox/photobox.css" />
+  <script src="/static/photobox/jquery.photobox.js"></script>
 </head>
 
 <div class="overlay blur"></div>
@@ -90,7 +114,6 @@
           class="small-round border"
           onclick="window.open('https://pinelandcabinets.hbni.net/bitsapp')"
         >
-          <i>carpenter</i>
           <span>Open</span>
         </button>
       </nav>
@@ -109,7 +132,6 @@
           class="small-round border"
           onclick="window.open('https://pinelandcabinets.hbni.net/cementcalculator')"
         >
-          <i>front_loader</i>
           <span>Open</span>
         </button>
       </nav>
@@ -128,7 +150,6 @@
           class="small-round border"
           onclick="window.open('https://pinelandcabinets.hbni.net/paintcalculator')"
         >
-          <i>colors</i>
           <span>Open</span>
         </button>
       </nav>
@@ -152,10 +173,7 @@
 
 <header class="fixed">
   <nav>
-    <button
-      class="circle transparent"
-      onclick="ui('#about-dialog')"
-    >
+    <button class="circle transparent" onclick="ui('#about-dialog')">
       <img class="responsive" src="/static/favicon.png" />
     </button>
     <div class="max"></div>
@@ -209,22 +227,8 @@
       </a>
       {% endfor %}
     </div>
-    <div id="portfolio">
-        {% for folder, folder_data in pictures.items() %}
-        <div class="page {{ 'active' if loop.first else '' }}" id="{{folder}}">
-          {% for picture in folder_data %}
-          <a href="{{ url_for('static', filename=picture) }}">
-            <img
-          rel="preload"
-          data-src="{{ url_for('static', filename=picture) }}"
-          alt="Loading..."
-          loading="lazy"
-        />
-          </a>
-          {% endfor %}
-        </div>
-        {% endfor %}
-      </div>
+    <div id="portfolio" class="small-padding">
+    </div>
     <article class="s m">
       <h4 class="center-align">Pineland Cabinets</h4>
       <div class="grid">
@@ -280,55 +284,61 @@
         }, 300);
       });
     });
+    setTimeout(fetchImages, 300);
   });
-  document.addEventListener("DOMContentLoaded", async function () {
-    // Fetch image data from Flask asynchronously
-    fetch("/get_images")
-      .then((response) => response.json())
-      .then((pictures) => {
-        const portfolio = document.getElementById("portfolio");
+  async function fetchImages() {
+    try {
+      const response = await fetch("/get_images");
+      const pictures = await response.json();
+      const portfolio = document.getElementById("portfolio");
+      let isFirst = true;
+      for (const [folder, folderImages] of Object.entries(pictures)) {
+        const page = document.createElement("div");
+        page.className = isFirst ? "page active" : "page";
+        page.id = folder;
+        isFirst = false;
 
-        for (const [folder, folderImages] of Object.entries(pictures)) {
-          const page = document.createElement("div");
-          page.className = "page";
-          page.id = folder;
+        folderImages.forEach((picture) => {
+          const a = document.createElement("a");
+          a.href = `/static/${picture}`;
 
-          folderImages.forEach((picture) => {
-            const img = document.createElement("img");
-            img.dataset.src = `/static/${picture}`; // Use data-src for lazy loading
-            img.alt = "Loading...";
-            img.className = "image";
-            img.loading = "lazy";
+          const img = document.createElement("img");
+          img.rel = "preload";
+          img.dataset.src = `/static/${picture}`;
+          img.alt = "Loading...";
+          img.loading = "lazy";
+          img.className = "image";
 
-            // Click event to show in dialog
-            page.appendChild(img);
-          });
-
-          portfolio.appendChild(page);
-        }
-        $('#portfolio').photobox('a', { time: 0 }); // `time: 0` disables autoplay
-
-        // Lazy loading with IntersectionObserver
-        const lazyImages = document.querySelectorAll(".page img");
-        const observer = new IntersectionObserver(
-          (entries, observer) => {
-            entries.forEach((entry) => {
-              if (entry.isIntersecting) {
-                const img = entry.target;
-                img.src = img.dataset.src; // Set src to start loading
-                img.style.transition = "opacity 0.5s"; // Smooth fade-in
-                img.style.opacity = "1";
-                observer.unobserve(img); // Stop observing once loaded
-              }
-            });
-          },
-          { rootMargin: "0px 0px 200px 0px" } // Preload images 200px before they come into view
-        );
-
-        lazyImages.forEach((img) => {
-          observer.observe(img);
+          a.appendChild(img);
+          page.appendChild(a);
         });
-      })
-      .catch((error) => console.error("Error loading images:", error));
-  });
+
+        portfolio.appendChild(page);
+      }
+
+      // Initialize Photobox
+      $("#portfolio").photobox("a", { time: 0 });
+
+      // Lazy loading with IntersectionObserver
+      const lazyImages = document.querySelectorAll(".page img");
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const img = entry.target;
+              img.src = img.dataset.src;
+              img.style.transition = "opacity 0.5s";
+              img.style.opacity = "1";
+              observer.unobserve(img);
+            }
+          });
+        },
+        { rootMargin: "0px 0px 200px 0px" }
+      );
+
+      lazyImages.forEach((img) => observer.observe(img));
+    } catch (error) {
+      console.error("Error loading images:", error);
+    }
+  }
 </script>
