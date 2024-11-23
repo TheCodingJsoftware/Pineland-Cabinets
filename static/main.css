@@ -187,25 +187,10 @@ footer {
 }
 
 /* GRID */
-
 #portfolio {
-    max-width: 90%;
-    margin-left: 5%;
-    margin-right: 5%;
-    text-align: center;
-    align-items: center;
-    justify-content: center;
-    float: none;
-    margin: auto;
-    -webkit-column-count: 5;
-    -moz-column-count: 5;
-    column-count: 5;
-    -webkit-column-gap: 1.5rem;
-    -moz-column-gap: 1.5rem;
-    column-gap: 1.5rem;
-    -webkit-column-width: 33.33333333333333%;
-    -moz-column-width: 33.33333333333333%;
-    column-width: 33.33333333333333%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Adjust minmax value as needed */
+    grid-gap: 1.5rem;
 }
 
 .tile {
@@ -416,25 +401,10 @@ input[type="number"]{
     h1 {
         text-indent: 0vw;
     }
-
     #portfolio {
-        max-width: 90%;
-        margin-left: 5%;
-        margin-right: 5%;
-        text-align: center;
-        align-items: center;
-        justify-content: center;
-        float: none;
-        margin: auto;
-        -webkit-column-count: 3;
-        -moz-column-count: 3;
-        column-count: 3;
-        -webkit-column-gap: 1.5rem;
-        -moz-column-gap: 1.5rem;
-        column-gap: 1.5rem;
-        -webkit-column-width: 33.33333333333333%;
-        -moz-column-width: 33.33333333333333%;
-        column-width: 33.33333333333333%;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Adjust minmax value as needed */
+        grid-gap: 1.5rem;
     }
 
     .tile img {
