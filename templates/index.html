@@ -174,7 +174,7 @@
             <div class="grid">
                 <div class="s12 m7 l9">
                     <h4 class="left-align">Pineland Cabinets</h4>
-                    <p>
+                    <p class="no-line">
                         Located in Piney, Manitoba at Pineland Colony, we are a cabinet shop
                         specializing in custom cabinetry, fine furniture, and expert
                         woodworking. Contact us today to bring your woodworking vision to
@@ -198,10 +198,13 @@
                     </a>
                 </div>
             </div>
-            <p class="center-align">Copyright 2022 by Pineland Colony</p>
         </article>
     </main>
 </body>
+
+<footer style="min-block-size: 30px !important;">
+    <p class="center-align">Copyright 2022 by Pineland Colony</p>
+</footer>
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
@@ -245,6 +248,8 @@
                     img.dataset.src = `/static/${picture}`;
                     img.alt = "Loading...";
                     img.loading = "lazy";
+                    img.srcset = `/static/${picture} 1x, /static/${picture} 2x`;
+                    img.sizes = `(max-width: 600px) 100vw, 600px`;
                     img.className = "round";
 
                     a.appendChild(img);

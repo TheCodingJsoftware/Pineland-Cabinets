@@ -60,7 +60,7 @@ nav {
 }
 
 #portfolio{
-    max-height: 1000px !important;
+    max-height: 900px !important;
     overflow: auto;
 }
 
@@ -69,15 +69,10 @@ nav {
     align-items: center;
     justify-content: center;
     float: none;
-    -webkit-column-count: 6;
-    -moz-column-count: 6;
     column-count: 6;
-    -webkit-column-gap: 0.5rem;
-    -moz-column-gap: 0.5rem;
     column-gap: 0.5rem;
     width: 100%;
     overflow: auto;
-    height: 80%;
 }
 
 .header-title {
@@ -166,6 +161,10 @@ header img {
 
     .header-title {
         font-size: 12pt !important;
+    }
+
+    #portfolio {
+        max-height: 400px !important;
     }
 }
 
