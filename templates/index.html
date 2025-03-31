@@ -28,8 +28,8 @@
     <meta property="og:url" content="https://pinelandcabinets.hbni.net" />
     <meta property="og:title" content="Pineland Cabinets" />
     <title>Pineland Cabinets</title>
-    <link href="https://cdn.jsdelivr.net/npm/beercss@3.7.10/dist/cdn/beer.min.css" rel="stylesheet" />
-    <script type="module" src="https://cdn.jsdelivr.net/npm/beercss@3.7.10/dist/cdn/beer.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/beercss@3.9.7/dist/cdn/beer.min.css" rel="stylesheet" />
+    <script type="module" src="https://cdn.jsdelivr.net/npm/beercss@3.9.7/dist/cdn/beer.min.js"></script>
     <link href="/static/theme.css" rel="stylesheet" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link rel="icon" href="/static/favicon.png" />
@@ -58,13 +58,6 @@
             <a class="link" href="https://thecodingjsoftware.github.io/">TheCodingJ's</a>
         </p>
     </div>
-    <article class="border" style="margin-top: auto">
-        <p class="center-align medium-width">
-            For questions, comments, suggestions, or concerns about this service
-            please email:
-            <a class="link" href="mailto:jared@pinelandfarms.ca">jared@pinelandfarms.ca</a>.
-        </p>
-    </article>
     <nav class="right-align no-space">
         <button class="transparent link small-round" onclick="ui('#about-dialog')">
             Close
@@ -87,7 +80,7 @@
                 </div>
             </div>
             <nav>
-                <button class="small-round border" onclick="window.open('https://pinelandcabinets.hbni.net/bitsapp')">
+                <button class="small-round border" onclick="window.open('/bitsapp')">
                     <span>Open</span>
                 </button>
             </nav>
@@ -103,7 +96,7 @@
             </div>
             <nav>
                 <button class="small-round border"
-                    onclick="window.open('https://pinelandcabinets.hbni.net/cementcalculator')">
+                    onclick="window.open('/cementcalculator')">
                     <span>Open</span>
                 </button>
             </nav>
@@ -119,7 +112,7 @@
             </div>
             <nav>
                 <button class="small-round border"
-                    onclick="window.open('https://pinelandcabinets.hbni.net/paintcalculator')">
+                    onclick="window.open('/paintcalculator')">
                     <span>Open</span>
                 </button>
             </nav>
@@ -129,7 +122,7 @@
         <p class="center-align medium-width">
             For questions, comments, suggestions, or concerns about these services
             please email:
-            <a class="link" href="mailto:jared@pinelandfarms.ca">jared@pinelandfarms.ca</a>.
+            <a class="link" href="mailto:joseph@pinelandfarms.ca">joseph@pinelandfarms.ca</a>.
         </p>
     </article>
     <nav class="right-align no-space">
@@ -174,12 +167,12 @@
             <div class="grid">
                 <div class="s12 m7 l9">
                     <h4 class="left-align">Pineland Cabinets</h4>
-                    <p class="no-line">
+                    <blockquote class="no-line">
                         Located in Piney, Manitoba at Pineland Colony, we are a cabinet shop
                         specializing in custom cabinetry, fine furniture, and expert
                         woodworking. Contact us today to bring your woodworking vision to
                         life.
-                    </p>
+                    </blockquote>
                 </div>
                 <div class="s12 m5 l3 grid no-space">
                     <h4 class="left-align">Contact</h4>
@@ -241,14 +234,14 @@
 
                 folderImages.forEach((picture) => {
                     const a = document.createElement("a");
-                    a.href = `/static/${picture}`;
+                    a.href = `/load_image/${picture}`;
 
                     const img = document.createElement("img");
                     img.rel = "preload";
-                    img.dataset.src = `/static/${picture}`;
+                    img.dataset.src = `/load_image/${picture}`;
                     img.alt = "Loading...";
                     img.loading = "lazy";
-                    img.srcset = `/static/${picture} 1x, /static/${picture} 2x`;
+                    img.srcset = `/load_image/${picture} 1x, /load_image/${picture} 2x`;
                     img.sizes = `(max-width: 600px) 100vw, 600px`;
                     img.className = "round";
 

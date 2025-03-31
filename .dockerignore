@@ -1,0 +1,13 @@
+node_modules
+dist
+venv
+*.pyc
+*.pyo
+*.log
+__pycache__
+.DS_Store
+.env
+gradle
+app
+static/pictures
+pictures
