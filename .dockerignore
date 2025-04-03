@@ -9,5 +9,15 @@ __pycache__
 .env
 gradle
 app
-static/pictures
+static/pictures/
+static/graphs/
+graphs
 pictures
+.vscode
+node_modules/
+.git/
+*.log
+build/
+dist/
+*.zip
+*.tar.gz

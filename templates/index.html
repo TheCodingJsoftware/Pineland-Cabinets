@@ -1,6 +1,13 @@
 <!DOCTYPE html lang="en">
 
 <head>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-M2ZJLX44');</script>
+    <!-- End Google Tag Manager -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="application-name" content="Pineland Cabinets" />
@@ -131,30 +138,37 @@
     </nav>
 </dialog>
 
-<header class="fixed no-padding">
-    <nav class="padding" style="background: #02CECE;">
+<header class="fixed" style="background: #02CECE;">
+    <nav class="row">
         <button class="circle transparent" onclick="ui('#about-dialog')">
             <img class="responsive" src="/static/favicon.png" />
         </button>
-        <div class="max center-align">
-            <h5 class="header-title cursive">Pineland Cabinets</h5>
-        </div>
+        <h6 class="max center-align small">Pineland Cabinets</h6>
         <button class="circle transparent" onclick="ui('#apps-dialog')">
             <i>apps</i>
         </button>
     </nav>
-    <div class="arch center-align">
-        <img class="responsive padding m l" src="/static/background-no-text.png" style="max-width: 1000px; height: auto;" alt="Pineland Cabinets" />
-        <img class="responsive s" src="/static/background-no-text.png" style="max-width: 1000px; height: auto;" alt="Pineland Cabinets" />
-    </div>
 </header>
 
 <body class="light">
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M2ZJLX44"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
     <main class="responsive">
-        <h1 id="arch">
-            Specializing in Cabinets, Furniture, Wood working, and much more.
-        </h1>
-        <nav class="tabbed small">
+        <nav class="row center-align">
+            <img class="m l" src="/static/background-no-text.png" style="max-height: 100px; width: auto; opacity: 1; animation: dropDown ease 1s; animation-fill-mode: forwards;" />
+            <img class="s" src="/static/background-middle-mobile.png" style="max-width: 90vw; height: auto; opacity: 1; animation: dropDown ease 1s; animation-fill-mode: forwards;" />
+        </nav>
+        <div class="tabs scroll left-align">
+            {% for folder, folder_data in folders.items() %}
+            <a class="{{ 'active' if loop.first else '' }}" data-ui="#{{folder}}">
+                {{folder_data}}
+            </a>
+            {% endfor %}
+        </div>
+        <div id="portfolio" class="border small-round small-padding"></div>
+        <nav class="tabbed small m l">
             <a href="mailto:joseph@pinelandfarms.ca">
                 <i>mail</i>
                 <span>joseph@pinelandfarms.ca</span>
@@ -168,51 +182,32 @@
                 <span>Pineland Colony. Piney, MB</span>
             </a>
         </nav>
-        <div class="tabs scroll left-align">
-            {% for folder, folder_data in folders.items() %}
-            <a class="{{ 'active' if loop.first else '' }}" data-ui="#{{folder}}">
-                {{folder_data}}
+        <div class="s grid">
+            <a class="s12 left-align link transparent small-round" href="mailto:joseph@pinelandfarms.ca">
+                <i>mail</i>
+                <span>joseph@pinelandfarms.ca</span>
             </a>
-            {% endfor %}
+            <a class="s12 left-align link transparent small-round" href="tel:2042297793">
+                <i>phone</i>
+                <span>204-229-7793</span>
+            </a>
+            <a class="s12 left-align link transparent small-round" href="https://maps.app.goo.gl/5m3mwSxgqk23DyXV7" target="_blank">
+                <i>map</i>
+                <span>Pineland Colony. Piney, MB</span>
+            </a>
         </div>
-        <div id="portfolio" class="border small-round small-padding"></div>
-        <article>
-            <h4 class="left-align">Pineland Cabinets</h4>
-            <blockquote class="no-line">
-                Located in Piney, Manitoba at Pineland Colony, we are a cabinet shop
-                specializing in custom cabinetry, fine furniture, and expert
-                woodworking. Contact us today to bring your woodworking vision to
-                life.
-            </blockquote>
-        </article>
     </main>
 </body>
 
-<footer style="min-block-size: 30px !important;">
+<footer class="fixed surface-container" style="min-block-size: 30px !important;">
     <p class="center-align">Copyright 2022 by Pineland Colony</p>
 </footer>
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        new CircleType(document.getElementById("arch")).radius(5000);
-        updateFontSize();
         setTimeout(fetchImages, 300);
-
-        window.addEventListener('resize', updateFontSize);
     });
 
-    function updateFontSize() {
-        const arch = document.getElementById("arch");
-        const windowWidth = window.innerWidth;
-
-        if (windowWidth <= 600) {
-            arch.style.fontSize = "8pt";
-        } else if (windowWidth <= 1000) {
-            arch.style.fontSize = "12pt";
-        } else {
-            arch.style.fontSize = "24pt";
-        }
-    }
     async function fetchImages() {
         try {
             const response = await fetch("/get_images");
@@ -233,7 +228,7 @@
                     img.rel = "preload";
                     img.dataset.src = `/load_image/${picture}`;
                     img.alt = "Loading...";
-                    img.loading = "lazy";
+                    img.loading = "eager";
                     img.srcset = `/load_image/${picture} 1x, /load_image/${picture} 2x`;
                     img.sizes = `(max-width: 600px) 100vw, 600px`;
                     img.className = "round";

@@ -90,6 +90,11 @@ class IndexHandler(BaseHandler):
         self.write(rendered_template)
 
 
+class GoogleHandler(BaseHandler):
+    def get(self):
+        self.write("google-site-verification: google9d968a11b4bf61f7.html")
+
+
 class CementHandler(BaseHandler):
     def get(self):
         template = env.get_template("cement_calculator.html")
@@ -179,6 +184,7 @@ def make_app():
             (r"/bitsapp", BitsHandler),
             (r"/get_images", GetImagesHandler),
             (r"/load_image/(.*)", LoadImageHandler),
+            (r"/google9d968a11b4bf61f7.html", GoogleHandler),
         ],
         template_path="templates",
         static_path="static",

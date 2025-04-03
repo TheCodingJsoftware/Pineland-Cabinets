@@ -2,7 +2,7 @@
 body.light {
     --primary:#006a6a;
     --on-primary:#ffffff;
-    --primary-container:#6df7f6;
+    --primary-container:#5af8f8;
     --on-primary-container:#002020;
     --secondary:#4a6363;
     --on-secondary:#ffffff;
@@ -28,7 +28,7 @@ body.light {
     --scrim:#000000;
     --inverse-surface:#2d3131;
     --inverse-on-surface:#eff1f0;
-    --inverse-primary:#4adada;
+    --inverse-primary:#2edcdb;
     --surface-dim:#d8dada;
     --surface-bright:#f7faf9;
     --surface-container-lowest:#ffffff;
@@ -38,10 +38,10 @@ body.light {
     --surface-container-highest:#e0e3e2;
 }
 body.dark{
-    --primary:#4adada;
+    --primary:#2edcdb;
     --on-primary:#003737;
     --primary-container:#004f4f;
-    --on-primary-container:#6df7f6;
+    --on-primary-container:#5af8f8;
     --secondary:#b0cccb;
     --on-secondary:#1b3534;
     --secondary-container:#324b4b;
