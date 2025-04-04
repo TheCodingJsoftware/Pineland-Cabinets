@@ -21,3 +21,5 @@ build/
 dist/
 *.zip
 *.tar.gz
+pictures.zip
+static/pictures.zip
