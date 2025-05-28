@@ -70,7 +70,8 @@
                     <label>Rebar Spacing (in)</label>
                 </div>
                 <article class="s12 m12 l12">
-                    <p>Total Rebar: <span id="totalRebar">0</span></p>
+                    <p>Rebar Pieces: <span id="totalRebar">0</span></p>
+                    <p>Total Length of Rebar (ft): <span id="totalRebarLength">0</span></p>
                 </article>
             </div>
         </div>
@@ -101,14 +102,51 @@
         }
 
         $(document).ready(function(){
-            function calculateRebarCount() {
-                const width = parseFloat($('#inputWidth').val());
-                const length = parseFloat($('#inputLength').val());
-                const rebarLength = parseFloat($('#rebarLength').val());
-                const rebarSpacing = parseFloat($('#rebarSpacing').val());
+            function calculateBarsNeeded(spanInches, barLengthInches, overlapInches) {
+                if (barLengthInches <= overlapInches) return Infinity;
 
-                const totalRebar = (width*12) / (rebarLength*12) * rebarSpacing + (length*12) / (rebarLength*12) * rebarSpacing;
-                $('#totalRebar').text(totalRebar.toFixed(0));
+                let covered = 0;
+                let bars = 0;
+
+                while (covered < spanInches) {
+                    bars++;
+                    covered += (bars === 1) ? barLengthInches : (barLengthInches - overlapInches);
+                }
+
+                return bars;
+            }
+
+            function calculateRebarCount() {
+                const widthFeet = parseFloat($('#inputWidth').val());
+                const lengthFeet = parseFloat($('#inputLength').val());
+                const spacingInches = parseFloat($('#rebarSpacing').val());
+                const clearanceInches = parseFloat($('#edgeClearance').val()) || 0;
+                const rebarLengthFeet = parseFloat($('#rebarLength').val());
+                const overlapInches = parseFloat($('#overlapInches').val()) || 0;
+
+                if (!widthFeet || !lengthFeet || !spacingInches || !rebarLengthFeet) {
+                    $('#totalRebar').text("Invalid input");
+                    $('#totalRebarLength').text('');
+                    return;
+                }
+
+                const widthInches = widthFeet * 12 - 2 * clearanceInches;
+                const lengthInches = lengthFeet * 12 - 2 * clearanceInches;
+                const barLengthInches = rebarLengthFeet * 12;
+
+                // Calculate grid lines
+                const linesAlongWidth = Math.floor(widthInches / spacingInches);
+                const linesAlongLength = Math.floor(lengthInches / spacingInches);
+
+                // Simulate rebar count per line
+                const barsPerWidthLine = calculateBarsNeeded(lengthInches, barLengthInches, overlapInches);
+                const barsPerLengthLine = calculateBarsNeeded(widthInches, barLengthInches, overlapInches);
+
+                const totalBars = (linesAlongWidth * barsPerWidthLine) + (linesAlongLength * barsPerLengthLine);
+                const totalLengthFeet = totalBars * rebarLengthFeet;
+
+                $('#totalRebar').text(totalBars);
+                $('#totalRebarLength').text(totalLengthFeet.toFixed(0));
             }
 
 
