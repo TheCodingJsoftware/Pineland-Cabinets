@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rebar Calculators</title>
+    <link href="https://cdn.jsdelivr.net/npm/beercss@3.11.11/dist/cdn/beer.min.css" rel="stylesheet">
+    <script type="module" src="https://cdn.jsdelivr.net/npm/beercss@3.11.11/dist/cdn/beer.min.js"></script>
+    <link href="/static/theme.css" rel="stylesheet">
+    <meta property="og:title" content="CNC Bit Calculators"/>
+    <meta property="og:url" content="http://pinelandcabinets.hbni.net/bitsapp" />
+    <meta property="og:description" content="CNC Bit Calculators" />
+    <meta name="description" content="CNC Bit Calculators">
+    <meta name="keywords" content="cnc, bits, feedrate, chipload, calculator, gpdtooling, machinery, calculation">
+    <meta name="author" content="Jared Gross">
+    <script src="/static/jquery.js"></script>
+    <link rel="icon" type="image/png" href="/static/bitsapp.png">
+</head>
+<body class="light">
+    <div class="overlay blur"></div>
+    <dialog class="left medium-width" id="about-dialog">
+        <div class="row max center-align">
+            <img class="responsive round border" style="max-width: 150px; height: auto;" fetchpriority="low" loading="lazy" src="/static/bitsapp.png" alt="" width="128" height="128">
+        </div>
+        <div class="padding">
+            <h5 class="small center-align" id="app-name-version">Rebar v1.0.0</h5>
+            <p class="center-align medium-width">A comprehensive app for calculating the total count for rebar.</p>
+            <p class="center-align">Developed with <i>favorite</i> by <a class="link" href="https://thecodingjsoftware.github.io/">TheCodingJ's</a></p>
+        </div>
+        <article class="border" style="margin-top: auto;">
+            <p class="center-align medium-width">
+                For questions, comments, suggestions,
+                or concerns about this service please
+                email: <a class="link" href="mailto:jared@pinelandfarms.ca">jared@pinelandfarms.ca</a>.
+            </p>
+        </article>
+        <nav class="right-align no-space">
+            <button class="transparent link small-round" onclick="ui('#about-dialog')">Close</button>
+        </nav>
+    </dialog>
+
+    <header class="fixed primary">
+        <nav>
+            <button class="small-round link no-padding left-margin transparent" onclick="ui('#about-dialog')">
+                <img class="responsive" src="/static/bitsapp.png">
+            </button>
+          <h5 class="max">Rebar Calculator</h5>
+          <button id="themeToggle" class="circle transparent" onclick="toggleTheme()">
+              <i>dark_mode</i>
+          </button>
+        </nav>
+    </header>
+    <main class="responsive center-align">
+        <div class="center-align">
+            <div class="grid">
+                <div class="s6 m6 l6 field label border">
+                    <input type="number" id="inputWidth" value="20">
+                    <label>Width (ft)</label>
+                </div>
+                <div class="s6 m6 l6 field label border">
+                    <input type="number" id="inputLength" value="20">
+                    <label>Length (ft)</label>
+                </div>
+                <div class="s12 m6 l6 field label border">
+                    <input type="number" id="rebarLength" value="20">
+                    <label>Rebar Length (ft)</label>
+                </div>
+                <div class="s12 m6 l6 field label border">
+                    <input type="number" id="rebarSpacing" value="16">
+                    <label>Rebar Spacing (in)</label>
+                </div>
+                <article class="s12 m12 l12">
+                    <p>Total Rebar: <span id="totalRebar">0</span></p>
+                </article>
+            </div>
+        </div>
+    </main>
+    <script>
+        function toggleTheme() {
+            const body = document.body;
+            const icon = document.querySelector('#themeToggle i');
+            if (body.classList.contains('dark')) {
+                body.classList.remove('dark');
+                body.classList.add('light');
+                icon.textContent = 'dark_mode';
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.classList.remove('light');
+                body.classList.add('dark');
+                icon.textContent = 'light_mode';
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        function applyTheme() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            const body = document.body;
+            const icon = document.querySelector('#themeToggle i');
+            body.classList.add(savedTheme);
+            icon.textContent = savedTheme === 'dark' ? 'light_mode' : 'dark_mode';
+        }
+
+        $(document).ready(function(){
+            function calculateRebarCount() {
+                const width = parseFloat($('#inputWidth').val());
+                const length = parseFloat($('#inputLength').val());
+                const rebarLength = parseFloat($('#rebarLength').val());
+                const rebarSpacing = parseFloat($('#rebarSpacing').val());
+
+                const totalRebar = (width*12) / (rebarLength*12) * rebarSpacing + (length*12) / (rebarLength*12) * rebarSpacing;
+                $('#totalRebar').text(totalRebar.toFixed(0));
+            }
+
+
+            // Attach event listeners for feedrate calculator
+            $('#inputWidth, #inputLength, #rebarLength, #rebarSpacing').on('change input', calculateRebarCount);
+
+            // Initial setup
+            calculateRebarCount();
+        });
+        document.addEventListener('DOMContentLoaded', (event) => {
+            applyTheme();
+        });
+    </script>
+</body>
+</html>

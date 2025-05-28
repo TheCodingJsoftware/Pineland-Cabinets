@@ -116,6 +116,13 @@ class BitsHandler(BaseHandler):
         self.write(rendered_template)
 
 
+class RebarHandler(BaseHandler):
+    def get(self):
+        template = env.get_template("rebar_count_calculator.html")
+        rendered_template = template.render()
+        self.write(rendered_template)
+
+
 class GetImagesHandler(tornado.web.RequestHandler):
     def get(self):
         # Use simple cache
@@ -182,6 +189,7 @@ def make_app():
             (r"/pc", PaintHandler),
             (r"/bits", BitsHandler),
             (r"/bitsapp", BitsHandler),
+            (r"/rebar", RebarHandler),
             (r"/get_images", GetImagesHandler),
             (r"/load_image/(.*)", LoadImageHandler),
             (r"/google9d968a11b4bf61f7.html", GoogleHandler),
